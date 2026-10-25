@@ -6,7 +6,7 @@ description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visua
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
   author: m1racle
-  version: "1.3.2"
+  version: "1.4.0"
 ---
 
 # M1racle Visual Director — Engraving Edition

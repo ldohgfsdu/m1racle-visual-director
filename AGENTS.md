@@ -1,10 +1,10 @@
-# Agent instructions for M1racle Visual Director v1.3.2
+# Agent instructions for M1racle Visual Director v1.4.0
 
 This is a **fixed-style** engraved-image Agent Skill and is **explicitly invoked**, not a universal image style router.
 
 ## Installation
 
-When user asks to install this URL, prefer `npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -y`; without Node, clone and use `python scripts/install.py --agent <agent> --scope global`. Verify installed `SKILL.md` and run `python scripts/validate_skill.py`. Respect the **actual** runtime skill-scanning directory: some WorkBuddy sessions scan `~/.codebuddy/skills`.
+When a user asks to install this GitHub URL, **prefer a short, bounded archive download**: fetch `https://raw.githubusercontent.com/ldohgfsdu/m1racle-visual-director/main/scripts/quick_install.py` with a 10-second timeout, then run `python quick_install.py --agent <agent> --force`. The standalone downloader honors the cloud execution environment's HTTPS_PROXY/HTTP_PROXY, can accept `--proxy`, `--mirror-url` for an explicitly trusted HTTPS mirror, and `--archive-file` for offline ZIP. Its defaults are 8 seconds per host and 24 seconds download budget. Do not endlessly retry git clone or run an unbounded network command. If script fetch fails, say so promptly and offer an actually reachable mirror or offline archive; NEVER invent a Gitee mirror URL. `npx skills add` and `python scripts/install.py` remain backup methods. Verify installed `SKILL.md` and run `python scripts/validate_skill.py`. Respect the **actual** runtime skill-scanning directory: some WorkBuddy sessions scan `~/.codebuddy/skills`.
 
 ## Runtime use
 
@@ -18,3 +18,7 @@ Keep repository folder and metadata `name` identical. Run `python scripts/valida
 ## Gallery and model references
 
 `gallery/index.html` is offline and self-contained; sample SVGs are schematic previews, **not calibrated model-reference assets**. Read `references/reference-selection.md` before passing references. Never infer model capabilities from marketing claims. Gallery should open only when explicitly requested. Validate links with `python scripts/verify_gallery.py`. Preserve explicit-only activation; do not turn this Skill into a general style chooser. Update an existing installation only on user request, via the latest checkout and `--force` if needed.
+
+## Network/install boundary
+
+A proxy on the user's phone or desktop is NOT automatically accessible from cloud Agent sandboxes; 127.0.0.1 inside a cloud VM does not mean the user's computer. Installing into `~/.codebuddy/skills` does not prove mobile account-level registration. On installation verify the active Agent scan path and `scripts/validate_skill.py` without claiming mobile Skill Market registration.
