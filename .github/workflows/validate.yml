@@ -1,0 +1,36 @@
+name: Skill validation
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.9', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Validate root skill
+        run: python scripts/validate_skill.py
+      - name: Test cross-agent installation
+        run: python scripts/test_install.py
+      - name: Validate simulated GitHub ZIP folder
+        shell: python
+        run: |
+          from pathlib import Path
+          import shutil
+          import subprocess
+          import sys
+          import tempfile
+          with tempfile.TemporaryDirectory() as tmp:
+              source = Path.cwd()
+              target = Path(tmp) / "m1racle-visual-director-main"
+              shutil.copytree(source, target, ignore=shutil.ignore_patterns(".git"))
+              subprocess.run([sys.executable, str(target / "scripts/validate_skill.py")], check=True)
