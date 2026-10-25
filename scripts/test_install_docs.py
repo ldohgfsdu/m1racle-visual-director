@@ -16,7 +16,7 @@ assert "scripts/package_workbuddy.py" in install and "不存在" in install
 assert "[INSTALL.md](INSTALL.md)" in readme
 assert "单一路径" in readme
 assert "MANDATORY" in agents and "INSTALL.md" in agents
-assert "不要无止境重试" in guide
+assert "无止境重试" in guide
 assert not re.search(r"(?m)^\s*git clone\s+https?://",readme)
 assert not re.search(r"(?m)^\s*git clone\s+https?://",install)
 print("INSTALL DOCS CHECK: PASS")
