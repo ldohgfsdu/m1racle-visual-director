@@ -33,7 +33,11 @@ def test():
         run(*args, "--home", str(home))
         for agent, folder in PATHS.items():
             assert (home / folder / NAME / "SKILL.md").is_file(), agent
-            assert (home / folder / NAME / "references" / "style-catalog.md").is_file(), agent
+            assert (home / folder / NAME / "references" / "banknote-engraving.md").is_file(), agent
+            assert (home / folder / NAME / "references" / "reference-selection.md").is_file(), agent
+            assert (home / folder / NAME / "gallery" / "index.html").is_file(), agent
+            assert (home / folder / NAME / "gallery" / "samples" / "blue.svg").is_file(), agent
+            assert (home / folder / NAME / "gallery" / "samples" / "mono.svg").is_file(), agent
         run(*args, "--home", str(home), "--doctor")
         run(*args, "--home", str(home))
         sentinel = home / PATHS["codex"] / NAME / "user-file.txt"
