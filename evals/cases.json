@@ -1,0 +1,290 @@
+{
+  "version": "1.0.0",
+  "purpose": "Human/LLM eval fixtures; expected outcomes are assertions, not completed runs",
+  "cases": [
+    {
+      "id": "E01",
+      "request": "画一个古代中国山城，要有庙宇、古桥、河上的帆船和远处群山。",
+      "expected_route": "T2I",
+      "expected_style": "ink-wash",
+      "required_evidence": [
+        "古代中国山城",
+        "庙宇",
+        "古桥",
+        "帆船",
+        "群山"
+      ],
+      "guardrail": "可按意境选择水墨，但若用户要更多建筑细节可改工笔或雕刻；不可固定纸币风"
+    },
+    {
+      "id": "E02",
+      "request": "参照这8张纸币雕刻图的风格，生成一座新的中国山城。",
+      "expected_route": "REF-CREATE",
+      "expected_style": "banknote-intaglio",
+      "required_evidence": [
+        "源图只提供风格",
+        "新中国山城",
+        "细密刻线",
+        "Guilloché"
+      ],
+      "guardrail": "不得复刻原有富士山、港口或雅典城"
+    },
+    {
+      "id": "E03",
+      "request": "把我上传的城市照片变成蓝色纸币雕刻，建筑布局不要变。",
+      "expected_route": "TRANSFORM",
+      "expected_style": "banknote-intaglio",
+      "required_evidence": [
+        "原建筑",
+        "原城市",
+        "布局",
+        "深蓝线条"
+      ],
+      "guardrail": "不能擅自换一座城市"
+    },
+    {
+      "id": "E04",
+      "request": "把照片左上角的游客擦掉，其他完全不变。",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": null,
+      "required_evidence": [
+        "仅删除游客",
+        "背景填补",
+        "原图其他区域"
+      ],
+      "guardrail": "必须最小修改"
+    },
+    {
+      "id": "E05",
+      "request": "把第一张图的商品放进第二张图的白色摄影棚里。",
+      "expected_route": "COMPOSITE",
+      "expected_style": "photo-studio-product",
+      "required_evidence": [
+        "图1商品",
+        "图2背景",
+        "尺度",
+        "阴影"
+      ],
+      "guardrail": "不得改造商品商标和外形"
+    },
+    {
+      "id": "E06",
+      "request": "生成一张用于卖手机壳的真实商品主图。",
+      "expected_route": "T2I",
+      "expected_style": "photo-studio-product",
+      "required_evidence": [
+        "手机壳外观",
+        "清楚材质",
+        "摄影光源"
+      ],
+      "guardrail": "不应选电影剧照、纸币雕刻"
+    },
+    {
+      "id": "E07",
+      "request": "画一张展现古希腊围城战的黑白钢版雕刻。",
+      "expected_route": "T2I",
+      "expected_style": "steel-engraving-mono",
+      "required_evidence": [
+        "围城场景",
+        "古典黑白刻线"
+      ],
+      "guardrail": "明确风格优先"
+    },
+    {
+      "id": "E08",
+      "request": "用参考照片的背景颜色和第二张照片的机位拍摄一栋全新的建筑。",
+      "expected_route": "REF-CREATE",
+      "expected_style": "archviz",
+      "required_evidence": [
+        "图1仅配色",
+        "图2仅机位",
+        "全新建筑"
+      ],
+      "guardrail": "不套用原有建筑设计"
+    },
+    {
+      "id": "E09",
+      "request": "把这张人像照片画成古典水彩肖像，人物五官和姿态别变。",
+      "expected_route": "TRANSFORM",
+      "expected_style": "watercolor-gouache",
+      "required_evidence": [
+        "五官",
+        "发型",
+        "姿态"
+      ],
+      "guardrail": "不能随机替换人物"
+    },
+    {
+      "id": "E10",
+      "request": "保留我的Logo，换成黑底并将外框改为圆角。",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": null,
+      "required_evidence": [
+        "母标原样",
+        "黑底",
+        "仅改外框"
+      ],
+      "guardrail": "Logo图形不得重绘变形"
+    },
+    {
+      "id": "E11",
+      "request": "让图一的人坐在图二的咖啡馆，沿用图三的夜景光感。",
+      "expected_route": "COMPOSITE",
+      "expected_style": "photo-cinematic",
+      "required_evidence": [
+        "图一人物",
+        "图二室内",
+        "图三光感"
+      ],
+      "guardrail": "不能把三个人物合并"
+    },
+    {
+      "id": "E12",
+      "request": "做一张文章封面：孤独、抽象、不要字。",
+      "expected_route": "T2I",
+      "expected_style": "editorial-ink",
+      "required_evidence": [
+        "孤独气氛",
+        "无字",
+        "封面视觉主次"
+      ],
+      "guardrail": "不能强迫写实摄影"
+    },
+    {
+      "id": "E13",
+      "request": "画一个写实的心脏解剖结构示意图，适合医学学习。",
+      "expected_route": "T2I",
+      "expected_style": "scientific-plate",
+      "required_evidence": [
+        "心脏主要结构",
+        "清晰可读"
+      ],
+      "guardrail": "不能伪称已核查医学解剖准确性"
+    },
+    {
+      "id": "E14",
+      "request": "参考这张照片里人物的穿搭，画完全不同的人在城市街头。",
+      "expected_route": "REF-CREATE",
+      "expected_style": "photo-documentary",
+      "required_evidence": [
+        "参考图仅提供穿搭",
+        "新人物",
+        "城市场景"
+      ],
+      "guardrail": "原人物身份不继承"
+    },
+    {
+      "id": "E15",
+      "request": "把这张照片变成像素游戏场景，主体位置保持。",
+      "expected_route": "TRANSFORM",
+      "expected_style": "pixel-art",
+      "required_evidence": [
+        "相同主体位置",
+        "像素语言"
+      ],
+      "guardrail": "不可改成全新构图"
+    },
+    {
+      "id": "E16",
+      "request": "把手上的戒指去掉，但脸、姿势、背景不动。",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": null,
+      "required_evidence": [
+        "戒指删除",
+        "脸",
+        "姿势",
+        "背景"
+      ],
+      "guardrail": "不得换脸"
+    },
+    {
+      "id": "E17",
+      "request": "从零生成一张原木和奶油色调的温暖童书森林插画。",
+      "expected_route": "T2I",
+      "expected_style": "watercolor-gouache",
+      "required_evidence": [
+        "童书阅读",
+        "森林",
+        "暖色"
+      ],
+      "guardrail": "不应选偏冷电影摄影"
+    },
+    {
+      "id": "E18",
+      "request": "为我的写作App做一个极简图标，必须沿用我提供的M母标。",
+      "expected_route": "REF-CREATE",
+      "expected_style": "editorial-vector",
+      "required_evidence": [
+        "原母标完整不变",
+        "极简",
+        "图标对比度"
+      ],
+      "guardrail": "如果不能精确合成源母标要指出能力限制"
+    },
+    {
+      "id": "E19",
+      "request": "解释我发的照片是什么画风，先不要生成新图片。",
+      "expected_route": null,
+      "expected_style": null,
+      "required_evidence": [
+        "只做风格分析"
+      ],
+      "guardrail": "不应执行生图"
+    },
+    {
+      "id": "E20",
+      "request": "帮我找一张京都金阁寺的真实照片，不要画。",
+      "expected_route": null,
+      "expected_style": null,
+      "required_evidence": [
+        "检索原始图片"
+      ],
+      "guardrail": "不应执行生图"
+    },
+    {
+      "id": "E21",
+      "request": "给我写出可复制的提示词，不需要你现在生图。",
+      "expected_route": "T2I",
+      "expected_style": null,
+      "required_evidence": [
+        "只交提示词",
+        "不调用生图工具"
+      ],
+      "guardrail": "route=T2I 仅指将来生成路线"
+    },
+    {
+      "id": "E22",
+      "request": "按这张自拍原照片修一下背景中的杂物，人完全别动。",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": null,
+      "required_evidence": [
+        "不改人物",
+        "移除杂物"
+      ],
+      "guardrail": "工具缺乏编辑输入就不能声称精准保留"
+    },
+    {
+      "id": "E23",
+      "request": "从参考图中提取纸币雕刻的线条规则，帮我创作一张新医学插画。",
+      "expected_route": "REF-CREATE",
+      "expected_style": "banknote-intaglio",
+      "required_evidence": [
+        "保留参考雕刻机制",
+        "新医学插画",
+        "结构清楚"
+      ],
+      "guardrail": "不能未经核验填医学结构或标签"
+    },
+    {
+      "id": "E24",
+      "request": "画一张企业季度营收精确折线图，要求可以编辑Excel数据。",
+      "expected_route": null,
+      "expected_style": null,
+      "required_evidence": [
+        "精确图表",
+        "可编辑Excel"
+      ],
+      "guardrail": "静态生图skill不应启用"
+    }
+  ]
+}
