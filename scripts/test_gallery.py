@@ -29,4 +29,16 @@ with tempfile.TemporaryDirectory(prefix="m1racle-gallery-") as tmp:
     page.write_text(original, encoding="utf-8")
     (dest / "gallery/samples/blue.svg").write_text("<svg><oops>", encoding="utf-8")
     assert module.verify()[0], "Malformed SVG was accepted"
+# Schematic variants must have materially distinct geometry, not just recoloring.
+import xml.etree.ElementTree as ET
+def paths(file):
+    tree = ET.parse(file)
+    return {element.attrib["d"] for element in tree.iter() if element.tag.endswith("}path") and "d" in element.attrib}
+blue = paths(ROOT / "gallery/samples/blue.svg")
+mono = paths(ROOT / "gallery/samples/mono.svg")
+assert len(blue) > 30 and len(mono) > 30
+assert len(blue & mono) / min(len(blue), len(mono)) < .3, "Same geometry, different ink color"
+for file in ("blue.svg", "mono.svg"):
+    txt = (ROOT / "gallery/samples" / file).read_text("utf-8")
+    assert "<circle" in txt and " A" in txt, "Need curved Guilloché, not a rectilinear grid"
 print("GALLERY REGRESSION TESTS: PASS")

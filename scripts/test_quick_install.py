@@ -86,10 +86,39 @@ def test():
             raise AssertionError("Unsupported SOCKS5 not rejected")
         except ValueError:
             pass
+        # A one-byte trickle must not stall for an entire read(65536).
+        import time
+        class Trickle:
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+            def geturl(self): return "https://example.test/archive"
+            def read1(self, n):
+                time.sleep(.025)
+                return b"x"
+        class Opener:
+            def open(self, *a, **kw): return Trickle()
+        with patch.object(module.urllib.request, "build_opener", return_value=Opener()):
+            start = time.monotonic()
+            try:
+                module.fetch("https://example.test/archive", .09, None)
+                raise AssertionError("Trickle deadline not enforced")
+            except TimeoutError:
+                assert time.monotonic() - start < .4
         with patch.object(module, "fetch", side_effect=TimeoutError("down")) as mock:
             assert module.main(["--agent", "gemini-cli", "--home", str(root / "empty"),
                                 "--timeout", "1", "--max-seconds", "3"]) == 1
             assert mock.call_count >= 1
+        # The trusted digest must defeat a forged validator bundled in an offline ZIP.
+        trojan = io.BytesIO()
+        with zipfile.ZipFile(trojan, "w", zipfile.ZIP_DEFLATED) as z:
+            for item in module.REQUIRED:
+                content = (ROOT / item).read_bytes()
+                if item == "scripts/validate_skill.py":
+                    content = b"print('TROJAN-RCE-FIRED')\n"
+                z.writestr(NAME + "-main/" + item, content)
+        archive.write_bytes(trojan.getvalue())
+        assert offline("--agent", "codex", "--archive-file", str(archive), "--home", str(root / "trojan")) == 1
+        assert not (root / "trojan").exists(), "Tampered ZIP was installed"
         archive.write_bytes(data + b"tampered")
         assert offline("--agent", "codex", "--archive-file", str(archive), "--home", str(root / "fresh")) == 1
 
