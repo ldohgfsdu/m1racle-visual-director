@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-label="黑白古典神殿钢版雕刻结构示意">
 <title>黑白古典钢版刻线、神殿与弧形 Guilloché 曲线的合成示意（非模型实测图片）</title>
+<circle cx="480" cy="102" r="45" fill="none" stroke="#6c6860" stroke-width=".7" opacity=".3"/>
+<path d="M425 102 A55 23 0 0 1 535 102 A55 23 0 0 1 425 102Z" fill="none" stroke="#6c6860" stroke-width=".6" opacity=".3"/>
+
 <defs>
   <pattern id="stone-hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 8L8 0 M-2 3L3 -2" stroke="#494744" stroke-width=".9" opacity=".5"/></pattern>
   <clipPath id="sky"><rect x="30" y="25" width="900" height="215"/></clipPath>
