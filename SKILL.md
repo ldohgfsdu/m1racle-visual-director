@@ -6,7 +6,7 @@ description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visua
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
   author: m1racle
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # M1racle Visual Director — Engraving Edition
@@ -46,6 +46,10 @@ metadata:
 5. 不添加用户没要求的文字、面额、钞票边框或水印。
 
 不得把中国古城改成水墨、未来城市改成科幻概念绘画，也不得输出17类风格评分表。仅围绕雕刻家族内的颜色、线密度和背景曲线强度微调。
+
+## 2.1 参考图与模型能力（明确边界）
+
+读取 [references/reference-selection.md](references/reference-selection.md)。**优先文本风格契约**；现有画廊矢量图仅为视觉示意，不是经过模型实测的参考图，不自动传给模型。用户上传的图片按内容源/风格源区别处理，必须传给支持图像输入的工具；不得杜撰已经标定的模型能力或不存在的参考图。画廊见 [gallery/index.html](gallery/index.html)，**仅在用户要求看画廊时打开**，不得每次调用都弹出。
 
 ## 3. 直接执行，不盲调
 

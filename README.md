@@ -54,3 +54,17 @@ python scripts/test_install.py
 静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
 
 v1.2.0
+## 离线画廊与参考图规则
+
+- [打开雕刻风格画廊](gallery/index.html)：蓝色纸币凹版、黑白古典钢版两个同族变体，浏览器本地打开 `gallery/index.html`，离线可用。
+- 预览 SVG **只是结构示意**，不是经过真实生图测试的高保真样张，不会自动作为模型参考图传入。
+- [参考图与模型使用策略](references/reference-selection.md)：保持内容源与风格源分离；模型未经标定时文字优先，不捏造成功率。
+
+## 更新
+
+向有终端权限的 Agent 发送：**“帮我安装或更新这个 Skill：https://github.com/ldohgfsdu/m1racle-visual-director，验收安装路径和离线画廊。”**
+
+- 使用 Skills CLI 时让 Agent 检查当前安装器的更新/覆盖参数，不能假定重新安装一定更新。
+- Python 后备流程：在**最新仓库克隆副本**运行 `python scripts/install.py --agent codebuddy --scope global --force`；Agent 名和活动扫描目录应以实际运行环境为准。
+- 验证：`python scripts/validate_skill.py`、`python scripts/verify_gallery.py`、`python scripts/test_install.py`，并检查真实 Agent 能指定调用。
+- 如果需要桌面画廊快捷方式，可以告诉 Agent：**“帮我在桌面创建当前已安装 Skill 画廊的快捷方式”**。仅针对本机真实路径创建，不使用硬编码作者路径。

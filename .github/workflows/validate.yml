@@ -19,6 +19,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Validate root skill
         run: python scripts/validate_skill.py
+      - name: Verify offline gallery and reference manifest
+        run: python scripts/verify_gallery.py
       - name: Test cross-agent installation
         run: python scripts/test_install.py
       - name: Validate simulated GitHub ZIP folder
@@ -33,4 +35,5 @@ jobs:
               source = Path.cwd()
               target = Path(tmp) / "m1racle-visual-director-main"
               shutil.copytree(source, target, ignore=shutil.ignore_patterns(".git"))
-              subprocess.run([sys.executable, str(target / "scripts/validate_skill.py")], check=True)
+              for script in ("validate_skill.py", "verify_gallery.py"):
+                  subprocess.run([sys.executable, str(target / "scripts" / script)], check=True)
