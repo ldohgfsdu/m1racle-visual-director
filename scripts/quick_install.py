@@ -97,8 +97,7 @@ def unpack(data: bytes, dest: Path) -> None:
                 or ntpath.splitdrive(value)[0]
                 or any(not part or part in (".", "..") or ":" in part
                        or part.rstrip(" .") != part
-                       or part.split(".")[0].upper() in
-                       {"CON", "PRN", "AUX", "NUL", "COM1", "COM2", "LPT1", "LPT2"}
+                       or re.fullmatch(r"(?i)(CON|PRN|AUX|NUL|COM[1-9]|LPT[1-9])", part.split(".")[0])
                        for part in (parts[:-1] if i.is_dir() else parts))):
                 raise ValueError("Unsafe ZIP path: " + value)
             mode = (i.external_attr >> 16) & 0o170000
@@ -174,8 +173,29 @@ def fetch(url: str, timeout: float, proxy: str | None) -> bytes:
             raise TimeoutError("Download exceeds source deadline")
         return bytes(result)
 
+def managed_backups(target: Path, prefix: str = ".m1racle-old-"):
+    """Only recognize backups with our exact target-specific managed prefix."""
+    return [p for p in target.parent.glob(prefix + target.name + "-*")
+            if p.is_dir() and not p.is_symlink() and valid(p)]
+
+def recover_backup(target: Path, prefix: str = ".m1racle-old-") -> None:
+    if target.exists() or target.is_symlink():
+        return
+    candidates = managed_backups(target, prefix)
+    if len(candidates) > 1:
+        raise ValueError("Multiple recoverable backups found; restore manually")
+    if candidates:
+        candidates[0].rename(target)
+
+def cleanup_backups(target: Path, prefix: str = ".m1racle-old-") -> None:
+    if valid(target):
+        for path in managed_backups(target, prefix):
+            shutil.rmtree(path)
+
 def put(source: Path, target: Path, force: bool) -> str:
     target.parent.mkdir(parents=True, exist_ok=True)
+    recover_backup(target)
+    cleanup_backups(target)
     exists = target.exists() or target.is_symlink()
     if exists and not force:
         return "already-installed" if valid(target) else "blocked-existing"
@@ -240,7 +260,10 @@ def main(argv=None) -> int:
     for agent in dict.fromkeys(agents):
         rel = AGENTS[agent][0 if o.scope == "global" else 1]
         base = o.home.expanduser() if o.scope == "global" else o.project_dir.expanduser()
-        targets.append((agent, base / rel / NAME))
+        if agent == "codex" and o.scope == "global" and o.home == Path.home() and os.environ.get("CODEX_HOME"):
+            targets.append((agent, Path(os.environ["CODEX_HOME"]).expanduser() / "skills" / NAME))
+        else:
+            targets.append((agent, base / rel / NAME))
     if o.doctor or o.dry_run:
         failed = False
         for agent, target in targets:
@@ -250,6 +273,8 @@ def main(argv=None) -> int:
             failed |= state == "MISSING_OR_INVALID"
         return int(failed)
     if not o.force and all(valid(target) for _, target in targets):
+        for _, target in targets:
+            cleanup_backups(target)
         print("INSTALL CHECK: PASS (already installed; --force requests an update)")
         return 0
     try:

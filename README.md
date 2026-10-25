@@ -19,7 +19,7 @@
 
 **执行入口：** 官方 `scripts/quick_install.py`。优先官方下载 GitHub ZIP；有可达的可信 HTTP(S) 代理则优先使用已配置的环境代理。第三方下载镜像仅在用户明确同意后尝试，且先验证 ZIP 可用。支持 `--mirror-url`、`--archive-file`、`--proxy`；前两项必须附带从独立可信渠道获取的 `--expected-sha256`。不能从官方源取得安装器或包时，应及时报错停止，不得自动回退到 `git clone`。
 
-**跨 Agent 支持：** Codex、Claude Code、OpenCode、Cursor、CodeBuddy、WorkBuddy、Gemini CLI、GitHub Copilot；真实安装路径以当前宿主扫描目录为准。**在云沙箱安装不等于在手机 App「我的技能」注册。**
+**跨 Agent 支持：** Codex（`~/.codex/skills` 或 `$CODEX_HOME/skills`）、Claude Code、OpenCode、Cursor、CodeBuddy、WorkBuddy、Gemini CLI、GitHub Copilot；真实安装路径以当前宿主扫描目录为准。**在云沙箱安装不等于在手机 App「我的技能」注册。**
 
 本地执行示例（前提：已经从可信来源取得 `quick_install.py`）：
 

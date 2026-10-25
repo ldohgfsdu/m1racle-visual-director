@@ -52,6 +52,23 @@ def test():
         assert (skill / "keep.txt").exists()
         assert offline("--agent", "codex", "--home", str(home), "--archive-file", str(archive), "--force") == 0
         assert not (skill / "keep.txt").exists()
+        from unittest.mock import patch as patch_env
+        import os
+        with patch_env.dict(os.environ, {"CODEX_HOME": str(root / "custom-codex")}):
+            output = io.StringIO()
+            from contextlib import redirect_stdout
+            with redirect_stdout(output):
+                assert module.main(["--agent", "codex", "--dry-run"]) == 0
+            assert str(root / "custom-codex" / "skills" / NAME) in output.getvalue()
+        backup = skill.parent / (".m1racle-old-" + NAME + "-crash")
+        skill.rename(backup)
+        assert module.put(stage, skill, force=False) == "already-installed"
+        assert skill.exists() and not backup.exists()
+        orphan = skill.parent / (".m1racle-old-" + NAME + "-orphan")
+        import shutil
+        shutil.copytree(skill, orphan)
+        assert module.main(["--agent", "codex", "--home", str(home)]) == 0
+        assert not orphan.exists(), "Crash orphan backup not cleaned"
         assert offline("--agent", "workbuddy", "--archive-file", str(archive),
                        "--scope", "project", "--project-dir", str(root)) == 0
         assert (root / ".workbuddy/skills" / NAME / "SKILL.md").is_file()

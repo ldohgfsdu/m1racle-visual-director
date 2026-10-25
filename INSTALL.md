@@ -14,7 +14,7 @@
 
 ## 1. 确定目标和安装意图
 
-识别运行时**实际** skills 扫描路径；若 CodeBuddy/WorkBuddy 声明 `~/.codebuddy/skills/` 为活动目录，优先使用 `--agent codebuddy`。
+识别运行时**实际** skills 扫描路径。Codex 全局默认 `~/.codex/skills/`，若设置了 `CODEX_HOME` 则使用 `$CODEX_HOME/skills/`；项目级为 `.agents/skills/`。若 CodeBuddy/WorkBuddy 声明 `~/.codebuddy/skills/` 为活动目录，优先使用 `--agent codebuddy`。
 
 - 仅安装且本地已有有效 Skill：无需联网，先用本地 `scripts/quick_install.py --doctor`，或直接检查 `SKILL.md`、`references/`、`gallery/`；返回已安装。不要自动覆盖。
 - 用户明确要求更新：用 `--force` 替换有效安装；安装器会做临时目录写入及回滚。

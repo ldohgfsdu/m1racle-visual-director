@@ -19,4 +19,7 @@ assert "MANDATORY" in agents and "INSTALL.md" in agents
 assert "无止境重试" in guide
 assert not re.search(r"(?m)^\s*git clone\s+https?://",readme)
 assert not re.search(r"(?m)^\s*git clone\s+https?://",install)
+assert "--expected-sha256" in install and "--expected-sha256" in readme
+assert "可信" in install and "不得运行" in install
+assert "scripts/install.py --agent" not in guide
 print("INSTALL DOCS CHECK: PASS")

@@ -49,6 +49,12 @@ def test():
         run("--agent", "workbuddy", "--scope", "project", "--project-dir", str(project))
         assert (project / ".workbuddy/skills" / NAME / "SKILL.md").is_file()
         run("--agent", "invalid-agent", exit_code=2)
+        import os
+        env = os.environ.copy()
+        env["CODEX_HOME"] = str(Path(temp) / "custom-codex-home")
+        p = subprocess.run([sys.executable, str(INSTALL), "--agent", "codex"], env=env, capture_output=True, text=True, timeout=35)
+        assert p.returncode == 0, p.stderr
+        assert (Path(env["CODEX_HOME"]) / "skills" / NAME / "SKILL.md").is_file()
 
 if __name__ == "__main__":
     test()

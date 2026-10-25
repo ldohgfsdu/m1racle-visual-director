@@ -14,7 +14,7 @@ If the user explicitly requests an image, **call an available image generation t
 
 ## Development
 
-Keep repository folder and metadata `name` identical. Run `python scripts/validate_skill.py` and `python scripts/test_install.py`. Static file checks are not live agent behavior/image-quality tests.
+The installed skill folder must match metadata `name`; arbitrary staging/checkout directory names are valid and must not fail static validation. Run `python scripts/validate_skill.py` and `python scripts/test_install.py`. Static file checks are not live agent behavior/image-quality tests.
 ## Gallery and model references
 
 `gallery/index.html` is offline and self-contained; sample SVGs are schematic previews, **not calibrated model-reference assets**. Read `references/reference-selection.md` before passing references. Never infer model capabilities from marketing claims. Gallery should open only when explicitly requested. Validate links with `python scripts/verify_gallery.py`. Preserve explicit-only activation; do not turn this Skill into a general style chooser. Update an existing installation only on user request, via the bounded `quick_install.py` flow and `--force` if needed.
