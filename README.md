@@ -68,3 +68,11 @@ v1.2.0
 - Python 后备流程：在**最新仓库克隆副本**运行 `python scripts/install.py --agent codebuddy --scope global --force`；Agent 名和活动扫描目录应以实际运行环境为准。
 - 验证：`python scripts/validate_skill.py`、`python scripts/verify_gallery.py`、`python scripts/test_install.py`，并检查真实 Agent 能指定调用。
 - 如果需要桌面画廊快捷方式，可以告诉 Agent：**“帮我在桌面创建当前已安装 Skill 画廊的快捷方式”**。仅针对本机真实路径创建，不使用硬编码作者路径。
+
+## WorkBuddy App / 技能市场导入
+
+除通用 GitHub 克隆安装外，本仓库提供 WorkBuddy 专用导入包：运行 `python scripts/package_workbuddy.py` 生成 `dist/m1racle-visual-director-workbuddy-v1.3.1.zip`。ZIP 内以 `m1racle-visual-director/SKILL.md` 为根，包含完整参考文档与离线画廊，并对解压后资源做静态检查。
+
+GitHub Actions 的 **Skill validation → package-workbuddy → Artifacts** 提供可下载的 ZIP 成品。请在 WorkBuddy 支持的界面按 **添加技能 → 上传技能** 导入。单纯把文件复制到某个云端 Agent 沙箱不能证明已注册到手机 App「我的技能」。手机 App 是否支持上传 ZIP 应按实际产品界面确认；无法上传时可使用官方桌面端导入，再验证多端可见性。
+
+本 Skill 保持**显式调用**，不默认接管其他生图任务。WorkBuddy 开放平台对外分发/市场上架属于独立流程，不会因 GitHub 推送或打包而自动完成。

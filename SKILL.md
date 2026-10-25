@@ -1,12 +1,23 @@
 ---
 name: m1racle-visual-director
+display_name: M1racle 钢版雕刻
+display_name_en: M1racle Visual Director
+description_zh: 显式调用后，将文字或上传图片创作为超精细钢版雕刻、纸币凹版印刷与 Guilloché 防伪曲线风格。
+description_en: Explicitly invoked fine-line steel engraving and banknote intaglio image generation and image transformation with Guilloche patterns.
+examples_zh:
+  - "使用 $m1racle-visual-director 生成16:9古代中国山城的蓝色纸币雕刻图。"
+  - "使用 $m1racle-visual-director 将上传的照片改绘为黑白钢版雕刻。"
+examples_en:
+  - "Use $m1racle-visual-director to create a blue intaglio engraving of an ancient mountain city."
+version: 1.3.1
+author: M1racle
 disable-model-invocation: true
 user-invocable: true
 description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visual Director 时启用。固定复现超精细钢版雕刻、纸币凹版印刷及 Guilloché 防伪曲线风格，支持直接文字生图、参考图再创作和原图改绘。不得自动接管普通生图，不在水墨、摄影、3D 等风格之间重新竞选。
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
   author: m1racle
-  version: "1.3.0"
+  version: "1.3.1"
 ---
 
 # M1racle Visual Director — Engraving Edition
