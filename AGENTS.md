@@ -1,4 +1,4 @@
-# Agent instructions for M1racle Visual Director v1.2.0
+# Agent instructions for M1racle Visual Director v1.3.2
 
 This is a **fixed-style** engraved-image Agent Skill and is **explicitly invoked**, not a universal image style router.
 

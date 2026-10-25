@@ -37,20 +37,3 @@ jobs:
               shutil.copytree(source, target, ignore=shutil.ignore_patterns(".git"))
               for script in ("validate_skill.py", "verify_gallery.py"):
                   subprocess.run([sys.executable, str(target / "scripts" / script)], check=True)
-
-  package-workbuddy:
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - name: Build and validate WorkBuddy import ZIP
-        run: python scripts/package_workbuddy.py
-      - name: Upload WorkBuddy skill package
-        uses: actions/upload-artifact@v4
-        with:
-          name: m1racle-visual-director-workbuddy-v1.3.1
-          path: dist/m1racle-visual-director-workbuddy-v1.3.1.zip
-          if-no-files-found: error
