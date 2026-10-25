@@ -36,7 +36,11 @@ def verify():
     desc = desc_match[1].strip() if desc_match else ''
     if not name or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name):
         errors.append(f'Invalid name: {name}')
-    if name != ROOT.name:
+    archive_checkout = bool(name and (ROOT.name in (f'{name}-main', f'{name}-master') or
+        re.fullmatch(rf'{re.escape(name)}-[0-9a-f]{{7,40}}', ROOT.name)))
+    # GitHub ZIP archives have a branch/commit suffix; these are distribution
+    # directories, not direct skill installation targets.
+    if name != ROOT.name and not archive_checkout:
         errors.append(f'Directory/name mismatch: {ROOT.name} != {name}')
     if not 1 <= len(desc) <= 1024:
         errors.append(f'Description length invalid: {len(desc)}')
