@@ -1,4 +1,4 @@
-# v1.2.0 验收：点名调用、固定雕刻、实际出图
+# v1.4.2 验收：点名调用、固定雕刻、实际出图
 
 先运行 `python scripts/validate_skill.py` 与 `python scripts/test_install.py`，但二者不覆盖模型真实行为。
 

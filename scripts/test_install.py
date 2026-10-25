@@ -8,7 +8,7 @@ import tempfile
 INSTALL = Path(__file__).resolve().parent / "install.py"
 NAME = "m1racle-visual-director"
 PATHS = {
-    "codex": ".codex/skills",
+    "codex": ".agents/skills",
     "claude-code": ".claude/skills",
     "opencode": ".config/opencode/skills",
     "cursor": ".cursor/skills",

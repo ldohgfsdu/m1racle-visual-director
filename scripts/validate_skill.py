@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Dependency-free validation: explicit invocation, fixed engraving style."""
+import argparse
 from collections import Counter
 from pathlib import Path
 import json
@@ -25,9 +26,7 @@ def verify():
     desc = re.search(r"^description:\s*(.+)", header[1], re.M)
     if name != NAME:
         errors.append("Expected name %s, got %s" % (NAME, name))
-    distributable_name = re.fullmatch(re.escape(NAME) + r"-(?:main|master|[0-9a-f]{7,40})", ROOT.name)
-    if ROOT.name != NAME and not distributable_name:
-        errors.append("Directory/name mismatch: %s != %s" % (ROOT.name, NAME))
+    # The bundle can be checked in any staging directory; metadata name is authoritative.
     if not desc or not 1 <= len(desc[1]) <= 1024:
         errors.append("Missing/invalid description")
     if not re.search(r"^disable-model-invocation:\s*true\s*$", header[1], re.M):
@@ -71,6 +70,9 @@ def verify():
     return errors
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Validate skill data without running target code")
+    parser.add_argument("--root", type=Path, default=ROOT)
+    ROOT = parser.parse_args().root.resolve()
     errors = verify()
     if errors:
         print("STATIC CHECK: FAIL")

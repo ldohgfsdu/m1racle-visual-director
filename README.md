@@ -2,7 +2,7 @@
 
 ## 在线画廊（手机可直接打开）
 
-真正的浏览器画廊网址（须先在 GitHub 仓库 Settings → Pages 启用 **Deploy from a branch / main / (root)**）：
+**目前不能将下方地址视为已上线服务。** 本仓库提供 Pages 自动部署工作流，但首次发布仍须在 GitHub Settings → Pages 选择 **GitHub Actions** 来源并确认部署成功；部署前 URL 可能是 404：
 
 **https://ldohgfsdu.github.io/m1racle-visual-director/**
 
@@ -17,7 +17,7 @@
 
 > 帮我安装或更新这个 Skill：https://github.com/ldohgfsdu/m1racle-visual-director 。严格遵守仓库的 [INSTALL.md](INSTALL.md)；不要 `git clone`，不要超过规定网络等待预算，不要重复重试。现有有效安装无需重新下载。
 
-**执行入口：** 官方 `scripts/quick_install.py`。优先官方下载 GitHub ZIP；有可达的可信 HTTP(S) 代理则优先使用已配置的环境代理。第三方下载镜像仅在用户明确同意后尝试，且先验证 ZIP 可用。支持 `--mirror-url`、`--archive-file`、`--proxy`。不能从官方源取得安装器或包时，应及时报错停止，不得自动回退到 `git clone`。
+**执行入口：** 官方 `scripts/quick_install.py`。优先官方下载 GitHub ZIP；有可达的可信 HTTP(S) 代理则优先使用已配置的环境代理。第三方下载镜像仅在用户明确同意后尝试，且先验证 ZIP 可用。支持 `--mirror-url`、`--archive-file`、`--proxy`；前两项必须附带从独立可信渠道获取的 `--expected-sha256`。不能从官方源取得安装器或包时，应及时报错停止，不得自动回退到 `git clone`。
 
 **跨 Agent 支持：** Codex、Claude Code、OpenCode、Cursor、CodeBuddy、WorkBuddy、Gemini CLI、GitHub Copilot；真实安装路径以当前宿主扫描目录为准。**在云沙箱安装不等于在手机 App「我的技能」注册。**
 
@@ -27,7 +27,7 @@
 python quick_install.py --agent codebuddy --force --timeout 8 --max-seconds 24
 ```
 
-不联网的本地验证：`python quick_install.py --agent codebuddy --doctor`。如果已经有可靠的本地 ZIP：`python quick_install.py --agent codebuddy --force --archive-file /path/to/skill.zip`。
+不联网的本地验证：`python quick_install.py --agent codebuddy --doctor`。如果已经有可靠的本地 ZIP：`python quick_install.py --agent codebuddy --force --archive-file /path/to/skill.zip --expected-sha256 <可信64位哈希>`。
 
 ## 使用示例
 
@@ -61,12 +61,12 @@ python quick_install.py --agent codebuddy --force --timeout 8 --max-seconds 24
 
 ```bash
 python scripts/validate_skill.py
-python scripts/test_install.py
+python scripts/verify_gallery.py
 ```
 
-静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
+以上仅供**可信开发仓库**运行，用户安装后的验收应使用可信安装器 `--doctor`，不得运行新装 ZIP 中的校验脚本。CI 另跑 `test_install.py`、`test_quick_install.py`。静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
 
-v1.4.1
+v1.4.2
 
 ## 离线画廊与参考图规则
 

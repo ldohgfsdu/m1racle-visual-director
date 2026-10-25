@@ -41,3 +41,26 @@ jobs:
               shutil.copytree(source, target, ignore=shutil.ignore_patterns(".git"))
               for script in ("validate_skill.py", "verify_gallery.py"):
                   subprocess.run([sys.executable, str(target / "scripts" / script)], check=True)
+
+      - name: Regression tests for gallery validator
+        run: python scripts/test_gallery.py
+
+  deploy-pages:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

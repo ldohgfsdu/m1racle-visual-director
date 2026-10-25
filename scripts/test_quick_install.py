@@ -32,7 +32,11 @@ def test():
         stage.mkdir()
         module.unpack(data, stage)
         assert module.valid(stage)
-        assert module.main(["--agent", "codex", "--archive-file", str(root / "package.zip"), "--home", str(root / "user")]) == 2
+        try:
+            module.main(["--agent", "codex", "--archive-file", str(root / "package.zip"), "--home", str(root / "user")])
+            raise AssertionError("Missing SHA-256 was accepted")
+        except SystemExit as error:
+            assert error.code == 2
         archive = root / "package.zip"
         archive.write_bytes(data)
         home = root / "user"

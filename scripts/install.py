@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import uuid
 from pathlib import Path
-from quick_install import valid as has_skill
 
 NAME = "m1racle-visual-director"
 ROOT = Path(__file__).resolve().parents[1]
 AGENTS = {
-    "codex": (".codex/skills", ".agents/skills"),
+    "codex": (".agents/skills", ".agents/skills"),
     "claude-code": (".claude/skills", ".claude/skills"),
     "opencode": (".config/opencode/skills", ".opencode/skills"),
     "cursor": (".cursor/skills", ".cursor/skills"),
@@ -20,6 +20,17 @@ AGENTS = {
     "gemini-cli": (".gemini/skills", ".gemini/skills"),
     "github-copilot": (".copilot/skills", ".agents/skills"),
 }
+
+def has_skill(path: Path) -> bool:
+    skill = path / "SKILL.md"
+    if not skill.is_file():
+        return False
+    try:
+        text = skill.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return False
+    return bool(re.search(r"(?m)^name:\s*m1racle-visual-director\s*$", text)) and all(
+        (path / d).is_dir() for d in ("references", "evals", "scripts"))
 
 def install(target: Path, force: bool) -> str:
     if target.resolve() == ROOT.resolve():

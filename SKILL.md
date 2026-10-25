@@ -6,18 +6,19 @@ description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visua
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
   author: m1racle
-  version: "1.4.1"
+  version: "1.4.2"
 ---
 
 # M1racle Visual Director — Engraving Edition
 
-**显式调用才生效；画风固定；用户要求成图时直接生成。** 这个 Skill 专门复现八张原始参考图里的19世纪超精细钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线。不是通用 AI 视觉导演。
+**显式调用才生效；画风固定；用户要求成图时直接生成。** 这个 Skill 专门复现19世纪超精细钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线。不是通用 AI 视觉导演。
 
 ## 0. 显式启动门槛
 
 - **仅在用户明确指定本 Skill 时使用**：例如 `使用 $m1racle-visual-director 生成中国古城`、`调用 M1racle Visual Director，把这张照片画成纸币雕刻`。
 - 不自动调用规则：普通的“生成一张图片”“自动选画风”“画科幻城市”“制作水墨画”**不得自动套用本 Skill**。
 - 平台可能根据描述自动注入 Skill，不能仅靠本文件保证所有 Agent 的自动发现机制均被禁用；上述为执行时的行为约束。
+- 跨宿主调用语法不同：有些客户端使用 `/m1racle-visual-director`，另一些使用 `$m1racle-visual-director`；应以宿主实际支持的命令为准。显式指定“M1racle Visual Director”也成立。
 - 用户明确要“只给提示词/分析风格”时不出图；明确要成图且工具支持时**直接执行**，不要输出长篇规划或让用户再说一次“生成”。
 
 ## 1. 两种基本模式

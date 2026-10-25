@@ -52,10 +52,10 @@ def valid(root: Path) -> bool:
         if not all((root / file).is_file() for file in REQUIRED):
             return False
         raw = (root / "SKILL.md").read_text(encoding="utf-8")
-        front = re.match(r"\\A---\\n(.*?)\\n---\\n", raw, re.S)
-        if not front or not re.search(r"(?m)^name:\\s*m1racle-visual-director\\s*$", front[1]):
+        front = re.match(r"\A---\n(.*?)\n---\n", raw, re.S)
+        if not front or not re.search(r"(?m)^name:\s*m1racle-visual-director\s*$", front[1]):
             return False
-        if not re.search(r"(?m)^disable-model-invocation:\\s*true\\s*$", front[1]):
+        if not re.search(r"(?m)^disable-model-invocation:\s*true\s*$", front[1]):
             return False
         import json
         data = json.loads((root / "evals/cases.json").read_text(encoding="utf-8"))
@@ -64,7 +64,7 @@ def valid(root: Path) -> bool:
         manifest = json.loads((root / "references/model_capabilities.json").read_text("utf-8"))
         if manifest["default"]["status"] != "unverified":
             return False
-        for rel in re.findall(r"\\]\\((references/[^)#]+|evals/[^)#]+|gallery/[^)#]+)\\)", raw):
+        for rel in re.findall(r"\]\((references/[^)#]+|evals/[^)#]+|gallery/[^)#]+)\)", raw):
             if not (root / rel).is_file():
                 return False
         return True
@@ -142,7 +142,7 @@ def fetch(url: str, timeout: float, proxy: str | None) -> bytes:
     request = urllib.request.Request(
         url, headers={"User-Agent": "M1racle-Quick-Installer/1.0"})
     until = time.monotonic() + timeout
-    with client.open(request, timeout=min(timeout, 0.5)) as response:
+    with client.open(request, timeout=timeout) as response:
         if urllib.parse.urlsplit(response.geturl()).scheme.lower() != "https":
             raise ValueError("Archive download redirected to non-HTTPS")
         result = bytearray()
