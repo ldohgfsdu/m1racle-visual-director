@@ -55,6 +55,8 @@ Python 3.9+ standard library only. For project-level installs: `--scope project 
 | Gemini CLI | `~/.gemini/skills/m1racle-visual-director` |
 | GitHub Copilot | `~/.copilot/skills/m1racle-visual-director` |
 
+GitHub **Download ZIP** usually extracts as `m1racle-visual-director-main`. This is a distribution folder, not a direct Agent installation directory. Run the standard CLI or `scripts/install.py` to place files under the canonical skill name.
+
 The Skills CLI maintains its own supported Agent list and paths; these paths describe the Python fallback.
 
 ## Validation
