@@ -64,7 +64,7 @@ python scripts/validate_skill.py
 python scripts/verify_gallery.py
 ```
 
-以上仅供**可信开发仓库**运行，用户安装后的验收应使用可信安装器 `--doctor`，不得运行新装 ZIP 中的校验脚本。CI 另跑 `test_install.py`、`test_quick_install.py`。静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
+以上仅供**可信开发仓库**运行，用户安装后的验收应使用可信安装器 `--doctor`，不得运行新装 ZIP 中的校验脚本。CI 另跑 `test_install.py`、`test_quick_install.py`。静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[30 条可复核案例](evals/cases.json)。
 
 v1.4.2
 

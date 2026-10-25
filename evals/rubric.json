@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.4.2",
+  "trace_format": {
+    "root_key": "results",
+    "record_keys": [
+      "id",
+      "invoked",
+      "route",
+      "style",
+      "status",
+      "tool_called",
+      "used_fixtures",
+      "evidence",
+      "quality_checks"
+    ],
+    "note": "All results must be collected from actual Agent execution; automated contract tests with synthetic records do not prove generation."
+  },
+  "style_checks": {
+    "linework": "Visible continuous thin burin-like strokes, not just tinted smooth shading",
+    "contour_hatching": "Line directions follow water, mountains, folds and perspective",
+    "cross_hatching": "Shadow values use visibly controlled hatching density and crossing",
+    "guilloche": "Curved periodic/oscillating interlaces; not a Cartesian square grid",
+    "limited_inks": "Blue variant uses limited Prussian/steel blue + subdued accent; mono uses black/gray only",
+    "subject_integrity": "All required elements preserved/created and recognizable",
+    "no_unrequested_text": "No unsolicited lettering, denomination, watermark or border"
+  },
+  "statuses": [
+    "GENERATED_AND_REVIEWED",
+    "GENERATED_UNVERIFIED",
+    "PROMPT_ONLY",
+    "BLOCKED_TOOL",
+    "NOT_INVOKED"
+  ],
+  "evidence_semantics": "each required_evidence key must be independently observed and true, with accompanying trace or reviewer record; do not prefill true before testing"
+}

@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.4.2",
   "cases": [
     {
       "id": "E01",
@@ -11,7 +11,27 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "ratio_16_9"
+      ],
+      "fixture": [],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "ratio_16_9",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
@@ -24,7 +44,27 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "future_city_subject"
+      ],
+      "fixture": [],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "future_city_subject",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
@@ -37,7 +77,27 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "monochrome_variant"
+      ],
+      "fixture": [],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "monochrome_variant",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
@@ -50,7 +110,27 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "lighthouse_subject"
+      ],
+      "fixture": [],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "lighthouse_subject",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
@@ -63,8 +143,19 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
-      ]
+        "correct_style",
+        "no_image_tool_call",
+        "prompt_only_no_tool"
+      ],
+      "fixture": [],
+      "expected_status": "PROMPT_ONLY",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "prompt_only_no_tool",
+        "No image tool call; deliver full copyable prompt",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": []
     },
     {
       "id": "E06",
@@ -76,12 +167,32 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "jupiter_subject"
+      ],
+      "fixture": [],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "jupiter_subject",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E07",
-      "request": "使用 $m1racle-visual-director，只参考图1画风，画新中国山城",
+      "request": "使用 $m1racle-visual-director，仅参考所附城镇示意图的画风，画新中国山城",
       "expected_route": "REF-CREATE",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -89,12 +200,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "new_town_not_copied"
+      ],
+      "fixture": [
+        {
+          "role": "style",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "new_town_not_copied",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E08",
-      "request": "使用 $m1racle-visual-director，参照图1配色画一座新港湾",
+      "request": "使用 $m1racle-visual-director，仅参照所附城镇示意图配色画一座新港湾",
       "expected_route": "REF-CREATE",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -102,12 +238,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "palette_reference_only"
+      ],
+      "fixture": [
+        {
+          "role": "style",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "palette_reference_only",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E09",
-      "request": "使用 $m1racle-visual-director，参照图1线条画全新黑白古典人物",
+      "request": "使用 $m1racle-visual-director，仅参照所附人物示意图线条画全新黑白人物",
       "expected_route": "REF-CREATE",
       "expected_style": "steel-engraving-mono",
       "expected_active": true,
@@ -115,25 +276,79 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "monochrome_line_reference"
+      ],
+      "fixture": [
+        {
+          "role": "style",
+          "path": "evals/fixtures/portrait.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "monochrome_line_reference",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E10",
-      "request": "使用 $m1racle-visual-director，以图1为风格、图2为构图，画新城",
-      "expected_route": "REF-CREATE",
+      "request": "使用 $m1racle-visual-director，以所附图1为风格、图2为构图，画一座新城",
+      "expected_route": "COMPOSITE",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
       "guardrail": "分清每张图角色",
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "separate_style_and_composition"
+      ],
+      "fixture": [
+        {
+          "role": "style",
+          "path": "evals/fixtures/town.svg"
+        },
+        {
+          "role": "composition",
+          "path": "evals/fixtures/bridge.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "separate_style_and_composition",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E11",
-      "request": "使用 $m1racle-visual-director，将这张城市照片变成蓝色纸币雕刻",
+      "request": "使用 $m1racle-visual-director，将所附城市示意图转成蓝色纸币雕刻",
       "expected_route": "TRANSFORM",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -141,12 +356,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "preserve_city_layout"
+      ],
+      "fixture": [
+        {
+          "role": "content",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "preserve_city_layout",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E12",
-      "request": "使用 $m1racle-visual-director，把这张猫照片变成黑白雕刻",
+      "request": "使用 $m1racle-visual-director，把所附猫示意图转成黑白雕刻",
       "expected_route": "TRANSFORM",
       "expected_style": "steel-engraving-mono",
       "expected_active": true,
@@ -154,12 +394,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "preserve_cat_identity"
+      ],
+      "fixture": [
+        {
+          "role": "content",
+          "path": "evals/fixtures/cat.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "preserve_cat_identity",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E13",
-      "request": "使用 $m1racle-visual-director，将这张山水照改成版画，别变机位",
+      "request": "使用 $m1racle-visual-director，将所附山景示意图改成版画，别变机位",
       "expected_route": "TRANSFORM",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -167,12 +432,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "preserve_camera"
+      ],
+      "fixture": [
+        {
+          "role": "content",
+          "path": "evals/fixtures/mountain.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "preserve_camera",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E14",
-      "request": "使用 $m1racle-visual-director，只修改现有雕刻图右下角的船",
+      "request": "使用 $m1racle-visual-director，只修改所附船只示意图的右下角小船",
       "expected_route": "LOCAL-EDIT",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -180,12 +470,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "edit_lower_right_boat_only"
+      ],
+      "fixture": [
+        {
+          "role": "edit_base",
+          "path": "evals/fixtures/boat.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "edit_lower_right_boat_only",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E15",
-      "request": "使用 $m1racle-visual-director，只修正雕刻人物的手指",
+      "request": "使用 $m1racle-visual-director，只修正所附人物示意图里的手指",
       "expected_route": "LOCAL-EDIT",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -193,12 +508,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "edit_fingers_only"
+      ],
+      "fixture": [
+        {
+          "role": "edit_base",
+          "path": "evals/fixtures/portrait.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "edit_fingers_only",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E16",
-      "request": "使用 $m1racle-visual-director，把已有纸币雕刻图里的小树换成石头",
+      "request": "使用 $m1racle-visual-director，把所附城镇雕刻示意图里的小树换成石头",
       "expected_route": "LOCAL-EDIT",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -206,12 +546,37 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "replace_tree_only"
+      ],
+      "fixture": [
+        {
+          "role": "edit_base",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "replace_tree_only",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E17",
-      "request": "使用 $m1racle-visual-director，把图1人物放图2场景，整体蓝色雕刻",
+      "request": "使用 $m1racle-visual-director，把附图人物放进附图城镇场景，整体蓝色雕刻",
       "expected_route": "COMPOSITE",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -219,12 +584,41 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "composite_portrait_in_town"
+      ],
+      "fixture": [
+        {
+          "role": "subject",
+          "path": "evals/fixtures/portrait.svg"
+        },
+        {
+          "role": "background",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "composite_portrait_in_town",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E18",
-      "request": "使用 $m1racle-visual-director，把图1山峰与图2古桥合成黑白雕刻",
+      "request": "使用 $m1racle-visual-director，把附图山峰与附图古桥合成黑白雕刻",
       "expected_route": "COMPOSITE",
       "expected_style": "steel-engraving-mono",
       "expected_active": true,
@@ -232,12 +626,41 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "composite_mountain_and_bridge"
+      ],
+      "fixture": [
+        {
+          "role": "subject",
+          "path": "evals/fixtures/mountain.svg"
+        },
+        {
+          "role": "background",
+          "path": "evals/fixtures/bridge.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "composite_mountain_and_bridge",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
       "id": "E19",
-      "request": "调用 m1racle-visual-director，将图1古桥和图2舟船组合成纸币雕刻",
+      "request": "调用 m1racle-visual-director，将附图古桥和附图舟船组合成纸币雕刻",
       "expected_route": "COMPOSITE",
       "expected_style": "banknote-intaglio",
       "expected_active": true,
@@ -245,7 +668,36 @@
       "required_evidence": [
         "explicit_invocation",
         "route_decision",
-        "engraving_style"
+        "correct_style",
+        "image_tool_called",
+        "engraving_style",
+        "composite_bridge_and_boat"
+      ],
+      "fixture": [
+        {
+          "role": "subject",
+          "path": "evals/fixtures/bridge.svg"
+        },
+        {
+          "role": "background",
+          "path": "evals/fixtures/boat.svg"
+        }
+      ],
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "eval_tag": "positive",
+      "pass_criteria": [
+        "composite_bridge_and_boat",
+        "Real image-tool call and visible result; do not claim an output without a tool trace",
+        "Maintain directional engraved linework, contour hatching, curved Guilloché and restrained inks unless intentionally monochrome"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
       ]
     },
     {
@@ -257,8 +709,18 @@
       "guardrail": "没指定本Skill不得自动启用",
       "required_evidence": [
         "no_skill_invocation",
-        "inactive_route"
-      ]
+        "inactive_route",
+        "no_engraving_takeover",
+        "no_style_router"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "obvious-negative",
+      "pass_criteria": [
+        "Do not invoke this skill; no fixed-style engraving directive",
+        "no_style_router"
+      ],
+      "quality_gate": []
     },
     {
       "id": "E21",
@@ -269,8 +731,18 @@
       "guardrail": "不能抢占不相关画风请求",
       "required_evidence": [
         "no_skill_invocation",
-        "inactive_route"
-      ]
+        "inactive_route",
+        "no_engraving_takeover",
+        "no_ink_style_takeover"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "obvious-negative",
+      "pass_criteria": [
+        "Do not invoke this skill; no fixed-style engraving directive",
+        "no_ink_style_takeover"
+      ],
+      "quality_gate": []
     },
     {
       "id": "E22",
@@ -281,20 +753,45 @@
       "guardrail": "不自动拦截普通生图",
       "required_evidence": [
         "no_skill_invocation",
-        "inactive_route"
-      ]
+        "inactive_route",
+        "no_engraving_takeover",
+        "no_scifi_engraving_takeover"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "obvious-negative",
+      "pass_criteria": [
+        "Do not invoke this skill; no fixed-style engraving directive",
+        "no_scifi_engraving_takeover"
+      ],
+      "quality_gate": []
     },
     {
       "id": "E23",
-      "request": "把上传的照片修一下背景",
+      "request": "把所附城镇示意图修一下背景",
       "expected_route": "NONE",
       "expected_style": null,
       "expected_active": false,
       "guardrail": "不自动接管编辑",
       "required_evidence": [
         "no_skill_invocation",
-        "inactive_route"
-      ]
+        "inactive_route",
+        "no_engraving_takeover",
+        "ordinary_photo_edit_only"
+      ],
+      "fixture": [
+        {
+          "role": "content",
+          "path": "evals/fixtures/town.svg"
+        }
+      ],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "obvious-negative",
+      "pass_criteria": [
+        "Do not invoke this skill; no fixed-style engraving directive",
+        "ordinary_photo_edit_only"
+      ],
+      "quality_gate": []
     },
     {
       "id": "E24",
@@ -305,8 +802,150 @@
       "guardrail": "本Skill不负责任意选风",
       "required_evidence": [
         "no_skill_invocation",
-        "inactive_route"
-      ]
+        "inactive_route",
+        "no_engraving_takeover",
+        "no_style_scoring_takeover"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "obvious-negative",
+      "pass_criteria": [
+        "Do not invoke this skill; no fixed-style engraving directive",
+        "no_style_scoring_takeover"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E25",
+      "request": "生成一张非常精细的黑白版画，古典风景",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_engraving_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_engraving_without_name"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E26",
+      "request": "帮我做一幅复古纸币质感的城市海报",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_banknote_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_banknote_without_name"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E27",
+      "request": "请画一张十九世纪铜版画插画",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_copperplate_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_copperplate_without_name"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E28",
+      "request": "黑白密集交叉排线的山脉插画，直接出图",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_crosshatch_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_crosshatch_without_name"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E29",
+      "request": "画带 Guilloché 曲线的装饰性封面",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_guilloche_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_guilloche_without_name"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E30",
+      "request": "给这幅雕刻风格的图片加一些更细的线条",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "未显式点名 Skill，即使风格语义高度相似也不得自动触发",
+      "required_evidence": [
+        "no_skill_invocation",
+        "inactive_route",
+        "no_engraving_takeover",
+        "near_edit_without_name"
+      ],
+      "fixture": [],
+      "expected_status": "NOT_INVOKED",
+      "eval_tag": "near-miss",
+      "pass_criteria": [
+        "Do not activate the skill based solely on engraving semantics",
+        "near_edit_without_name"
+      ],
+      "quality_gate": []
     }
   ]
 }

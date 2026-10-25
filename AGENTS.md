@@ -1,4 +1,4 @@
-# Agent instructions for M1racle Visual Director v1.4.2
+# Agent instructions for M1racle Visual Director v1.4.1
 
 This is a **fixed-style** engraved-image Agent Skill and is **explicitly invoked**, not a universal image style router.
 
@@ -17,8 +17,8 @@ If the user explicitly requests an image, **call an available image generation t
 Keep repository folder and metadata `name` identical. Run `python scripts/validate_skill.py` and `python scripts/test_install.py`. Static file checks are not live agent behavior/image-quality tests.
 ## Gallery and model references
 
-`gallery/index.html` is offline and self-contained; sample SVGs are schematic previews, **not calibrated model-reference assets**. Read `references/reference-selection.md` before passing references. Never infer model capabilities from marketing claims. Gallery should open only when explicitly requested. Validate links with `python scripts/verify_gallery.py`. Preserve explicit-only activation; do not turn this Skill into a general style chooser. Update an existing installation only on user request, via the bounded `quick_install.py` flow and `--force` if needed.
+`gallery/index.html` is offline and self-contained; sample SVGs are schematic previews, **not calibrated model-reference assets**. Read `references/reference-selection.md` before passing references. Never infer model capabilities from marketing claims. Gallery should open only when explicitly requested. Validate links with `python scripts/verify_gallery.py`. Preserve explicit-only activation; do not turn this Skill into a general style chooser. Update an existing installation only on user request, via the latest checkout and `--force` if needed.
 
 ## Network/install boundary
 
-A proxy on the user's phone or desktop is NOT automatically accessible from cloud Agent sandboxes; 127.0.0.1 inside a cloud VM does not mean the user's computer. Installing into `~/.codebuddy/skills` does not prove mobile account-level registration. On installation verify the active Agent scan path using the previously trusted installer `--doctor`. NEVER execute `scripts/validate_skill.py` from the newly downloaded archive; a pre-existing trusted validator can use `--root` for offline analysis. Never claim mobile Skill Market registration.
+A proxy on the user's phone or desktop is NOT automatically accessible from cloud Agent sandboxes; 127.0.0.1 inside a cloud VM does not mean the user's computer. Installing into `~/.codebuddy/skills` does not prove mobile account-level registration. On installation verify the active Agent scan path and `scripts/validate_skill.py` without claiming mobile Skill Market registration.

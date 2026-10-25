@@ -38,9 +38,14 @@ REQUIRED = (
     "SKILL.md", "README.md", "INSTALL.md", "AGENTS.md", "使用指南.md",
     "index.html", "gallery/index.html", "gallery/samples/blue.svg",
     "gallery/samples/mono.svg", "references/banknote-engraving.md",
-    "references/reference-selection.md", "references/quality-gates.md",
+    "references/reference-selection.md", "references/reference-handling.md",
+    "references/prompt-patterns.md", "references/quality-gates.md",
     "references/model_capabilities.json", "evals/cases.json",
-    "evals/how-to-test.md", "scripts/validate_skill.py",
+    "evals/how-to-test.md", "evals/rubric.json",
+    "evals/fixtures/town.svg", "evals/fixtures/portrait.svg",
+    "evals/fixtures/bridge.svg", "evals/fixtures/boat.svg",
+    "evals/fixtures/cat.svg", "evals/fixtures/mountain.svg",
+    "scripts/validate_skill.py",
     "scripts/verify_gallery.py",
 )
 MAX_ZIP = 8 * 1024 * 1024
@@ -59,8 +64,12 @@ def valid(root: Path) -> bool:
             return False
         import json
         data = json.loads((root / "evals/cases.json").read_text(encoding="utf-8"))
-        if not isinstance(data.get("cases"), list) or len(data["cases"]) < 24:
+        if data.get("schema_version") != "1.4.2" or not isinstance(data.get("cases"), list) or len(data["cases"]) < 30:
             return False
+        for case in data["cases"]:
+            for image in case.get("fixture", []):
+                if not (root / image["path"]).is_file():
+                    return False
         manifest = json.loads((root / "references/model_capabilities.json").read_text("utf-8"))
         if manifest["default"]["status"] != "unverified":
             return False
