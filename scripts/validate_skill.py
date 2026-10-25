@@ -1,181 +1,147 @@
 #!/usr/bin/env python3
-"""Dependency-free validation: explicit invocation, fixed engraving style."""
+"""Validate the static Skill and evaluation contract; never execute target scripts."""
+from __future__ import annotations
+
 import argparse
-from collections import Counter
-from pathlib import Path
 import json
 import re
 import sys
 import xml.etree.ElementTree as ET
+from collections import Counter
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 NAME = "m1racle-visual-director"
+VERSION = "1.4.2"
 ROUTES = {"NONE", "T2I", "REF-CREATE", "TRANSFORM", "LOCAL-EDIT", "COMPOSITE"}
 STYLES = {None, "banknote-intaglio", "steel-engraving-mono"}
+QUALITY = {"linework", "contour_hatching", "cross_hatching", "guilloche",
+           "limited_inks", "subject_integrity", "no_unrequested_text"}
 
-def verify():
+def verify(root: Path = None):
+    root = (root or ROOT).resolve()
     errors = []
-    skill = ROOT / "SKILL.md"
+    skill = root / "SKILL.md"
     if not skill.is_file():
         return ["SKILL.md missing"]
     raw = skill.read_text(encoding="utf-8")
-    header = re.match(r"\A---\n(.*?)\n---\n", raw, re.S)
-    if not header:
+    head = re.match(r"\A---\n(.*?)\n---\n", raw, re.S)
+    if not head:
         return ["YAML frontmatter missing"]
-    match = re.search(r"^name:\s*(\S+)", header[1], re.M)
-    name = match[1] if match else None
-    desc = re.search(r"^description:\s*(.+)", header[1], re.M)
-    if name != NAME:
-        errors.append("Expected name %s, got %s" % (NAME, name))
-    # The bundle can be checked in any staging directory; metadata name is authoritative.
-    if not desc or not 1 <= len(desc[1]) <= 1024:
-        errors.append("Missing/invalid description")
-    if not re.search(r"^disable-model-invocation:\s*true\s*$", header[1], re.M):
-        errors.append("Explicit-only frontmatter flag missing")
+    front = head.group(1)
+    if not re.search(r"(?m)^name:\s*" + re.escape(NAME) + r"\s*$", front):
+        errors.append("SKILL metadata.name mismatch")
+    if 'version: "' + VERSION + '"' not in front:
+        errors.append("SKILL metadata.version mismatch")
+    if not re.search(r"(?m)^disable-model-invocation:\s*true\s*$", front):
+        errors.append("explicit-only activation flag missing")
+    desc = re.search(r"(?m)^description:\s*(.+)$", front)
+    if not desc or not 1 <= len(desc.group(1)) <= 1024:
+        errors.append("missing or invalid description")
     for rel in re.findall(r"\]\((references/[^)#]+|evals/[^)#]+|gallery/[^)#]+)\)", raw):
-        if not (ROOT / rel).is_file():
-            errors.append("Broken link: " + rel)
-    for term in ("显式", "不自动", "T2I", "REF-CREATE", "TRANSFORM", "LOCAL-EDIT", "COMPOSITE", "Guilloché", "直接"):
-        if term not in raw:
-            errors.append("Missing policy token: " + term)
+        if not (root / rel).is_file():
+            errors.append("broken Skill link: " + rel)
+    for word in ("显式", "不自动", "T2I", "REF-CREATE", "TRANSFORM",
+                 "LOCAL-EDIT", "COMPOSITE", "Guilloché", "直接"):
+        if word not in raw:
+            errors.append("missing policy token: " + word)
     try:
-        cases = json.loads((ROOT / "evals/cases.json").read_text(encoding="utf-8"))["cases"]
-    except (ValueError, KeyError, OSError) as exc:
-        return errors + ["Invalid cases: %s" % exc]
-    if not re.search(r'^  version: "?' + re.escape("1.4.2") + r'"?\s*
-    used = set()
-    evidence_signatures = set()
-    near_misses = 0
+        payload = json.loads((root / "evals/cases.json").read_text("utf-8"))
+        cases = payload["cases"]
+        if payload.get("schema_version") != VERSION or not isinstance(cases, list):
+            return errors + ["eval schema/version mismatch"]
+        rubric = json.loads((root / "evals/rubric.json").read_text("utf-8"))
+        if rubric.get("schema_version") != VERSION or not QUALITY.issubset(rubric["style_checks"]):
+            errors.append("eval rubric incomplete")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return errors + ["evaluation data missing or invalid: " + str(exc)]
+    if len(cases) < 30:
+        errors.append("expected >= 30 eval scenarios")
+    ids, signatures = set(), set()
+    routes = Counter()
+    near = 0
     for case in cases:
-        identity = case.get("id")
-        active, route, style = case.get("expected_active"), case.get("expected_route"), case.get("expected_style")
-        if not identity or identity in used:
-            errors.append("Invalid ID: %s" % identity)
-        used.add(identity)
+        ident = case.get("id")
+        if not ident or ident in ids:
+            errors.append("duplicate or empty ID: " + str(ident))
+        ids.add(ident)
+        active = case.get("expected_active")
+        route = case.get("expected_route")
+        style = case.get("expected_style")
         if not isinstance(active, bool):
-            errors.append("%s: active flag missing" % identity)
+            errors.append(str(ident) + ": expected_active must be boolean")
         if route not in ROUTES:
-            errors.append("%s: invalid route %s" % (identity, route))
+            errors.append(str(ident) + ": invalid route")
         if style not in STYLES:
-            errors.append("%s: non-engraving style %s" % (identity, style))
-        if not case.get("request") or not case.get("guardrail") or not case.get("required_evidence") or not case.get("pass_criteria"):
-            errors.append("%s: incomplete case" % identity)
-        signature = tuple(case.get("required_evidence", []))
-        if signature in evidence_signatures:
-            errors.append("%s: duplicate evidence criteria" % identity)
-        evidence_signatures.add(signature)
+            errors.append(str(ident) + ": invalid style")
+        if active and (route == "NONE" or style is None):
+            errors.append(str(ident) + ": active route/style mismatch")
+        if active is False and (route != "NONE" or style is not None):
+            errors.append(str(ident) + ": inactive route/style mismatch")
+        if not case.get("request") or not case.get("guardrail") or not case.get("pass_criteria"):
+            errors.append(str(ident) + ": incomplete scenario")
+        evidence = case.get("required_evidence")
+        if not isinstance(evidence, list) or len(evidence) < 3 or not all(isinstance(s, str) for s in evidence):
+            errors.append(str(ident) + ": missing evidence")
+            evidence = []
+        signature = tuple(evidence)
+        if signature in signatures:
+            errors.append(str(ident) + ": duplicated evidence signature")
+        signatures.add(signature)
+        expected_status = "NOT_INVOKED" if not active else "PROMPT_ONLY" if ident == "E05" else "GENERATED_AND_REVIEWED"
+        if case.get("expected_status") != expected_status:
+            errors.append(str(ident) + ": incorrect expected_status")
         if case.get("eval_tag") == "near-miss":
-            near_misses += 1
-        if case.get("expected_status") != ("NOT_INVOKED" if not active else "PROMPT_ONLY" if identity == "E05" else "GENERATED_AND_REVIEWED"):
-            errors.append("%s: invalid expected status" % identity)
-        fixture = case.get("fixture")
-        if not isinstance(fixture, list):
-            errors.append("%s: fixture list missing" % identity)
-            fixture = []
-        if active and route in ("REF-CREATE", "TRANSFORM", "LOCAL-EDIT", "COMPOSITE") and not fixture:
-            errors.append("%s: missing image fixture" % identity)
-        if route == "COMPOSITE" and len(fixture) < 2:
-            errors.append("%s: composite requires two image fixtures" % identity)
-        for image in fixture:
-            if not isinstance(image, dict) or not image.get("role") or not image.get("path"):
-                errors.append("%s: invalid fixture entry" % identity)
+            near += 1
+            if active:
+                errors.append(str(ident) + ": near-miss activated")
+        fixtures = case.get("fixture")
+        if not isinstance(fixtures, list):
+            errors.append(str(ident) + ": fixture field must be array")
+            fixtures = []
+        if active and route in {"REF-CREATE", "TRANSFORM", "LOCAL-EDIT", "COMPOSITE"} and not fixtures:
+            errors.append(str(ident) + ": missing image fixture")
+        if route == "COMPOSITE" and len(fixtures) < 2:
+            errors.append(str(ident) + ": COMPOSITE needs two image sources")
+        for attachment in fixtures:
+            if not isinstance(attachment, dict) or not attachment.get("role") or not isinstance(attachment.get("path"), str):
+                errors.append(str(ident) + ": invalid fixture record")
                 continue
-            path = image["path"]
-            if not path.startswith("evals/fixtures/") or ".." in Path(path).parts:
-                errors.append("%s: unsafe fixture path" % identity)
+            rel = attachment["path"]
+            if not rel.startswith("evals/fixtures/") or ".." in Path(rel).parts:
+                errors.append(str(ident) + ": unsafe fixture path")
                 continue
             try:
-                xml = ET.parse(ROOT / path).getroot()
+                xml = ET.parse(root / rel).getroot()
                 if xml.tag != "{http://www.w3.org/2000/svg}svg":
-                    errors.append("%s: invalid SVG fixture" % identity)
-            except (ET.ParseError, OSError):
-                errors.append("%s: unreadable SVG fixture %s" % (identity, path))
-        if active and identity != "E05" and len(case.get("quality_gate", [])) < 5:
-            errors.append("%s: missing quality gates" % identity)
-        if active and (route == "NONE" or not style):
-            errors.append("%s: active but no engraving route/style" % identity)
-        if active is False and (route != "NONE" or style is not None):
-            errors.append("%s: inactive but routed" % identity)
-        counts[route] += 1
+                    errors.append(str(ident) + ": not an SVG fixture")
+            except (OSError, ET.ParseError) as exc:
+                errors.append(str(ident) + ": damaged fixture " + rel + ": " + str(exc))
+        checks = case.get("quality_gate")
+        if not isinstance(checks, list):
+            errors.append(str(ident) + ": missing quality_gate array")
+        elif active and ident != "E05" and not QUALITY.issubset(checks):
+            errors.append(str(ident) + ": missing image quality checks")
+        routes[route] += 1
     for route in ROUTES:
-        if counts[route] < 2:
-            errors.append("Route coverage too low: %s (%d)" % (route, counts[route]))
-    if len(cases) < 30:
-        errors.append("Expected 30 contract cases including near-miss negatives")
-    if near_misses < 6:
-        errors.append("Expected at least six near-miss negative cases")
-    try:
-        payload = json.loads((ROOT / "evals/cases.json").read_text("utf-8"))
-        if payload.get("schema_version") != "1.4.2":
-            errors.append("cases.json schema_version does not match SKILL.md")
-    except (OSError, ValueError):
-        errors.append("cases.json unreadable")
+        if routes[route] < 2:
+            errors.append("insufficient route coverage: " + route)
+    if near < 6:
+        errors.append("requires >= 6 semantically near negative examples")
     return errors
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Validate skill data without running target code")
+    parser = argparse.ArgumentParser(description="Static safe verifier for M1racle Visual Director")
     parser.add_argument("--root", type=Path, default=ROOT)
-    ROOT = parser.parse_args().root.resolve()
-    errors = verify()
-    if errors:
+    args = parser.parse_args()
+    issues = verify(args.root)
+    if issues:
         print("STATIC CHECK: FAIL")
-        for error in errors:
-            print(" -", error)
+        for issue in issues:
+            print(" -", issue)
         sys.exit(1)
+    cases = json.loads((args.root / "evals/cases.json").read_text("utf-8"))["cases"]
     print("STATIC CHECK: PASS")
-    print("Skill:", NAME)
-    print("Evaluation fixtures:", len(json.loads((ROOT / "evals/cases.json").read_text(encoding="utf-8"))["cases"]))
-    print("Contract: explicit invocation, fixed engraving style")
-    print("NOTE: actual image generation is not tested")
-, header[1], re.M):
-        errors.append("SKILL.md version does not match eval schema 1.4.2")
-    rubric = ROOT / "evals/rubric.json"
-    try:
-        rubric_data = json.loads(rubric.read_text(encoding="utf-8"))
-        if not all(key in rubric_data["style_checks"] for key in ("linework","contour_hatching","cross_hatching","guilloche","limited_inks")):
-            errors.append("style rubric has missing engraving checks")
-    except (OSError, ValueError, KeyError, TypeError):
-        errors.append("missing or invalid evaluation rubric")
-    counts = Counter()
-    used = set()
-    for case in cases:
-        identity = case.get("id")
-        active, route, style = case.get("expected_active"), case.get("expected_route"), case.get("expected_style")
-        if not identity or identity in used:
-            errors.append("Invalid ID: %s" % identity)
-        used.add(identity)
-        if not isinstance(active, bool):
-            errors.append("%s: active flag missing" % identity)
-        if route not in ROUTES:
-            errors.append("%s: invalid route %s" % (identity, route))
-        if style not in STYLES:
-            errors.append("%s: non-engraving style %s" % (identity, style))
-        if not case.get("request") or not case.get("guardrail") or not case.get("required_evidence"):
-            errors.append("%s: incomplete case" % identity)
-        if active and (route == "NONE" or not style):
-            errors.append("%s: active but no engraving route/style" % identity)
-        if active is False and (route != "NONE" or style is not None):
-            errors.append("%s: inactive but routed" % identity)
-        counts[route] += 1
-    for route in ROUTES:
-        if counts[route] < 2:
-            errors.append("Route coverage too low: %s (%d)" % (route, counts[route]))
-    if len(cases) < 24:
-        errors.append("Expected at least 24 fixtures")
-    return errors
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Validate skill data without running target code")
-    parser.add_argument("--root", type=Path, default=ROOT)
-    ROOT = parser.parse_args().root.resolve()
-    errors = verify()
-    if errors:
-        print("STATIC CHECK: FAIL")
-        for error in errors:
-            print(" -", error)
-        sys.exit(1)
-    print("STATIC CHECK: PASS")
-    print("Skill:", NAME)
-    print("Evaluation fixtures:", len(json.loads((ROOT / "evals/cases.json").read_text(encoding="utf-8"))["cases"]))
-    print("Contract: explicit invocation, fixed engraving style")
-    print("NOTE: actual image generation is not tested")
+    print("Skill:", NAME, "version:", VERSION)
+    print("Evaluation cases:", len(cases))
+    print("NOTE: actual image generation remains untested by this validator")
