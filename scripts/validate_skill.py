@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static, dependency-free validation of the visual-art-director Skill.
+"""Static, dependency-free validation of the m1racle-visual-director Skill.
 
 This does not test agent intelligence or generated image fidelity.
 """
@@ -87,6 +87,6 @@ if __name__ == '__main__':
             print(' -', failure)
         sys.exit(1)
     print('STATIC CHECK: PASS')
-    print('Skill: visual-art-director')
+    print('Skill: m1racle-visual-director')
     print('Evaluation fixtures:', len(json.loads((ROOT / 'evals/cases.json').read_text(encoding='utf-8'))['cases']))
     print('NOTE: agent behavior and image quality NOT evaluated by this static check.')

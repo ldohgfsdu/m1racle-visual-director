@@ -1,56 +1,79 @@
 # M1racle Visual Director
 
-智能视觉导演：用于 AI Agent 的图片生成与参考图再创作决策 Skill。
+[中文使用指南](使用指南.md) · [Agent Skills 规范](https://agentskills.io/specification) · **v1.1.0**
 
-## 功能
+A portable AI image-art-direction skill: automatically choose text-to-image, reference-based generation, full-image transformation, local editing, or multi-image composition. Select visual styles based on the user's actual goal instead of applying one fixed aesthetic.
 
-- 自动判断：文字生图 / 参考图创作 / 整图风格转换 / 局部编辑 / 多图合成
-- 解析原图职责：主体、构图、风格、配色、底图
-- 按内容、用途和保真约束，从 17 类风格候选中选择合适画风
-- 内置 **Guilloché 防伪曲线 + 钢版纸币雕刻** 专项模板
-- 提示词组装、图片质量检查、24 个行为测试样例
+**Includes:** 5 routes · 17 style families · L0–L3 preservation · 24 behavior fixtures · Guilloché / steel-plate banknote engraving.
 
-## 安装
+## Give the repository URL to your Agent
 
-把此仓库克隆到 Agent 的 skills 目录，目录名称要与 `SKILL.md` 的 `name` 一致：`visual-art-director`。
+Send this sentence to a coding Agent with terminal/repository access:
+
+> Install https://github.com/ldohgfsdu/m1racle-visual-director as a user-level Agent Skill for your own Agent. Use the standard Skills CLI when available. Verify the installed SKILL.md and run the validator. Then tell me which image-generation/editing tools you can actually use.
+
+### One-line install (Node.js 22.20+)
 
 ```bash
-git clone https://github.com/ldohgfsdu/m1racle-visual-director.git ~/.agents/skills/visual-art-director
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -y
 ```
 
-**Claude Code：** 克隆到 `~/.claude/skills/visual-art-director`。
+Specify an Agent as needed, e.g.:
 
-**Windows：** 将仓库下载后解压，重命名文件夹为 `visual-art-director`，并放入 `C:\Users\<username>\.agents\skills\`（或 Claude Code 的 `.claude\skills\`）。
-
-详细安装说明见 [使用指南](使用指南.md)。
-
-## 使用示例
-
-> 使用 visual-art-director，给古代山城生成 16:9 插图，没有参考图，自动选择视觉风格并直接生图。
-
-> 使用 visual-art-director，参考上传图片的画风绘制全新场景，不要复刻原图地标。
-
-> 使用 visual-art-director，把这张照片改成蓝色纸币钢版雕刻，尽量保留建筑和构图。
-
-## 仓库结构
-
-```text
-SKILL.md
-agents/openai.yaml
-references/
-evals/
-scripts/validate_skill.py
-使用指南.md
+```bash
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a codex -y
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a claude-code -y
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a opencode -y
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a cursor -y
+npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a codebuddy -y
 ```
 
-## 运行静态检查
+Pass multiple `-a` switches for more than one Agent. Without `-g`, installation is project-local. No renaming after cloning: repository folder and SKILL.md name are both **m1racle-visual-director**.
+
+### Python fallback (no Node.js, including WorkBuddy)
+
+Clone/download this repository and, from its root, run:
+
+```bash
+python scripts/install.py --agent workbuddy --scope global
+python scripts/install.py --agent codex --agent claude-code --agent codebuddy --scope global
+python scripts/install.py --agent opencode --scope global --doctor
+```
+
+Python 3.9+ standard library only. For project-level installs: `--scope project --project-dir /path/to/project`. Existing installations are preserved unless `--force` is given. Inspect options with `python scripts/install.py --help`.
+
+## Installation directories (fallback script)
+
+| Agent | Global destination |
+|---|---|
+| Codex | `~/.agents/skills/m1racle-visual-director` |
+| Claude Code | `~/.claude/skills/m1racle-visual-director` |
+| OpenCode | `~/.config/opencode/skills/m1racle-visual-director` |
+| Cursor | `~/.cursor/skills/m1racle-visual-director` |
+| CodeBuddy | `~/.codebuddy/skills/m1racle-visual-director` |
+| WorkBuddy | `~/.workbuddy/skills/m1racle-visual-director` |
+| Gemini CLI | `~/.gemini/skills/m1racle-visual-director` |
+| GitHub Copilot | `~/.copilot/skills/m1racle-visual-director` |
+
+The Skills CLI maintains its own supported Agent list and paths; these paths describe the Python fallback.
+
+## Validation
 
 ```bash
 python scripts/validate_skill.py
+python scripts/test_install.py
 ```
 
-> 静态通过仅证明 Skill 结构与规则样例有效，不代表真实 Agent 生图能力已验证。Skill 本身不包含图像模型；需要宿主提供图像生成与编辑工具。
+Expected: `STATIC CHECK: PASS` and `INSTALL SMOKE TESTS: PASS`. Static fixtures do **not** exercise Agent judgment or image quality. Confirm the Agent discovers the installed skill (CodeBuddy: `/skills`) and has a connected image-generation tool before expecting real images.
 
-## 版本
+## Usage
 
-1.0.0 · 初版
+> Use m1racle-visual-director to create a 16:9 ancient Chinese mountain city; choose an appropriate style automatically.
+
+> Treat my uploaded images only as style references; make a new scene rather than copying the landmarks.
+
+> Turn this exact photo into banknote intaglio engraving while preserving its architecture and composition.
+
+## Scope and limitations
+
+This repository supplies **routing, style selection, prompt design, and visual QA instructions**. It does not bundle an image model, image API key, or paid generation service. A bare URL cannot install software by itself in an Agent without network/filesystem/terminal permissions. Do not claim actual generation or successful installation unless verified.

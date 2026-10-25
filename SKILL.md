@@ -1,10 +1,10 @@
 ---
-name: visual-art-director
+name: m1racle-visual-director
 description: 自动规划图片生成与再创作：适用于文字生图、根据上传照片/插画生成新图、图生图重绘、风格迁移、局部改图、多参考图融合，以及用户要求自动推荐画风的任务。先判定参考图是内容、风格、构图还是编辑目标，再依据用途、主体、视觉传达和保真要求选画风，生成或编辑图片并检查结果。不用于纯图片识别问答、无需改动的图像检索、可编辑源文件和数据图表制作。
 compatibility: 可用于支持 Agent Skills 的图像生成 Agent；执行依赖宿主提供可用的图像生成/编辑工具和对附件的访问能力，无需额外 Python 依赖。
 metadata:
   author: m1racle
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Visual Art Director | 智能视觉导演
