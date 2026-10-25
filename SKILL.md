@@ -1,5 +1,7 @@
 ---
 name: m1racle-visual-director
+disable-model-invocation: true
+user-invocable: true
 description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visual Director 时启用。固定复现超精细钢版雕刻、纸币凹版印刷及 Guilloché 防伪曲线风格，支持直接文字生图、参考图再创作和原图改绘。不得自动接管普通生图，不在水墨、摄影、3D 等风格之间重新竞选。
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
