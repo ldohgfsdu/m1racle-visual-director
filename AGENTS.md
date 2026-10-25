@@ -1,10 +1,10 @@
-# Agent instructions for M1racle Visual Director v1.4.0
+# Agent instructions for M1racle Visual Director v1.4.1
 
 This is a **fixed-style** engraved-image Agent Skill and is **explicitly invoked**, not a universal image style router.
 
-## Installation
+## Installation and updating
 
-When a user asks to install this GitHub URL, **prefer a short, bounded archive download**: fetch `https://raw.githubusercontent.com/ldohgfsdu/m1racle-visual-director/main/scripts/quick_install.py` with a 10-second timeout, then run `python quick_install.py --agent <agent> --force`. The standalone downloader honors the cloud execution environment's HTTPS_PROXY/HTTP_PROXY, can accept `--proxy`, `--mirror-url` for an explicitly trusted HTTPS mirror, and `--archive-file` for offline ZIP. Its defaults are 8 seconds per host and 24 seconds download budget. Do not endlessly retry git clone or run an unbounded network command. If script fetch fails, say so promptly and offer an actually reachable mirror or offline archive; NEVER invent a Gitee mirror URL. `npx skills add` and `python scripts/install.py` remain backup methods. Verify installed `SKILL.md` and run `python scripts/validate_skill.py`. Respect the **actual** runtime skill-scanning directory: some WorkBuddy sessions scan `~/.codebuddy/skills`.
+**MANDATORY:** Read [INSTALL.md](INSTALL.md) fully and follow its single short-bounded ZIP path. Do **not** use `git clone` in any form as automatic fallback, even if a third-party proxy works; do not run the old `scripts/install.py` on a freshly cloned repository. Do not wait 150 seconds, repeatedly retry dead endpoints, run redundant development test suites on user install, or recommend `scripts/package_workbuddy.py` (removed). Third-party mirrors require explicit user trust, and raw-file availability does not prove archive availability. A cloud Skill installation does not imply mobile account-level Skill registration.
 
 ## Runtime use
 
