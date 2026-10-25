@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Offline tests: archive installer, malicious ZIP rejection, proxy validation and idempotency."""
 import io
+import hashlib
 import importlib.util
 import tempfile
 import zipfile
@@ -31,28 +32,49 @@ def test():
         stage.mkdir()
         module.unpack(data, stage)
         assert module.valid(stage)
-        assert module.main(["--agent", "codex", "--archive-file", str(root / "package.zip"), "--home", str(root / "user")]) == 1 if False else True
+        assert module.main(["--agent", "codex", "--archive-file", str(root / "package.zip"), "--home", str(root / "user")]) == 2
         archive = root / "package.zip"
         archive.write_bytes(data)
         home = root / "user"
-        assert module.main(["--agent", "codex", "--agent", "codebuddy", "--archive-file", str(archive), "--home", str(home)]) == 0
-        skill = home / ".agents/skills" / NAME
+        sha = hashlib.sha256(data).hexdigest()
+        def offline(*args):
+            return module.main([*args, "--expected-sha256", sha])
+        assert offline("--agent", "codex", "--agent", "codebuddy", "--archive-file", str(archive), "--home", str(home)) == 0
+        skill = home / ".codex/skills" / NAME
         assert (skill / "gallery/samples/blue.svg").is_file()
         (skill / "keep.txt").write_text("preserve")
         assert module.main(["--agent", "codex", "--home", str(home), "--doctor"]) == 0
-        assert module.main(["--agent", "codex", "--home", str(home), "--archive-file", str(archive)]) == 0
+        assert offline("--agent", "codex", "--home", str(home), "--archive-file", str(archive)) == 0
         assert (skill / "keep.txt").exists()
-        assert module.main(["--agent", "codex", "--home", str(home), "--archive-file", str(archive), "--force"]) == 0
+        assert offline("--agent", "codex", "--home", str(home), "--archive-file", str(archive), "--force") == 0
         assert not (skill / "keep.txt").exists()
-        assert module.main(["--agent", "workbuddy", "--archive-file", str(archive),
-                            "--scope", "project", "--project-dir", str(root)]) == 0
+        assert offline("--agent", "workbuddy", "--archive-file", str(archive),
+                       "--scope", "project", "--project-dir", str(root)) == 0
         assert (root / ".workbuddy/skills" / NAME / "SKILL.md").is_file()
-        assert module.main(["--agent", "invalid", "--archive-file", str(archive)]) != 0 if False else True
+        try:
+            module.main(["--agent", "invalid", "--archive-file", str(archive)])
+            raise AssertionError("Invalid agent was accepted")
+        except SystemExit as error:
+            assert error.code == 2
         with zipfile.ZipFile(io.BytesIO(package(("../escape.txt", "bad")))) as z:
             assert "../escape.txt" in z.namelist()
         try:
             module.unpack(package((NAME + "-main/../../escape.txt", "bad")), root / "invalid")
             raise AssertionError("Traversal not rejected")
+        except ValueError:
+            pass
+        for attack in ("D:/escape.txt", "D:escape.txt", "C:/escape.txt", "folder:stream.txt", "CON.txt"):
+            try:
+                module.unpack(package((NAME + "-main/" + attack, "bad")), root / "evil")
+                raise AssertionError("Unsafe ZIP path accepted: " + attack)
+            except ValueError:
+                pass
+        damaged = io.BytesIO()
+        with zipfile.ZipFile(damaged, "w") as z:
+            z.writestr(NAME + "-main/SKILL.md", "name: m1racle-visual-director")
+        try:
+            module.unpack(damaged.getvalue(), root / "broken")
+            raise AssertionError("Broken skill package was accepted")
         except ValueError:
             pass
         try:
@@ -64,6 +86,8 @@ def test():
             assert module.main(["--agent", "gemini-cli", "--home", str(root / "empty"),
                                 "--timeout", "1", "--max-seconds", "3"]) == 1
             assert mock.call_count >= 1
+        archive.write_bytes(data + b"tampered")
+        assert offline("--agent", "codex", "--archive-file", str(archive), "--home", str(root / "fresh")) == 1
 
 if __name__ == "__main__":
     test()
