@@ -1,81 +1,56 @@
-# M1racle Visual Director
+# M1racle Visual Director — Engraving Edition
 
-[中文使用指南](使用指南.md) · [Agent Skills 规范](https://agentskills.io/specification) · **v1.1.0**
+**固定风格 · 指定调用 · 直接出图**。本 Skill 专门生成19世纪**钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线**风格，不是通用的“自动选画风”工具。
 
-A portable AI image-art-direction skill: automatically choose text-to-image, reference-based generation, full-image transformation, local editing, or multi-image composition. Select visual styles based on the user's actual goal instead of applying one fixed aesthetic.
+## 一句话安装
 
-**Includes:** 5 routes · 17 style families · L0–L3 preservation · 24 behavior fixtures · Guilloché / steel-plate banknote engraving.
+把仓库链接发给支持安装 Skill 的 Agent：
 
-## Give the repository URL to your Agent
+> 帮我安装这个 Skill：https://github.com/ldohgfsdu/m1racle-visual-director
 
-Send this sentence to a coding Agent with terminal/repository access:
-
-> Install https://github.com/ldohgfsdu/m1racle-visual-director as a user-level Agent Skill for your own Agent. Use the standard Skills CLI when available. Verify the installed SKILL.md and run the validator. Then tell me which image-generation/editing tools you can actually use.
-
-### One-line install (Node.js 22.20+)
+或使用支持多 Agent 的安装器：
 
 ```bash
 npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -y
 ```
 
-Specify an Agent as needed, e.g.:
+没有 Node.js 时可克隆仓库并使用 `python scripts/install.py --agent codebuddy --scope global`（根据实际 Agent 调整）。安装目录名称必须为 `m1racle-visual-director`。
 
-```bash
-npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a codex -y
-npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a claude-code -y
-npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a opencode -y
-npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a cursor -y
-npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -a codebuddy -y
-```
+## 使用示例
 
-Pass multiple `-a` switches for more than one Agent. Without `-g`, installation is project-local. No renaming after cloning: repository folder and SKILL.md name are both **m1racle-visual-director**.
+**直接文字生图**
 
-### Python fallback (no Node.js, including WorkBuddy)
+> 使用 $m1racle-visual-director，生成一张古代中国山城，16:9，直接出图。
 
-Clone/download this repository and, from its root, run:
+**上传图片转雕刻**
 
-```bash
-python scripts/install.py --agent workbuddy --scope global
-python scripts/install.py --agent codex --agent claude-code --agent codebuddy --scope global
-python scripts/install.py --agent opencode --scope global --doctor
-```
+> 使用 $m1racle-visual-director，把这张照片转成蓝色纸币钢版雕刻，保留主体与构图，直接出图。
 
-Python 3.9+ standard library only. For project-level installs: `--scope project --project-dir /path/to/project`. Existing installations are preserved unless `--force` is given. Inspect options with `python scripts/install.py --help`.
+**只借鉴参考图风格**
 
-## Installation directories (fallback script)
+> 使用 $m1racle-visual-director，只参考图1的细线和 Guilloché 曲线，画一座新的未来城市，不复制原图建筑。
 
-| Agent | Global destination |
-|---|---|
-| Codex | `~/.agents/skills/m1racle-visual-director` |
-| Claude Code | `~/.claude/skills/m1racle-visual-director` |
-| OpenCode | `~/.config/opencode/skills/m1racle-visual-director` |
-| Cursor | `~/.cursor/skills/m1racle-visual-director` |
-| CodeBuddy | `~/.codebuddy/skills/m1racle-visual-director` |
-| WorkBuddy | `~/.workbuddy/skills/m1racle-visual-director` |
-| Gemini CLI | `~/.gemini/skills/m1racle-visual-director` |
-| GitHub Copilot | `~/.copilot/skills/m1racle-visual-director` |
+**黑白版画变体**
 
-GitHub **Download ZIP** usually extracts as `m1racle-visual-director-main`. This is a distribution folder, not a direct Agent installation directory. Run the standard CLI or `scripts/install.py` to place files under the canonical skill name.
+> 使用 $m1racle-visual-director，生成古希腊神庙的黑白钢版雕刻。
 
-The Skills CLI maintains its own supported Agent list and paths; these paths describe the Python fallback.
+普通“生成图片”或者“帮我选画风”请求**不应**自动调用此 Skill；宿主 Agent 的真实加载行为需在各自平台测试。
 
-## Validation
+## 特性与边界
+
+- 只支持**固定雕刻风格族**，可选蓝色彩墨或古典黑白，不会自动切水墨/摄影/3D。
+- 支持文字生图和参考图再创作、原图改绘、局部编辑与多图合成。
+- 显式要求出图且工具可用时**直接生成**，不先做长篇规划，也不强制用户再次说“生成”。
+- 不自带图像模型或额度。真实图像工具若要求费用/权限确认，必须遵守。
+- 由工具能力决定输入图支持程度、输出分辨率与质量。
+
+## 检查
 
 ```bash
 python scripts/validate_skill.py
 python scripts/test_install.py
 ```
 
-Expected: `STATIC CHECK: PASS` and `INSTALL SMOKE TESTS: PASS`. Static fixtures do **not** exercise Agent judgment or image quality. Confirm the Agent discovers the installed skill (CodeBuddy: `/skills`) and has a connected image-generation tool before expecting real images.
+静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
 
-## Usage
-
-> Use m1racle-visual-director to create a 16:9 ancient Chinese mountain city; choose an appropriate style automatically.
-
-> Treat my uploaded images only as style references; make a new scene rather than copying the landmarks.
-
-> Turn this exact photo into banknote intaglio engraving while preserving its architecture and composition.
-
-## Scope and limitations
-
-This repository supplies **routing, style selection, prompt design, and visual QA instructions**. It does not bundle an image model, image API key, or paid generation service. A bare URL cannot install software by itself in an Agent without network/filesystem/terminal permissions. Do not claim actual generation or successful installation unless verified.
+v1.2.0

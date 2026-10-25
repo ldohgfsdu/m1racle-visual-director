@@ -1,4 +1,4 @@
 interface:
-  display_name: "M1racle Visual Director"
-  short_description: "自动选画风，区分文字生图、参考再创作与精准编辑"
-  default_prompt: "使用 $m1racle-visual-director 处理这个图像创作任务：先判断参考图的作用和应保留的元素，再选适合的风格，完成生成或编辑并检查质量。"
+  display_name: "M1racle Engraving"
+  short_description: "显式调用：超精细纸币钢版雕刻与 Guilloché 生图"
+  default_prompt: "使用 $m1racle-visual-director，将我指定的内容直接生成精细纸币钢版雕刻图片；有上传图时按我的保留约束做再创作。"

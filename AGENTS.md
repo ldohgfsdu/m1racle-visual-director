@@ -1,14 +1,17 @@
-# Instructions to coding Agents: M1racle Visual Director repository
+# Agent instructions for M1racle Visual Director v1.2.0
 
-This repository itself is a single, root-level Agent Skill, not an image-generation API.
+This is a **fixed-style** engraved-image Agent Skill and is **explicitly invoked**, not a universal image style router.
 
-When the user supplies its GitHub URL and asks you to install it:
+## Installation
 
-1. Confirm source: https://github.com/ldohgfsdu/m1racle-visual-director
-2. Install **for the running Agent** at user scope with `npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -y`. Add `-a codex`, `-a claude-code`, `-a opencode`, `-a cursor`, or `-a codebuddy` if detection is ambiguous.
-3. When Node.js is unavailable, clone/download the repository, then run `python scripts/install.py --agent <agent> --scope global`. WorkBuddy uses `--agent workbuddy`.
-4. Verify that the installed directory contains `SKILL.md`, `references/`, `evals/` and `scripts/`; run the installed `scripts/validate_skill.py`. Confirm Agent discovery where possible.
-5. Install only for the Agent(s) the user requests. Do not silently replace unrelated user files or enable paid API services.
-6. This skill does not include an image-generation model. Check for actual available image tools; never claim an image was generated unless it was.
+When user asks to install this URL, prefer `npx skills add https://github.com/ldohgfsdu/m1racle-visual-director -g -y`; without Node, clone and use `python scripts/install.py --agent <agent> --scope global`. Verify installed `SKILL.md` and run `python scripts/validate_skill.py`. Respect the **actual** runtime skill-scanning directory: some WorkBuddy sessions scan `~/.codebuddy/skills`.
 
-When modifying this repository: `name: m1racle-visual-director` must agree with the default checkout folder. Run `python scripts/validate_skill.py` and `python scripts/test_install.py` before publishing.
+## Runtime use
+
+Only apply this Skill when user explicitly names `$m1racle-visual-director` or selects M1racle Visual Director. A generic image request is **not** consent to apply the fixed engraving style. Do not recommend or choose from watercolor, ink-wash, 3D, cinematic, etc. The default style is blue steel-plate/intaglio engraving with Guilloché; black-and-white is a variant of the same style family.
+
+If the user explicitly requests an image, **call an available image generation tool directly** and return the output. Do not stop after a written art-direction plan, unless user requested planning or actual platform/tool requirements mandate authorization. Preserve user-specified image content and edit boundaries. Don't invent credits, tools, arguments, generated files or successes.
+
+## Development
+
+Keep repository folder and metadata `name` identical. Run `python scripts/validate_skill.py` and `python scripts/test_install.py`. Static file checks are not live agent behavior/image-quality tests.

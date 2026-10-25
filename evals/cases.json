@@ -1,290 +1,312 @@
 {
-  "version": "1.0.0",
-  "purpose": "Human/LLM eval fixtures; expected outcomes are assertions, not completed runs",
+  "schema_version": "1.2.0",
   "cases": [
     {
       "id": "E01",
-      "request": "画一个古代中国山城，要有庙宇、古桥、河上的帆船和远处群山。",
+      "request": "使用 $m1racle-visual-director，生成中国古代山城，16:9，直接出图",
       "expected_route": "T2I",
-      "expected_style": "ink-wash",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "不因中国题材改选水墨",
       "required_evidence": [
-        "古代中国山城",
-        "庙宇",
-        "古桥",
-        "帆船",
-        "群山"
-      ],
-      "guardrail": "可按意境选择水墨，但若用户要更多建筑细节可改工笔或雕刻；不可固定纸币风"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E02",
-      "request": "参照这8张纸币雕刻图的风格，生成一座新的中国山城。",
-      "expected_route": "REF-CREATE",
+      "request": "调用 m1racle-visual-director 画一座未来城市",
+      "expected_route": "T2I",
       "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "未来城市也要保持雕刻风格",
       "required_evidence": [
-        "源图只提供风格",
-        "新中国山城",
-        "细密刻线",
-        "Guilloché"
-      ],
-      "guardrail": "不得复刻原有富士山、港口或雅典城"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E03",
-      "request": "把我上传的城市照片变成蓝色纸币雕刻，建筑布局不要变。",
-      "expected_route": "TRANSFORM",
-      "expected_style": "banknote-intaglio",
+      "request": "使用 $m1racle-visual-director，画黑白古典钢版希腊神庙",
+      "expected_route": "T2I",
+      "expected_style": "steel-engraving-mono",
+      "expected_active": true,
+      "guardrail": "黑白属于同一雕刻族",
       "required_evidence": [
-        "原建筑",
-        "原城市",
-        "布局",
-        "深蓝线条"
-      ],
-      "guardrail": "不能擅自换一座城市"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E04",
-      "request": "把照片左上角的游客擦掉，其他完全不变。",
-      "expected_route": "LOCAL-EDIT",
-      "expected_style": null,
+      "request": "使用 $m1racle-visual-director 生成海边灯塔，直接生成",
+      "expected_route": "T2I",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "不先输出规划长文",
       "required_evidence": [
-        "仅删除游客",
-        "背景填补",
-        "原图其他区域"
-      ],
-      "guardrail": "必须最小修改"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E05",
-      "request": "把第一张图的商品放进第二张图的白色摄影棚里。",
-      "expected_route": "COMPOSITE",
-      "expected_style": "photo-studio-product",
+      "request": "使用 $m1racle-visual-director，生成古城的完整提示词，不要出图",
+      "expected_route": "T2I",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "只要提示词不调用模型",
       "required_evidence": [
-        "图1商品",
-        "图2背景",
-        "尺度",
-        "阴影"
-      ],
-      "guardrail": "不得改造商品商标和外形"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E06",
-      "request": "生成一张用于卖手机壳的真实商品主图。",
+      "request": "使用 $m1racle-visual-director，画一张彩色雕刻的木星",
       "expected_route": "T2I",
-      "expected_style": "photo-studio-product",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "保留防伪曲线和排线",
       "required_evidence": [
-        "手机壳外观",
-        "清楚材质",
-        "摄影光源"
-      ],
-      "guardrail": "不应选电影剧照、纸币雕刻"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E07",
-      "request": "画一张展现古希腊围城战的黑白钢版雕刻。",
-      "expected_route": "T2I",
-      "expected_style": "steel-engraving-mono",
+      "request": "使用 $m1racle-visual-director，只参考图1画风，画新中国山城",
+      "expected_route": "REF-CREATE",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "不复制原图建筑",
       "required_evidence": [
-        "围城场景",
-        "古典黑白刻线"
-      ],
-      "guardrail": "明确风格优先"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E08",
-      "request": "用参考照片的背景颜色和第二张照片的机位拍摄一栋全新的建筑。",
+      "request": "使用 $m1racle-visual-director，参照图1配色画一座新港湾",
       "expected_route": "REF-CREATE",
-      "expected_style": "archviz",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "只借用限制色彩",
       "required_evidence": [
-        "图1仅配色",
-        "图2仅机位",
-        "全新建筑"
-      ],
-      "guardrail": "不套用原有建筑设计"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E09",
-      "request": "把这张人像照片画成古典水彩肖像，人物五官和姿态别变。",
-      "expected_route": "TRANSFORM",
-      "expected_style": "watercolor-gouache",
+      "request": "使用 $m1racle-visual-director，参照图1线条画全新黑白古典人物",
+      "expected_route": "REF-CREATE",
+      "expected_style": "steel-engraving-mono",
+      "expected_active": true,
+      "guardrail": "不复制原图人物",
       "required_evidence": [
-        "五官",
-        "发型",
-        "姿态"
-      ],
-      "guardrail": "不能随机替换人物"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E10",
-      "request": "保留我的Logo，换成黑底并将外框改为圆角。",
-      "expected_route": "LOCAL-EDIT",
-      "expected_style": null,
+      "request": "使用 $m1racle-visual-director，以图1为风格、图2为构图，画新城",
+      "expected_route": "REF-CREATE",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "分清每张图角色",
       "required_evidence": [
-        "母标原样",
-        "黑底",
-        "仅改外框"
-      ],
-      "guardrail": "Logo图形不得重绘变形"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E11",
-      "request": "让图一的人坐在图二的咖啡馆，沿用图三的夜景光感。",
-      "expected_route": "COMPOSITE",
-      "expected_style": "photo-cinematic",
+      "request": "使用 $m1racle-visual-director，将这张城市照片变成蓝色纸币雕刻",
+      "expected_route": "TRANSFORM",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "主体和建筑布局保持",
       "required_evidence": [
-        "图一人物",
-        "图二室内",
-        "图三光感"
-      ],
-      "guardrail": "不能把三个人物合并"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E12",
-      "request": "做一张文章封面：孤独、抽象、不要字。",
-      "expected_route": "T2I",
-      "expected_style": "editorial-ink",
+      "request": "使用 $m1racle-visual-director，把这张猫照片变成黑白雕刻",
+      "expected_route": "TRANSFORM",
+      "expected_style": "steel-engraving-mono",
+      "expected_active": true,
+      "guardrail": "猫姿势和外观保持",
       "required_evidence": [
-        "孤独气氛",
-        "无字",
-        "封面视觉主次"
-      ],
-      "guardrail": "不能强迫写实摄影"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E13",
-      "request": "画一个写实的心脏解剖结构示意图，适合医学学习。",
-      "expected_route": "T2I",
-      "expected_style": "scientific-plate",
+      "request": "使用 $m1racle-visual-director，将这张山水照改成版画，别变机位",
+      "expected_route": "TRANSFORM",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "禁止改变视角",
       "required_evidence": [
-        "心脏主要结构",
-        "清晰可读"
-      ],
-      "guardrail": "不能伪称已核查医学解剖准确性"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E14",
-      "request": "参考这张照片里人物的穿搭，画完全不同的人在城市街头。",
-      "expected_route": "REF-CREATE",
-      "expected_style": "photo-documentary",
+      "request": "使用 $m1racle-visual-director，只修改现有雕刻图右下角的船",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "其他区域保持",
       "required_evidence": [
-        "参考图仅提供穿搭",
-        "新人物",
-        "城市场景"
-      ],
-      "guardrail": "原人物身份不继承"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E15",
-      "request": "把这张照片变成像素游戏场景，主体位置保持。",
-      "expected_route": "TRANSFORM",
-      "expected_style": "pixel-art",
+      "request": "使用 $m1racle-visual-director，只修正雕刻人物的手指",
+      "expected_route": "LOCAL-EDIT",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "不全图重绘",
       "required_evidence": [
-        "相同主体位置",
-        "像素语言"
-      ],
-      "guardrail": "不可改成全新构图"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E16",
-      "request": "把手上的戒指去掉，但脸、姿势、背景不动。",
+      "request": "使用 $m1racle-visual-director，把已有纸币雕刻图里的小树换成石头",
       "expected_route": "LOCAL-EDIT",
-      "expected_style": null,
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "改动仅指定区域",
       "required_evidence": [
-        "戒指删除",
-        "脸",
-        "姿势",
-        "背景"
-      ],
-      "guardrail": "不得换脸"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E17",
-      "request": "从零生成一张原木和奶油色调的温暖童书森林插画。",
-      "expected_route": "T2I",
-      "expected_style": "watercolor-gouache",
+      "request": "使用 $m1racle-visual-director，把图1人物放图2场景，整体蓝色雕刻",
+      "expected_route": "COMPOSITE",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "人物和背景源分别保真",
       "required_evidence": [
-        "童书阅读",
-        "森林",
-        "暖色"
-      ],
-      "guardrail": "不应选偏冷电影摄影"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E18",
-      "request": "为我的写作App做一个极简图标，必须沿用我提供的M母标。",
-      "expected_route": "REF-CREATE",
-      "expected_style": "editorial-vector",
+      "request": "使用 $m1racle-visual-director，把图1山峰与图2古桥合成黑白雕刻",
+      "expected_route": "COMPOSITE",
+      "expected_style": "steel-engraving-mono",
+      "expected_active": true,
+      "guardrail": "源图职责清晰",
       "required_evidence": [
-        "原母标完整不变",
-        "极简",
-        "图标对比度"
-      ],
-      "guardrail": "如果不能精确合成源母标要指出能力限制"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E19",
-      "request": "解释我发的照片是什么画风，先不要生成新图片。",
-      "expected_route": null,
-      "expected_style": null,
+      "request": "调用 m1racle-visual-director，将图1古桥和图2舟船组合成纸币雕刻",
+      "expected_route": "COMPOSITE",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "不要引入其他物件",
       "required_evidence": [
-        "只做风格分析"
-      ],
-      "guardrail": "不应执行生图"
+        "explicit_invocation",
+        "route_decision",
+        "engraving_style"
+      ]
     },
     {
       "id": "E20",
-      "request": "帮我找一张京都金阁寺的真实照片，不要画。",
-      "expected_route": null,
+      "request": "生成一张中国山城，给我选合适的画风",
+      "expected_route": "NONE",
       "expected_style": null,
+      "expected_active": false,
+      "guardrail": "没指定本Skill不得自动启用",
       "required_evidence": [
-        "检索原始图片"
-      ],
-      "guardrail": "不应执行生图"
+        "no_skill_invocation",
+        "inactive_route"
+      ]
     },
     {
       "id": "E21",
-      "request": "给我写出可复制的提示词，不需要你现在生图。",
-      "expected_route": "T2I",
+      "request": "生成一张水墨画",
+      "expected_route": "NONE",
       "expected_style": null,
+      "expected_active": false,
+      "guardrail": "不能抢占不相关画风请求",
       "required_evidence": [
-        "只交提示词",
-        "不调用生图工具"
-      ],
-      "guardrail": "route=T2I 仅指将来生成路线"
+        "no_skill_invocation",
+        "inactive_route"
+      ]
     },
     {
       "id": "E22",
-      "request": "按这张自拍原照片修一下背景中的杂物，人完全别动。",
-      "expected_route": "LOCAL-EDIT",
+      "request": "生成未来城市科幻概念图",
+      "expected_route": "NONE",
       "expected_style": null,
+      "expected_active": false,
+      "guardrail": "不自动拦截普通生图",
       "required_evidence": [
-        "不改人物",
-        "移除杂物"
-      ],
-      "guardrail": "工具缺乏编辑输入就不能声称精准保留"
+        "no_skill_invocation",
+        "inactive_route"
+      ]
     },
     {
       "id": "E23",
-      "request": "从参考图中提取纸币雕刻的线条规则，帮我创作一张新医学插画。",
-      "expected_route": "REF-CREATE",
-      "expected_style": "banknote-intaglio",
+      "request": "把上传的照片修一下背景",
+      "expected_route": "NONE",
+      "expected_style": null,
+      "expected_active": false,
+      "guardrail": "不自动接管编辑",
       "required_evidence": [
-        "保留参考雕刻机制",
-        "新医学插画",
-        "结构清楚"
-      ],
-      "guardrail": "不能未经核验填医学结构或标签"
+        "no_skill_invocation",
+        "inactive_route"
+      ]
     },
     {
       "id": "E24",
-      "request": "画一张企业季度营收精确折线图，要求可以编辑Excel数据。",
-      "expected_route": null,
+      "request": "帮我从十种风格中挑最适合的做海报",
+      "expected_route": "NONE",
       "expected_style": null,
+      "expected_active": false,
+      "guardrail": "本Skill不负责任意选风",
       "required_evidence": [
-        "精确图表",
-        "可编辑Excel"
-      ],
-      "guardrail": "静态生图skill不应启用"
+        "no_skill_invocation",
+        "inactive_route"
+      ]
     }
   ]
 }

@@ -1,96 +1,59 @@
 #!/usr/bin/env python3
-"""Static, dependency-free validation of the m1racle-visual-director Skill.
-
-This does not test agent intelligence or generated image fidelity.
-"""
-from __future__ import annotations
-
-import json
-import re
-import sys
-from collections import Counter
+"""Dependency-free validation for the explicitly invoked, fixed-style engraving skill."""
 from pathlib import Path
+from collections import Counter
+import json,re,sys
 
-ROOT = Path(__file__).resolve().parents[1]
-ALLOWED_ROUTES = {None, 'T2I', 'REF-CREATE', 'TRANSFORM', 'LOCAL-EDIT', 'COMPOSITE'}
-STYLE_IDS = {
-    'photo-documentary', 'photo-studio-product', 'photo-cinematic', 'archviz',
-    'editorial-vector', 'editorial-ink', 'soft-3d', 'isometric',
-    'watercolor-gouache', 'ink-wash', 'gongbi', 'banknote-intaglio',
-    'steel-engraving-mono', 'woodcut', 'scientific-plate', 'pixel-art',
-    'typographic-poster',
-}
+ROOT=Path(__file__).resolve().parents[1]
+NAME='m1racle-visual-director'
+ROUTES={'NONE','T2I','REF-CREATE','TRANSFORM','LOCAL-EDIT','COMPOSITE'}
+STYLES={None,'banknote-intaglio','steel-engraving-mono'}
 
 def verify():
-    errors = []
-    manifest = ROOT / 'SKILL.md'
-    if not manifest.is_file():
-        return ['Missing SKILL.md']
-    raw = manifest.read_text(encoding='utf-8')
-    fm = re.match(r'\A---\n(.*?)\n---\n', raw, re.S)
-    if not fm:
-        return ['Missing YAML frontmatter']
-    name_match = re.search(r'^name:\s*(.+)$', fm[1], re.M)
-    desc_match = re.search(r'^description:\s*(.*)$', fm[1], re.M)
-    name = name_match[1].strip() if name_match else None
-    desc = desc_match[1].strip() if desc_match else ''
-    if not name or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name):
-        errors.append(f'Invalid name: {name}')
-    archive_checkout = bool(name and (ROOT.name in (f'{name}-main', f'{name}-master') or
-        re.fullmatch(rf'{re.escape(name)}-[0-9a-f]{{7,40}}', ROOT.name)))
-    # GitHub ZIP archives have a branch/commit suffix; these are distribution
-    # directories, not direct skill installation targets.
-    if name != ROOT.name and not archive_checkout:
-        errors.append(f'Directory/name mismatch: {ROOT.name} != {name}')
-    if not 1 <= len(desc) <= 1024:
-        errors.append(f'Description length invalid: {len(desc)}')
-    # Verify references declared in main skill point to on-disk files.
-    for href in re.findall(r'\]\((references/[^)#]+|evals/[^)#]+)\)', raw):
-        if not (ROOT / href).is_file():
-            errors.append(f'Broken link: {href}')
-    tests = ROOT / 'evals/cases.json'
-    if not tests.is_file():
-        return errors + ['Missing cases.json']
-    try:
-        data = json.loads(tests.read_text(encoding='utf-8'))
-        cases = data['cases']
-    except (ValueError, KeyError) as exc:
-        return errors + [f'Invalid cases JSON: {exc}']
-    ids = set()
-    counts = Counter()
+    errors=[]
+    path=ROOT/'SKILL.md'
+    if not path.exists(): return ['SKILL.md missing']
+    raw=path.read_text('utf-8')
+    fm=re.match(r'\A---\n(.*?)\n---\n',raw,re.S)
+    if not fm:return ['YAML frontmatter missing']
+    match=re.search(r'^name:\s*(\S+)',fm[1],re.M)
+    name=match[1] if match else None
+    desc=re.search(r'^description:\s*(.+)',fm[1],re.M)
+    if name!=NAME:errors.append(f'Expected name {NAME}, got {name}')
+    suffix=bool(re.fullmatch(re.escape(NAME)+r'-(?:main|master|[0-9a-f]{7,40})',ROOT.name))
+    if ROOT.name!=NAME and not suffix:errors.append(f'Directory/name mismatch: {ROOT.name} != {NAME}')
+    if not desc or not 1<=len(desc[1])<=1024:errors.append('Missing/invalid description')
+    for path in re.findall(r'\]\((references/[^)#]+|evals/[^)#]+)\)',raw):
+        if not (ROOT/path).is_file():errors.append(f'Broken link: {path}')
+    for term in ['显式','不自动','T2I','REF-CREATE','TRANSFORM','LOCAL-EDIT','COMPOSITE','Guilloché','直接']:
+        if term not in raw:errors.append(f'Missing policy token: {term}')
+    try:cases=json.loads((ROOT/'evals/cases.json').read_text('utf-8'))['cases']
+    except (ValueError,KeyError,FileNotFoundError) as exc:return errors+[f'No valid eval cases: {exc}']
+    counts=Counter();ids=set()
     for case in cases:
-        ident = case.get('id')
-        if ident in ids:
-            errors.append(f'Duplicate test id: {ident}')
+        ident=case.get('id');active=case.get('expected_active');route=case.get('expected_route');style=case.get('expected_style')
+        if not ident or ident in ids:errors.append(f'Invalid ID: {ident}')
         ids.add(ident)
-        route = case.get('expected_route')
-        style = case.get('expected_style')
-        if route not in ALLOWED_ROUTES:
-            errors.append(f'{ident} unknown route: {route}')
-        if style is not None and style not in STYLE_IDS:
-            errors.append(f'{ident} unknown style: {style}')
-        if not case.get('request') or not case.get('guardrail'):
-            errors.append(f'{ident} missing request or guardrail')
-        if not isinstance(case.get('required_evidence'), list) or not case['required_evidence']:
-            errors.append(f'{ident} missing required_evidence')
-        counts[route] += 1
-    for route in ALLOWED_ROUTES:
-        if counts[route] < 2:
-            errors.append(f'Insufficient examples for {route}: {counts[route]} (need >=2)')
-    # Check that all primary mode names and all important rules appear in the core instruction.
-    for token in ('T2I', 'REF-CREATE', 'TRANSFORM', 'LOCAL-EDIT', 'COMPOSITE', '保留', '风格', '工具', '验证'):
-        if token not in raw:
-            errors.append(f'Missing critical contract token: {token}')
+        if not isinstance(active,bool):errors.append(f'{ident}: active flag missing')
+        if route not in ROUTES:errors.append(f'{ident}: unexpected route {route}')
+        if style not in STYLES:errors.append(f'{ident}: style not part of engraving family: {style}')
+        if not case.get('request') or not case.get('guardrail') or not case.get('required_evidence'):errors.append(f'{ident}: incomplete case')
+        if active and (route=='NONE' or not style):errors.append(f'{ident}: active must have engraving route and style')
+        if active is False and (route!='NONE' or style is not None):errors.append(f'{ident}: inactive must not route')
+        counts[route]+=1
+    for r in ROUTES:
+        if counts[r]<2:errors.append(f'Route coverage too low: {r} ({counts[r]})')
+    if len(cases)<24:errors.append('Expected at least 24 fixtures')
     return errors
 
-if __name__ == '__main__':
-    failures = verify()
-    if failures:
+if __name__=='__main__':
+    errs=verify()
+    if errs:
         print('STATIC CHECK: FAIL')
-        for failure in failures:
-            print(' -', failure)
+        for x in errs:print(' -',x)
         sys.exit(1)
     print('STATIC CHECK: PASS')
-    print('Skill: m1racle-visual-director')
-    print('Evaluation fixtures:', len(json.loads((ROOT / 'evals/cases.json').read_text(encoding='utf-8'))['cases']))
-    print('NOTE: agent behavior and image quality NOT evaluated by this static check.')
+    print('Skill:',NAME)
+    print('Evaluation fixtures:',len(json.loads((ROOT/'evals/cases.json').read_text('utf-8'))['cases']))
+    print('Contract: explicit invocation, fixed engraving style')
+    print('NOTE: agent invocation and actual image generation not tested')
