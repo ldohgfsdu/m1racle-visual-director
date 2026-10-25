@@ -1,5 +1,14 @@
 # M1racle Visual Director — Engraving Edition
 
+## 在线画廊（手机可直接打开）
+
+真正的浏览器画廊网址（须先在 GitHub 仓库 Settings → Pages 启用 **Deploy from a branch / main / (root)**）：
+
+**https://ldohgfsdu.github.io/m1racle-visual-director/**
+
+注意：GitHub 的 `blob/main/gallery/index.html` 只是代码查看地址，无法预览交互页面。启用 Pages 后无需下载、解压或克隆；保留本地 `gallery/index.html` 供离线使用。本站仅展示两张矢量线条结构示意，不是高精度模型出图成品。
+
+
 **固定风格 · 指定调用 · 直接出图**。本 Skill 专门生成19世纪**钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线**风格，不是通用的“自动选画风”工具。
 
 ## 一句话安装
