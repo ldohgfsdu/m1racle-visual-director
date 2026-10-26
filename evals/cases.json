@@ -208,7 +208,7 @@
       "fixture": [
         {
           "role": "style",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -246,7 +246,7 @@
       "fixture": [
         {
           "role": "style",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -284,7 +284,7 @@
       "fixture": [
         {
           "role": "style",
-          "path": "evals/fixtures/portrait.svg"
+          "path": "evals/fixtures/portrait.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -322,11 +322,11 @@
       "fixture": [
         {
           "role": "style",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         },
         {
           "role": "composition",
-          "path": "evals/fixtures/bridge.svg"
+          "path": "evals/fixtures/bridge.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -364,7 +364,7 @@
       "fixture": [
         {
           "role": "content",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -402,7 +402,7 @@
       "fixture": [
         {
           "role": "content",
-          "path": "evals/fixtures/cat.svg"
+          "path": "evals/fixtures/cat.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -440,7 +440,7 @@
       "fixture": [
         {
           "role": "content",
-          "path": "evals/fixtures/mountain.svg"
+          "path": "evals/fixtures/mountain.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -478,7 +478,7 @@
       "fixture": [
         {
           "role": "edit_base",
-          "path": "evals/fixtures/boat.svg"
+          "path": "evals/fixtures/boat.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -516,7 +516,7 @@
       "fixture": [
         {
           "role": "edit_base",
-          "path": "evals/fixtures/portrait.svg"
+          "path": "evals/fixtures/portrait.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -554,7 +554,7 @@
       "fixture": [
         {
           "role": "edit_base",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -592,11 +592,11 @@
       "fixture": [
         {
           "role": "subject",
-          "path": "evals/fixtures/portrait.svg"
+          "path": "evals/fixtures/portrait.png"
         },
         {
           "role": "background",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -634,11 +634,11 @@
       "fixture": [
         {
           "role": "subject",
-          "path": "evals/fixtures/mountain.svg"
+          "path": "evals/fixtures/mountain.png"
         },
         {
           "role": "background",
-          "path": "evals/fixtures/bridge.svg"
+          "path": "evals/fixtures/bridge.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -676,11 +676,11 @@
       "fixture": [
         {
           "role": "subject",
-          "path": "evals/fixtures/bridge.svg"
+          "path": "evals/fixtures/bridge.png"
         },
         {
           "role": "background",
-          "path": "evals/fixtures/boat.svg"
+          "path": "evals/fixtures/boat.png"
         }
       ],
       "expected_status": "GENERATED_AND_REVIEWED",
@@ -782,7 +782,7 @@
       "fixture": [
         {
           "role": "content",
-          "path": "evals/fixtures/town.svg"
+          "path": "evals/fixtures/town.png"
         }
       ],
       "expected_status": "NOT_INVOKED",

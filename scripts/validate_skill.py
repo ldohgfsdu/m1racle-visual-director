@@ -6,7 +6,8 @@ import argparse
 import json
 import re
 import sys
-import xml.etree.ElementTree as ET
+import struct
+import zlib
 from collections import Counter
 from pathlib import Path
 
@@ -112,11 +113,35 @@ def verify(root: Path = None):
                 errors.append(str(ident) + ": unsafe fixture path")
                 continue
             try:
-                xml = ET.parse(root / rel).getroot()
-                if xml.tag != "{http://www.w3.org/2000/svg}svg":
-                    errors.append(str(ident) + ": not an SVG fixture")
-            except (OSError, ET.ParseError) as exc:
-                errors.append(str(ident) + ": damaged fixture " + rel + ": " + str(exc))
+                if not rel.endswith(".png"):
+                    errors.append(str(ident) + ": fixture must be PNG bitmap")
+                    continue
+                content = (root / rel).read_bytes()
+                if not content.startswith(b"\x89PNG\r\n\x1a\n") or len(content) < 45:
+                    errors.append(str(ident) + ": invalid PNG signature")
+                    continue
+                pos = 8
+                ids = []
+                while pos + 12 <= len(content):
+                    length = struct.unpack_from(">I", content, pos)[0]
+                    tag = content[pos + 4:pos + 8]
+                    if length > len(content) - pos - 12:
+                        raise ValueError("truncated PNG chunk")
+                    body = content[pos + 8:pos + 8 + length]
+                    digest = struct.unpack_from(">I", content, pos + 8 + length)[0]
+                    if (zlib.crc32(tag + body) & 0xffffffff) != digest:
+                        raise ValueError("PNG CRC mismatch")
+                    ids.append(tag)
+                    pos += 12 + length
+                    if tag == b"IEND":
+                        break
+                if ids[:2] != [b"IHDR", b"IDAT"] or ids[-1:] != [b"IEND"] or pos != len(content):
+                    raise ValueError("PNG missing required chunks")
+                width, height = struct.unpack_from(">II", content, 16)
+                if not (64 <= width <= 4096 and 64 <= height <= 4096):
+                    raise ValueError("fixture dimensions invalid")
+            except (OSError, ValueError, struct.error) as exc:
+                errors.append(str(ident) + ": damaged PNG fixture " + rel + ": " + str(exc))
         checks = case.get("quality_gate")
         if not isinstance(checks, list):
             errors.append(str(ident) + ": missing quality_gate array")

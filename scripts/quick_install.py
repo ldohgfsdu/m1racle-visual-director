@@ -45,6 +45,9 @@ REQUIRED = (
     "evals/fixtures/town.svg", "evals/fixtures/portrait.svg",
     "evals/fixtures/bridge.svg", "evals/fixtures/boat.svg",
     "evals/fixtures/cat.svg", "evals/fixtures/mountain.svg",
+    "evals/fixtures/town.png", "evals/fixtures/portrait.png",
+    "evals/fixtures/bridge.png", "evals/fixtures/boat.png",
+    "evals/fixtures/cat.png", "evals/fixtures/mountain.png",
     "scripts/validate_skill.py",
     "scripts/verify_gallery.py",
 )
