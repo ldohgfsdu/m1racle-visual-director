@@ -121,7 +121,7 @@ def verify(root: Path = None):
                     errors.append(str(ident) + ": invalid PNG signature")
                     continue
                 pos = 8
-                ids = []
+                png_chunks = []
                 while pos + 12 <= len(content):
                     length = struct.unpack_from(">I", content, pos)[0]
                     tag = content[pos + 4:pos + 8]
@@ -131,11 +131,11 @@ def verify(root: Path = None):
                     digest = struct.unpack_from(">I", content, pos + 8 + length)[0]
                     if (zlib.crc32(tag + body) & 0xffffffff) != digest:
                         raise ValueError("PNG CRC mismatch")
-                    ids.append(tag)
+                    png_chunks.append(tag)
                     pos += 12 + length
                     if tag == b"IEND":
                         break
-                if ids[:2] != [b"IHDR", b"IDAT"] or ids[-1:] != [b"IEND"] or pos != len(content):
+                if png_chunks[:2] != [b"IHDR", b"IDAT"] or png_chunks[-1:] != [b"IEND"] or pos != len(content):
                     raise ValueError("PNG missing required chunks")
                 width, height = struct.unpack_from(">II", content, 16)
                 if not (64 <= width <= 4096 and 64 <= height <= 4096):
