@@ -11,7 +11,8 @@
       "tool_called",
       "used_fixtures",
       "evidence",
-      "quality_checks"
+      "quality_checks",
+      "tool_call_count"
     ],
     "note": "All results must be collected from actual Agent execution; automated contract tests with synthetic records do not prove generation."
   },
@@ -31,5 +32,11 @@
     "BLOCKED_TOOL",
     "NOT_INVOKED"
   ],
-  "evidence_semantics": "each required_evidence key must be independently observed and true, with accompanying trace or reviewer record; do not prefill true before testing"
+  "evidence_semantics": "each required_evidence key must be independently observed and true, with accompanying trace or reviewer record; do not prefill true before testing",
+  "evidence_definitions": {
+    "engraving_style": "True only when ALL style_checks (linework, contour_hatching, cross_hatching, guilloche, limited_inks) were actually assessed on the generated output; not a textual claim that the prompt contains engraving vocabulary.",
+    "exactly_one_targeted_retry": "Image-tool trace proves exactly two calls total and identifies the first defect and targeted corrective prompt.",
+    "no_fabricated_image": "No output file or tool success claimed in the absence of a real generated image.",
+    "no_unrequested_watermark": "Visible output contains no incidental words, currency denomination, watermark or decorative banknote border."
+  }
 }

@@ -33,8 +33,15 @@ def check(records, cases):
         actual_files = sorted(r.get("used_fixtures", []))
         if case["expected_active"] and expected_files != actual_files:
             issues.append(ident + ": missing/mismatched input fixtures")
+        if "exactly_one_targeted_retry" in case["required_evidence"] and r.get("tool_call_count") != 2:
+            issues.append(ident + ": retry count must be exactly two tool calls")
+        if r.get("tool_call_count", 0) > 0 and not r.get("tool_called"):
+            issues.append(ident + ": contradictory tool trace")
         for criterion in case["required_evidence"]:
-            if r.get("evidence", {}).get(criterion) is not True:
+            if criterion == "engraving_style":
+                if not all(r.get("quality_checks", {}).get(key) is True for key in ("linework","contour_hatching","cross_hatching","guilloche","limited_inks")):
+                    issues.append(ident + ": engraving style evidence not supported by quality checks")
+            elif r.get("evidence", {}).get(criterion) is not True:
                 issues.append(ident + ": missing evidence " + criterion)
         for check_id in case.get("quality_gate", []):
             if r.get("quality_checks", {}).get(check_id) is not True:

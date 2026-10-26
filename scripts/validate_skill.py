@@ -56,8 +56,8 @@ def verify(root: Path = None):
             errors.append("eval rubric incomplete")
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return errors + ["evaluation data missing or invalid: " + str(exc)]
-    if len(cases) < 30:
-        errors.append("expected >= 30 eval scenarios")
+    if len(cases) < 33:
+        errors.append("expected >= 33 eval scenarios")
     ids, signatures = set(), set()
     routes = Counter()
     near = 0
@@ -89,9 +89,11 @@ def verify(root: Path = None):
         if signature in signatures:
             errors.append(str(ident) + ": duplicated evidence signature")
         signatures.add(signature)
-        expected_status = "NOT_INVOKED" if not active else "PROMPT_ONLY" if ident == "E05" else "GENERATED_AND_REVIEWED"
-        if case.get("expected_status") != expected_status:
+        expected_status = case.get("expected_status")
+        if (not active and expected_status != "NOT_INVOKED") or (active and expected_status not in ("GENERATED_AND_REVIEWED", "PROMPT_ONLY", "BLOCKED_TOOL")):
             errors.append(str(ident) + ": incorrect expected_status")
+        if ident == "E05" and expected_status != "PROMPT_ONLY":
+            errors.append(str(ident) + ": prompt-only case incorrectly classified")
         if case.get("eval_tag") == "near-miss":
             near += 1
             if active:
@@ -145,7 +147,7 @@ def verify(root: Path = None):
         checks = case.get("quality_gate")
         if not isinstance(checks, list):
             errors.append(str(ident) + ": missing quality_gate array")
-        elif active and ident != "E05" and not QUALITY.issubset(checks):
+        elif active and expected_status == "GENERATED_AND_REVIEWED" and not QUALITY.issubset(checks):
             errors.append(str(ident) + ": missing image quality checks")
         routes[route] += 1
     for route in ROUTES:

@@ -70,4 +70,4 @@ metadata:
 
 ## 5. 验证
 
-`evals/cases.json` 中有 30 条用于测试显式调用/非调用、固定风格、T2I/I2I 的行为样例（包含 6 条语义相近的负例、离线合成 PNG 位图 fixture 和逐项质检口径）。执行结果须依据 [evals/rubric.json](evals/rubric.json) 与真实工具轨迹判定；没有实际图片调用/质检记录，不能宣称 E2E PASS。`scripts/validate_skill.py` 和 `scripts/test_install.py` 只能验证规则数据与安装，不证明真实 Agent 自动发现或图片品质。
+`evals/cases.json` 中有 33 条用于测试显式调用/非调用、固定风格、T2I/I2I 的行为样例（包含 6 条语义相近的负例、离线合成 PNG 位图 fixture 和逐项质检口径）。执行结果须依据 [evals/rubric.json](evals/rubric.json) 与真实工具轨迹判定；没有实际图片调用/质检记录，不能宣称 E2E PASS。`scripts/validate_skill.py` 和 `scripts/test_install.py` 只能验证规则数据与安装，不证明真实 Agent 自动发现或图片品质。

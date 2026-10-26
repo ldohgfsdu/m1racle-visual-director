@@ -67,7 +67,7 @@ def valid(root: Path) -> bool:
             return False
         import json
         data = json.loads((root / "evals/cases.json").read_text(encoding="utf-8"))
-        if data.get("schema_version") != "1.4.2" or not isinstance(data.get("cases"), list) or len(data["cases"]) < 30:
+        if data.get("schema_version") != "1.4.2" or not isinstance(data.get("cases"), list) or len(data["cases"]) < 33:
             return False
         for case in data["cases"]:
             for image in case.get("fixture", []):

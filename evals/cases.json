@@ -946,6 +946,99 @@
         "near_edit_without_name"
       ],
       "quality_gate": []
+    },
+    {
+      "id": "E31",
+      "request": "使用 $m1racle-visual-director，生成古城雕刻，直接出图（测试环境无图像工具）",
+      "expected_route": "T2I",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "没有可用图像工具时必须如实说明 BLOCKED_TOOL，不得交付不存在的图片",
+      "expected_status": "BLOCKED_TOOL",
+      "runtime_scenario": "image_tool_unavailable",
+      "eval_tag": "tool-negative",
+      "fixture": [],
+      "required_evidence": [
+        "explicit_invocation",
+        "route_decision",
+        "blocked_tool",
+        "no_fabricated_image",
+        "no_image_tool_call"
+      ],
+      "pass_criteria": [
+        "Explicit invocation is acknowledged",
+        "Missing tool is identified truthfully",
+        "No image file or success is fabricated"
+      ],
+      "quality_gate": []
+    },
+    {
+      "id": "E32",
+      "request": "使用 $m1racle-visual-director，生成古城；首次结果若刻线失败，针对性重试一次后交付",
+      "expected_route": "T2I",
+      "expected_style": "banknote-intaglio",
+      "expected_active": true,
+      "guardrail": "失败最多重试一次，不许无限抽卡或偷偷调用多个收费模型",
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "runtime_scenario": "first_image_fails_then_one_targeted_retry",
+      "eval_tag": "retry-bound",
+      "fixture": [],
+      "required_evidence": [
+        "explicit_invocation",
+        "route_decision",
+        "correct_style",
+        "engraving_style",
+        "image_tool_called",
+        "exactly_one_targeted_retry"
+      ],
+      "pass_criteria": [
+        "First actual result is visibly defective",
+        "Retry specifically targets defect",
+        "Exactly two image-tool calls, no extra retries"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
+      ]
+    },
+    {
+      "id": "E33",
+      "request": "使用 $m1racle-visual-director，画黑白钢版古桥，不要额外文字、面额或水印",
+      "expected_route": "T2I",
+      "expected_style": "steel-engraving-mono",
+      "expected_active": true,
+      "guardrail": "即使用户提及纸币雕刻也不能自行增加文字、钞票面额、水印或边框",
+      "expected_status": "GENERATED_AND_REVIEWED",
+      "runtime_scenario": "no_unsolicited_text",
+      "eval_tag": "text-negative",
+      "fixture": [],
+      "required_evidence": [
+        "explicit_invocation",
+        "route_decision",
+        "correct_style",
+        "engraving_style",
+        "image_tool_called",
+        "no_unrequested_watermark"
+      ],
+      "pass_criteria": [
+        "Recognizable arched bridge",
+        "Monochrome engraving family",
+        "No unsolicited lettering, denomination, watermark or border"
+      ],
+      "quality_gate": [
+        "linework",
+        "contour_hatching",
+        "cross_hatching",
+        "guilloche",
+        "limited_inks",
+        "subject_integrity",
+        "no_unrequested_text"
+      ]
     }
   ]
 }
