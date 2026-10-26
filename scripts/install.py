@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 import argparse
-import re
+import os
 import shutil
 import uuid
 from pathlib import Path
+from quick_install import valid as has_skill, recover_backup, cleanup_backups
 
 NAME = "m1racle-visual-director"
 ROOT = Path(__file__).resolve().parents[1]
 AGENTS = {
-    "codex": (".agents/skills", ".agents/skills"),
+    "codex": (".codex/skills", ".agents/skills"),
     "claude-code": (".claude/skills", ".claude/skills"),
     "opencode": (".config/opencode/skills", ".opencode/skills"),
     "cursor": (".cursor/skills", ".cursor/skills"),
@@ -21,26 +22,17 @@ AGENTS = {
     "github-copilot": (".copilot/skills", ".agents/skills"),
 }
 
-def has_skill(path: Path) -> bool:
-    skill = path / "SKILL.md"
-    if not skill.is_file():
-        return False
-    try:
-        text = skill.read_text(encoding="utf-8")
-    except (OSError, UnicodeError):
-        return False
-    return bool(re.search(r"(?m)^name:\s*m1racle-visual-director\s*$", text)) and all(
-        (path / d).is_dir() for d in ("references", "evals", "scripts"))
-
 def install(target: Path, force: bool) -> str:
     if target.resolve() == ROOT.resolve():
         raise RuntimeError("Cannot install over source checkout")
     target.parent.mkdir(parents=True, exist_ok=True)
+    recover_backup(target, prefix=".m1racle-backup-")
+    cleanup_backups(target, prefix=".m1racle-backup-")
     exists = target.exists() or target.is_symlink()
     if exists and not force:
         return "already-installed" if has_skill(target) else "blocked-existing"
     tmp = target.parent / (".m1racle-install-" + uuid.uuid4().hex)
-    bak = target.parent / (".m1racle-backup-" + uuid.uuid4().hex)
+    bak = target.parent / (".m1racle-backup-" + target.name + "-" + uuid.uuid4().hex)
     try:
         shutil.copytree(ROOT, tmp, ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc", ".pytest_cache"))
         if not has_skill(tmp):
@@ -86,7 +78,9 @@ def main() -> int:
     for agent in dict.fromkeys(ids):
         dir_path = AGENTS[agent][0 if opts.scope == "global" else 1]
         base = opts.home.expanduser() if opts.scope == "global" else opts.project_dir.expanduser()
-        target = base / dir_path / NAME
+        target = (Path(os.environ["CODEX_HOME"]).expanduser() / "skills" / NAME
+                  if agent == "codex" and opts.scope == "global" and opts.home == Path.home() and os.environ.get("CODEX_HOME")
+                  else base / dir_path / NAME)
         if opts.doctor:
             state = "PASS" if has_skill(target) else "MISSING_OR_INVALID"
         elif opts.dry_run:

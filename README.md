@@ -2,7 +2,7 @@
 
 ## 在线画廊（手机可直接打开）
 
-真正的浏览器画廊网址（须先在 GitHub 仓库 Settings → Pages 启用 **Deploy from a branch / main / (root)**）：
+**目前不能将下方地址视为已上线服务。** 仓库尚未启用 Pages（GitHub API 的 `has_pages` 为 false）。首次上线需要仓库管理员前往 **Settings → Pages → Build and deployment → Source → GitHub Actions** 启用。启用后，运行 **Actions → Skill validation → Run workflow → main** 发布；之后对 main 的更新会自动部署。启用之前部署任务自动跳过，避免 CI 假失败；上线前 URL 为 404：
 
 **https://ldohgfsdu.github.io/m1racle-visual-director/**
 
@@ -17,9 +17,9 @@
 
 > 帮我安装或更新这个 Skill：https://github.com/ldohgfsdu/m1racle-visual-director 。严格遵守仓库的 [INSTALL.md](INSTALL.md)；不要 `git clone`，不要超过规定网络等待预算，不要重复重试。现有有效安装无需重新下载。
 
-**执行入口：** 官方 `scripts/quick_install.py`。优先官方下载 GitHub ZIP；有可达的可信 HTTP(S) 代理则优先使用已配置的环境代理。第三方下载镜像仅在用户明确同意后尝试，且先验证 ZIP 可用。支持 `--mirror-url`、`--archive-file`、`--proxy`。不能从官方源取得安装器或包时，应及时报错停止，不得自动回退到 `git clone`。
+**执行入口：** 官方 `scripts/quick_install.py`。优先官方下载 GitHub ZIP；有可达的可信 HTTP(S) 代理则优先使用已配置的环境代理。第三方下载镜像仅在用户明确同意后尝试，且先验证 ZIP 可用。支持 `--mirror-url`、`--archive-file`、`--proxy`；前两项必须附带从独立可信渠道获取的 `--expected-sha256`。不能从官方源取得安装器或包时，应及时报错停止，不得自动回退到 `git clone`。
 
-**跨 Agent 支持：** Codex、Claude Code、OpenCode、Cursor、CodeBuddy、WorkBuddy、Gemini CLI、GitHub Copilot；真实安装路径以当前宿主扫描目录为准。**在云沙箱安装不等于在手机 App「我的技能」注册。**
+**跨 Agent 支持：** Codex（`~/.codex/skills` 或 `$CODEX_HOME/skills`）、Claude Code、OpenCode、Cursor、CodeBuddy、WorkBuddy、Gemini CLI、GitHub Copilot；真实安装路径以当前宿主扫描目录为准。**在云沙箱安装不等于在手机 App「我的技能」注册。**
 
 本地执行示例（前提：已经从可信来源取得 `quick_install.py`）：
 
@@ -27,7 +27,7 @@
 python quick_install.py --agent codebuddy --force --timeout 8 --max-seconds 24
 ```
 
-不联网的本地验证：`python quick_install.py --agent codebuddy --doctor`。如果已经有可靠的本地 ZIP：`python quick_install.py --agent codebuddy --force --archive-file /path/to/skill.zip`。
+不联网的本地验证：`python quick_install.py --agent codebuddy --doctor`。如果已经有可靠的本地 ZIP：`python quick_install.py --agent codebuddy --force --archive-file /path/to/skill.zip --expected-sha256 <可信64位哈希>`。
 
 ## 使用示例
 
@@ -61,12 +61,12 @@ python quick_install.py --agent codebuddy --force --timeout 8 --max-seconds 24
 
 ```bash
 python scripts/validate_skill.py
-python scripts/test_install.py
+python scripts/verify_gallery.py
 ```
 
-静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[24 条案例](evals/cases.json)。
+以上仅供**可信开发仓库**运行，用户安装后的验收应使用可信安装器 `--doctor`，不得运行新装 ZIP 中的校验脚本。CI 另跑 `test_install.py`、`test_quick_install.py`。静态通过不等于端到端生图验收通过。参见 [使用指南](使用指南.md)、[雕刻风格规范](references/banknote-engraving.md)、[33 条可复核案例](evals/cases.json)。
 
-v1.4.1
+v1.4.2
 
 ## 离线画廊与参考图规则
 
@@ -79,3 +79,7 @@ v1.4.1
 遵守 [INSTALL.md](INSTALL.md) 的单一路径：用户请求更新时重新下载短时 ZIP 并使用 `--force`，验收实际安装目录和画廊链接。禁止回退到长时间 Git 克隆；开发测试 `test_install.py` / `test_quick_install.py` 仅在 CI 运行。
 
 如需桌面画廊快捷方式，请 Agent 使用真实安装目录下的 `gallery/index.html`，不得硬编码设备路径或把 GitHub blob 源码页当作网页。
+
+## 评估图片来源
+
+`evals/fixtures/*.png` 是程序绘制的六种**合成测试输入**（山城、人物、古桥、舟船、猫、山景），用于实际图像输入与工具调用记录，并非用户曾提供的八张原始参考图或真实摄影图片。对应的 `.svg` 是可编辑的示意资产。此处只验证输入与行为契约，不代表任何模型已通过风格质量标定。

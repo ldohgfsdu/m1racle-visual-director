@@ -6,18 +6,19 @@ description: 仅当用户显式点名 $m1racle-visual-director 或 M1racle Visua
 compatibility: 依赖宿主可用的图像生成/编辑工具及对用户图片的访问能力；不自带模型或费用额度。
 metadata:
   author: m1racle
-  version: "1.4.1"
+  version: "1.4.2"
 ---
 
 # M1racle Visual Director — Engraving Edition
 
-**显式调用才生效；画风固定；用户要求成图时直接生成。** 这个 Skill 专门复现八张原始参考图里的19世纪超精细钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线。不是通用 AI 视觉导演。
+**显式调用才生效；画风固定；用户要求成图时直接生成。** 这个 Skill 专门复现19世纪超精细钢版雕刻 × 纸币凹版印刷 × Guilloché 防伪曲线。不是通用 AI 视觉导演。
 
 ## 0. 显式启动门槛
 
 - **仅在用户明确指定本 Skill 时使用**：例如 `使用 $m1racle-visual-director 生成中国古城`、`调用 M1racle Visual Director，把这张照片画成纸币雕刻`。
 - 不自动调用规则：普通的“生成一张图片”“自动选画风”“画科幻城市”“制作水墨画”**不得自动套用本 Skill**。
 - 平台可能根据描述自动注入 Skill，不能仅靠本文件保证所有 Agent 的自动发现机制均被禁用；上述为执行时的行为约束。
+- 跨宿主调用语法不同：有些客户端使用 `/m1racle-visual-director`，另一些使用 `$m1racle-visual-director`；应以宿主实际支持的命令为准。显式指定“M1racle Visual Director”也成立。
 - 用户明确要“只给提示词/分析风格”时不出图；明确要成图且工具支持时**直接执行**，不要输出长篇规划或让用户再说一次“生成”。
 
 ## 1. 两种基本模式
@@ -69,4 +70,4 @@ metadata:
 
 ## 5. 验证
 
-`evals/cases.json` 中有 24 条用于测试显式调用/非调用、固定风格、T2I/I2I 的行为样例。`scripts/validate_skill.py` 和 `scripts/test_install.py` 只能验证规则数据与安装，不证明真实 Agent 自动发现或图片品质。
+`evals/cases.json` 中有 33 条用于测试显式调用/非调用、固定风格、T2I/I2I 的行为样例（包含 6 条语义相近的负例、离线合成 PNG 位图 fixture 和逐项质检口径）。执行结果须依据 [evals/rubric.json](evals/rubric.json) 与真实工具轨迹判定；没有实际图片调用/质检记录，不能宣称 E2E PASS。`scripts/validate_skill.py` 和 `scripts/test_install.py` 只能验证规则数据与安装，不证明真实 Agent 自动发现或图片品质。

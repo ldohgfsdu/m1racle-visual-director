@@ -14,7 +14,7 @@
 
 ## 1. 确定目标和安装意图
 
-识别运行时**实际** skills 扫描路径；若 CodeBuddy/WorkBuddy 声明 `~/.codebuddy/skills/` 为活动目录，优先使用 `--agent codebuddy`。
+识别运行时**实际** skills 扫描路径。Codex 全局默认 `~/.codex/skills/`，若设置了 `CODEX_HOME` 则使用 `$CODEX_HOME/skills/`；项目级为 `.agents/skills/`。若 CodeBuddy/WorkBuddy 声明 `~/.codebuddy/skills/` 为活动目录，优先使用 `--agent codebuddy`。
 
 - 仅安装且本地已有有效 Skill：无需联网，先用本地 `scripts/quick_install.py --doctor`，或直接检查 `SKILL.md`、`references/`、`gallery/`；返回已安装。不要自动覆盖。
 - 用户明确要求更新：用 `--force` 替换有效安装；安装器会做临时目录写入及回滚。
@@ -45,19 +45,19 @@ python /tmp/m1racle-quick-install.py --agent codebuddy --force --timeout 8 --max
 若用户**已许可**且已验证第三方代理提供的是合法 GitHub ZIP，可用 `--mirror-url` 明确指定完整 ZIP URL：
 
 ```sh
-python /tmp/m1racle-quick-install.py --agent codebuddy --force --mirror-url 'https://ghproxy.net/https://codeload.github.com/ldohgfsdu/m1racle-visual-director/zip/refs/heads/main' --timeout 8 --max-seconds 24
+python /tmp/m1racle-quick-install.py --agent codebuddy --force --mirror-url 'https://ghproxy.net/https://codeload.github.com/ldohgfsdu/m1racle-visual-director/zip/refs/heads/main' --expected-sha256 '<独立可信64位哈希>' --timeout 8 --max-seconds 24
 ```
 
-这些代理示例必须先验证此环境确实能下载 ZIP；只验证 raw 脚本 200 并不够。脚本会检查 ZIP 基本结构和必要文件；不保证第三方代理内容可信。ZIP 不可用就停下来报告，不要改回 `git clone --depth 1`。
+这些代理示例必须先验证此环境确实能下载 ZIP；只验证 raw 脚本 200 并不够。脚本会检查 ZIP 结构、必要文件、哈希及目标路径；不运行 ZIP 内代码。对镜像/离线包必须提供可信哈希，但这些检查不等于审计了 ZIP 内的所有内容。ZIP 不可用就停下来报告，不要改回 `git clone --depth 1`。
 
-已经有经核验的本地 ZIP 时更快，直接 `--archive-file <本地ZIP>`，完全不联网。
+已经有经核验的本地 ZIP 时更快，可用 `--archive-file <本地ZIP> --expected-sha256 <独立可信渠道取得的64位SHA-256>`，完全不联网。对第三方镜像使用 `--mirror-url` 时也**强制**提供 `--expected-sha256`；来源自身附带的哈希不构成独立信任。仅当可独立确认哈希时才使用镜像或离线包，不能为了安装成功绕过校验。
 
 ## 4. 最小验收与输出
 
 在**实际安装目标目录**运行（不必为了验证重新克隆）：
-- `python <实际安装目录>/scripts/validate_skill.py`
-- `python <实际安装目录>/scripts/verify_gallery.py`
-- 验证 `SKILL.md` 的 `metadata.version`、`name` 与实际目录。
+- 使用最初从**可信渠道获取的安装器**运行 `python /tmp/m1racle-quick-install.py --agent codebuddy --doctor`，检查最终安装目录和 SKILL 名称。不得运行安装 ZIP 中携带的任何 `scripts/*.py`。
+- 如果有**预先可信的独立校验器副本**，可分别执行 `python <可信源>/scripts/validate_skill.py --root <实际安装目录>` 和 `python <可信源>/scripts/verify_gallery.py --root <实际安装目录>`。不能把刚安装的副本当成可信校验器。
+- 检查 `SKILL.md` 的 `metadata.version`、`name` 与实际目录。
 
 只报告：是否成功、版本、真实安装路径、使用的下载渠道、是否第三方代理、总执行耗时和真实加载是否已验证。**没有真实加载记录则记为未验证**；不要说已在 App 安装或账号同步。
 

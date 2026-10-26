@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.4.2",
+  "trace_format": {
+    "root_key": "results",
+    "record_keys": [
+      "id",
+      "invoked",
+      "route",
+      "style",
+      "status",
+      "tool_called",
+      "used_fixtures",
+      "evidence",
+      "quality_checks",
+      "tool_call_count"
+    ],
+    "note": "All results must be collected from actual Agent execution; automated contract tests with synthetic records do not prove generation."
+  },
+  "style_checks": {
+    "linework": "Visible continuous thin burin-like strokes, not just tinted smooth shading",
+    "contour_hatching": "Line directions follow water, mountains, folds and perspective",
+    "cross_hatching": "Shadow values use visibly controlled hatching density and crossing",
+    "guilloche": "Curved periodic/oscillating interlaces; not a Cartesian square grid",
+    "limited_inks": "Blue variant uses limited Prussian/steel blue + subdued accent; mono uses black/gray only",
+    "subject_integrity": "All required elements preserved/created and recognizable",
+    "no_unrequested_text": "No unsolicited lettering, denomination, watermark or border"
+  },
+  "statuses": [
+    "GENERATED_AND_REVIEWED",
+    "GENERATED_UNVERIFIED",
+    "PROMPT_ONLY",
+    "BLOCKED_TOOL",
+    "NOT_INVOKED"
+  ],
+  "evidence_semantics": "each required_evidence key must be independently observed and true, with accompanying trace or reviewer record; do not prefill true before testing",
+  "evidence_definitions": {
+    "engraving_style": "True only when ALL style_checks (linework, contour_hatching, cross_hatching, guilloche, limited_inks) were actually assessed on the generated output; not a textual claim that the prompt contains engraving vocabulary.",
+    "exactly_one_targeted_retry": "Image-tool trace proves exactly two calls total and identifies the first defect and targeted corrective prompt.",
+    "no_fabricated_image": "No output file or tool success claimed in the absence of a real generated image.",
+    "no_unrequested_watermark": "Visible output contains no incidental words, currency denomination, watermark or decorative banknote border."
+  }
+}

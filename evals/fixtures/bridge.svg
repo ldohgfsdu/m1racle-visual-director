@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Bridge">
+<title>Bridge - synthetic vector input, not a photograph or original style reference</title>
+<rect width="640" height="400" fill="#f8f3e8"/>
+<path d="M 0 280 Q 320 330 640 280 V400 H0Z" fill="#bfd5da"/><g fill="#d2bcb0" stroke="#4a5860" stroke-width="5"><path d="M48 223Q320 148 598 223V303H48Z"/><path d="M100 303V248Q158 204 215 248V303M246 303V235Q320 171 392 235V303M425 303V247Q490 199 556 247V303" fill="#f8f3e8"/></g><path d="M49 221 Q 320 150 598 221" stroke="#4a5860" stroke-width="3" fill="none"/><text x="20" y="30" font-size="14" fill="#334">SYNTHETIC BRIDGE FIXTURE</text>
+</svg>
