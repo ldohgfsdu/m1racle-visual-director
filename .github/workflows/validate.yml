@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -48,7 +49,9 @@ jobs:
         run: python scripts/test_gallery.py
 
   deploy-pages:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Pages has to be enabled once under Settings > Pages (source: GitHub Actions).
+    # Until then, do not turn an otherwise green main-branch CI run red.
+    if: github.ref == 'refs/heads/main' && github.event.repository.has_pages == true
     needs: validate
     runs-on: ubuntu-latest
     permissions:
@@ -61,7 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: .
       - id: deployment

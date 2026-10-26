@@ -2,7 +2,7 @@
 
 ## 在线画廊（手机可直接打开）
 
-**目前不能将下方地址视为已上线服务。** 本仓库提供 Pages 自动部署工作流，但首次发布仍须在 GitHub Settings → Pages 选择 **GitHub Actions** 来源并确认部署成功；部署前 URL 可能是 404：
+**目前不能将下方地址视为已上线服务。** 仓库尚未启用 Pages（GitHub API 的 `has_pages` 为 false）。首次上线需要仓库管理员前往 **Settings → Pages → Build and deployment → Source → GitHub Actions** 启用。启用后，运行 **Actions → Skill validation → Run workflow → main** 发布；之后对 main 的更新会自动部署。启用之前部署任务自动跳过，避免 CI 假失败；上线前 URL 为 404：
 
 **https://ldohgfsdu.github.io/m1racle-visual-director/**
 
