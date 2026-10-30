@@ -8,6 +8,8 @@
 
 **5 种雕刻技法 · 8 套视觉配方 · 9 组色板 · 原图优先 · 受控生成**
 
+**[下载完整 ZIP](https://github.com/ldohgfsdu/m1racle-visual-director/archive/refs/heads/main.zip)**
+
 [快速开始](#-快速开始) · [风格图鉴](#-五种雕刻技法) · [完整示例](#-效果展示) · [使用说明](#-工作方式)
 
 </div>
@@ -45,9 +47,13 @@
 
 ## 🚀 快速开始
 
+**[点击下载完整 ZIP](https://github.com/ldohgfsdu/m1racle-visual-director/archive/refs/heads/main.zip)**
+
+下载后解压，将 `m1racle-visual-director-main` 文件夹改名为 `m1racle-intaglio-director`。也可以在仓库顶部点击 **Code → Download ZIP** 下载。
+
 ### 方式一：在支持 Skills 的 AI Agent 中使用
 
-**1. 安装**：下载完整的 `m1racle-intaglio-director` 目录，并按照所用 Agent / Harness 的 Skills 安装方式导入。保留 `SKILL.md`、`references/` 与 `scripts/`，不要只复制入口文件。
+**1. 安装**：按照所用 AI 工具的 Skills 安装方式导入解压后的 `m1racle-intaglio-director` 文件夹。保留 `SKILL.md`、`references/` 与 `scripts/`，不要只复制入口文件。
 
 **2. 上传图片并输入：**
 
