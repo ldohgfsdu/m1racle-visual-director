@@ -1,0 +1,111 @@
+{
+  "version": "1.3.0",
+  "date": "2026-10-30",
+  "method": "NO v1.3 images generated as part of this package update; status is awaiting real test",
+  "limitations": [
+    "v1.2.0 historical images do not verify remapped v1.3.0 techniques",
+    "All v1.3 comparison cases are unexecuted. No PASS is claimed."
+  ],
+  "results": [
+    {
+      "id": "V01",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "V02",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "V03",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "V04",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "V05",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-BRIDGE-T01",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-BRIDGE-T02",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-BRIDGE-T03",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-BRIDGE-T04",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-BRIDGE-T05",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-PORTRAIT-T01",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-PORTRAIT-T02",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-PORTRAIT-T03",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-PORTRAIT-T04",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-PORTRAIT-T05",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-CUP-T01",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-CUP-T02",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-CUP-T03",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-CUP-T04",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    },
+    {
+      "id": "AB-CUP-T05",
+      "status": "UNVERIFIED",
+      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+    }
+  ]
+}

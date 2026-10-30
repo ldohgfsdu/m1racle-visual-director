@@ -1,0 +1,253 @@
+{
+  "name": "m1racle-intaglio-director",
+  "version": "1.3.0",
+  "upgraded_from": "1.0.0",
+  "updated": "2026-10-30",
+  "source_images": 8,
+  "requires_network_for_prompt_templates": false,
+  "requires_image_tool_for_rendering": true,
+  "files": [
+    {
+      "path": ".github/workflows/validate.yml",
+      "sha256": "7e1150dd1443d40daf232c0344d287e669b91659135ebb57118d0e0abf7040fa",
+      "bytes": 318
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "74756503e09b3fc51374117e07de92deeecf33c65cec1ff50e3142b75153ada6",
+      "bytes": 48
+    },
+    {
+      "path": "README.md",
+      "sha256": "814604328a263396ea72e52a35ec2ffad624f733ba7252ed6ff7d8382a8979a5",
+      "bytes": 8141
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "e66596b56866db2367a8104be159d6f7090f3e688a656404733631c547b4bb94",
+      "bytes": 6534
+    },
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "97b8c9a2a2494296bddd72240c63515a78b10ca8ca490d413d9441f67532c6d2",
+      "bytes": 314
+    },
+    {
+      "path": "assets/examples/I01_blue_coastal_architecture.jpg",
+      "sha256": "915995dfc46c3e6e24247062a2e7dbc1b947bc5f6db5029ed5cfa4ae93f2f073",
+      "bytes": 786265
+    },
+    {
+      "path": "assets/examples/I02_warm_monumental_fantasy.jpg",
+      "sha256": "5e452be522174d62c3fc3782223669200b81ad879c27615aeec11809440d2242",
+      "bytes": 789410
+    },
+    {
+      "path": "assets/examples/I03_charcoal_epic_narrative.jpg",
+      "sha256": "e35e431f002856ee74551b5a765d21052616881ab552680f6f241aca34f7643c",
+      "bytes": 896459
+    },
+    {
+      "path": "assets/examples/I04_classical_landscape.jpg",
+      "sha256": "cde07b882b101bedf2c49906c38f9bf899669f96bf5fee01ef0428e91df762b2",
+      "bytes": 786693
+    },
+    {
+      "path": "assets/examples/I05_engraved_portrait.jpg",
+      "sha256": "6bed985e3fc79b2b194882877d6bbee1eb05e486a30839d12a9927fd7ca63b19",
+      "bytes": 856742
+    },
+    {
+      "path": "assets/examples/I06_cyan_aerial_panorama.jpg",
+      "sha256": "b00c6d110b5ad7083bdb5476358cfa7b1b66433719ec12229bdcd31211e28e5a",
+      "bytes": 797074
+    },
+    {
+      "path": "assets/examples/I07_indigo_blush_sakura.jpg",
+      "sha256": "fb985c6e6e49cc2d13cf70d8e5d7d5fb66f20f3aae2169ba3d4dd29f3b8f76da",
+      "bytes": 795027
+    },
+    {
+      "path": "assets/examples/I08_archival_harbor.jpg",
+      "sha256": "16dca5384b32a7ec4c8967c36b64b8af172f205b181006ca86d3078b35120c58",
+      "bytes": 862868
+    },
+    {
+      "path": "assets/style-contact-sheet.jpg",
+      "sha256": "1f8fc6a75df266e08820c29118bc3d486c25c0e1bc5f1e5e9ce8a885dc9b16bf",
+      "bytes": 567700
+    },
+    {
+      "path": "docs/images/T01.png",
+      "sha256": "e090aba73cf0ff36a3b599eb8e148e98fe52579de6bafd1cb6792812603c8a8c",
+      "bytes": 338927
+    },
+    {
+      "path": "docs/images/T02.png",
+      "sha256": "6403b6ad81947f29fb8f5ab8755cf9a58a7f07807d580ad5d9841d7eb5e8d879",
+      "bytes": 365590
+    },
+    {
+      "path": "docs/images/T03.png",
+      "sha256": "ef07e8fd684cca9a202dc4f580c0f94809322e1dd9dbe84ad2df39fa6ada5fb2",
+      "bytes": 374508
+    },
+    {
+      "path": "docs/images/T04.png",
+      "sha256": "b466135bcb99ab9225370299a0d270735c79c5f56f174451a586f3015ae16ba3",
+      "bytes": 358135
+    },
+    {
+      "path": "docs/images/T05.png",
+      "sha256": "08d839821f1f5d6f8e1c5079acecf3459d3b8cbea1d33ef0c07cb69034f3035e",
+      "bytes": 354961
+    },
+    {
+      "path": "docs/images/bridge-before-after.jpg",
+      "sha256": "d3bb2199dccafc57030a8251adaf790c1ca63ff995182a97ca3138a2c4964118",
+      "bytes": 210534
+    },
+    {
+      "path": "docs/images/bridge-engraving.png",
+      "sha256": "25e506995a59421d3c1d76c68ec00c53faa2e7742ba4374e87dba756c71505df",
+      "bytes": 3858581
+    },
+    {
+      "path": "examples/bridge_ab_prompts_zh.md",
+      "sha256": "ccfdb54d4da7f1190caed93922c9e8c79378043f552558d4386a695bab504162",
+      "bytes": 10642
+    },
+    {
+      "path": "references/ab_protocol.md",
+      "sha256": "43d641c3e5b4c7faaea234bf9e7852299198ceaaef45a109bc7921f5d766e179",
+      "bytes": 2705
+    },
+    {
+      "path": "references/decision_policy.md",
+      "sha256": "672c5fc5c511fef43e29d88937e19c6f42de9d10691e5448f643c09cb542eeb1",
+      "bytes": 5494
+    },
+    {
+      "path": "references/master_prompt_en.md",
+      "sha256": "f32dbc2f6e5a79706a49ab6bb18b54f1b423e6b3657c6d839c6baca233003e7c",
+      "bytes": 2811
+    },
+    {
+      "path": "references/master_prompt_zh.md",
+      "sha256": "835ea2136fa97649175be621daf619698ba395c73b3472fc1c6a3be94d729265",
+      "bytes": 2554
+    },
+    {
+      "path": "references/palettes.json",
+      "sha256": "ee1358d1cde7fcbb13694c144946f6f14ce021f16033c6e133e784029397086f",
+      "bytes": 2278
+    },
+    {
+      "path": "references/profiles.json",
+      "sha256": "f61350f37a46035b9a60b6db5e63179ba438855ed7b8afd6f4c1fd3a76c9929d",
+      "bytes": 5592
+    },
+    {
+      "path": "references/profiles.md",
+      "sha256": "64a852ad2ef5613a0b9c2828640f43e6ff7276f58ae3f126f7a47c7c45d4ea00",
+      "bytes": 2945
+    },
+    {
+      "path": "references/quality_checks.md",
+      "sha256": "7967a9b23e36ac2d4cbdb6320d2518d59a0595cdf257ec3eb3be6f1fd0859016",
+      "bytes": 4178
+    },
+    {
+      "path": "references/runtime_policy.md",
+      "sha256": "77989e2887ddaf00d6d2eea26973a9b12844dffe025868bcdff3a4d31dcb5ed9",
+      "bytes": 3567
+    },
+    {
+      "path": "references/sample_map.md",
+      "sha256": "6a42600091c7691b627159d0dcddc7c874bfdd0e79df0153ba4bf53f102f91cd",
+      "bytes": 1994
+    },
+    {
+      "path": "references/style_dna.md",
+      "sha256": "0a2268c56f224b73a33246c685bb47a16eae1b88d7b05a0efc9f1d2459d72385",
+      "bytes": 1940
+    },
+    {
+      "path": "references/techniques.json",
+      "sha256": "cad24a5a9db44a9960c22632b471d36eb7ce9b4ab24f725623ef9cd84569a77d",
+      "bytes": 5625
+    },
+    {
+      "path": "references/techniques.md",
+      "sha256": "27dedc6287c4c06c18e8c313b5301c19c2e23750eef61ed7aba1b0b08b1ff6b3",
+      "bytes": 2836
+    },
+    {
+      "path": "scripts/compare_techniques.py",
+      "sha256": "9b7a3960f6e968ac62c343e02a85f3badda34531983a286cb599b8850892692f",
+      "bytes": 3092
+    },
+    {
+      "path": "scripts/prompt_builder.py",
+      "sha256": "c6548960b55bbebf77ef410b07c543e7aaf8c37a1b58df5ad271cf4474c4e2d2",
+      "bytes": 20740
+    },
+    {
+      "path": "scripts/task_router.py",
+      "sha256": "9999d483bac763cfa1d177514d081445c8d1be8ace5d0722ec6ab10edfdaca76",
+      "bytes": 3843
+    },
+    {
+      "path": "scripts/validate_skill.py",
+      "sha256": "406f3a6b6b3da625e5d9b3aad1463f753a8d54f8fc9d2ad4c9671a3050a1efad",
+      "bytes": 9480
+    },
+    {
+      "path": "tests/ab_results_template.json",
+      "sha256": "1bb3e2552950517d0bc7ea72c557d002fb4bc7c8d9b86ffb5a2196a077444249",
+      "bytes": 1681
+    },
+    {
+      "path": "tests/test_package.py",
+      "sha256": "0b7fa190d334bc5f3ee692144d9ca70f3b6b418e141254d58a64e7ea0167c0f9",
+      "bytes": 3357
+    },
+    {
+      "path": "tests/test_prompt_builder.py",
+      "sha256": "1da983ed003f9f04adf8eb01d77babe8cfe821a4bb10f39244c2d0bdaa302023",
+      "bytes": 12792
+    },
+    {
+      "path": "tests/test_regressions.py",
+      "sha256": "0c6d7d59c43f0b68e107e9726f4e1a6e200d2b25cdf4aaa153db0e7d72cec502",
+      "bytes": 2606
+    },
+    {
+      "path": "tests/test_task_router.py",
+      "sha256": "704539c1061906e4b5adaa5f96122a202675bfd5c1361559b15b8abc3c197160",
+      "bytes": 1925
+    },
+    {
+      "path": "tests/test_technique_matrix.py",
+      "sha256": "6b55bc785dff60d359059aa761291661ac78f101bf37539649e02fa2f805cbb1",
+      "bytes": 5267
+    },
+    {
+      "path": "tests/visual_cases.json",
+      "sha256": "0d896979f912f154e78f895ed97fdee4d37ab72acfd24754f5048c8adbb3abda",
+      "bytes": 11899
+    },
+    {
+      "path": "tests/visual_results.json",
+      "sha256": "4c9bd22a981f0cd195a860d048aa304781d0523af268dceb2884a129a5d2ae2d",
+      "bytes": 4179
+    },
+    {
+      "path": "tests/visual_results_v1.2.0_legacy.json",
+      "sha256": "a6f7133d56770d05e119215ae301cba3c0885a7e7bc8c7d91bbff1bb66c0178e",
+      "bytes": 8213
+    }
+  ],
+  "notes": "Runtime safety and cost-control release; does not add an image generation backend.",
+  "note": "v1.3 adds five distinct mark-making families, eight legacy recipes and isolated palette presets; v1.2 runtime guard retained; no v1.3 images claimed"
+}

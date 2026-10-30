@@ -1,0 +1,388 @@
+{
+  "version": "1.3.0",
+  "note": "Original V01-V05 belong to older recipe behavior. Actual v1.3 outputs must be retested; see AB01-AB15.",
+  "cases": [
+    {
+      "id": "V01",
+      "subject": "一座无人的中国冬季古寺，单栋主体，积雪屋顶，院前只有平整积雪；不要花木、山岳、其他建筑、人物或文字。",
+      "style": "I03",
+      "mode": "generate",
+      "role": "none",
+      "ratio": "3:2",
+      "palette": "",
+      "background": "none",
+      "checks": [
+        "单栋冬寺与积雪",
+        "无花木与其他场景物体",
+        "炭黑冷灰",
+        "刻线构形"
+      ]
+    },
+    {
+      "id": "V02",
+      "subject": "一座无人的中国冬季古寺，单栋主体，积雪屋顶，院前只有平整积雪；不要花木、山岳、其他建筑、人物或文字。",
+      "style": "I07",
+      "mode": "generate",
+      "role": "none",
+      "ratio": "3:2",
+      "palette": "",
+      "background": "none",
+      "checks": [
+        "与V01同一内容主题",
+        "靛蓝樱粉但没有花木",
+        "无新增场景物体",
+        "刻线构形"
+      ]
+    },
+    {
+      "id": "V03",
+      "subject": "一只单柄陶瓷杯，杯口椭圆，纯白背景，居中，画面只出现这只杯子，不添加其他物体、文字或装饰。",
+      "style": "I08",
+      "mode": "generate",
+      "role": "style",
+      "ratio": "3:2",
+      "palette": "red and black ink only on pure white; no other ink colors",
+      "background": "none",
+      "sample": "assets/examples/I08_archival_harbor.jpg",
+      "checks": [
+        "单杯单柄",
+        "仅红黑与白底",
+        "无样图中的建筑、船只和海湾",
+        "雕刻线沿杯身塑形"
+      ]
+    },
+    {
+      "id": "V04",
+      "subject": "只细化杯身和杯柄局部刻线，保留现有主体、形状、位置、构图、原配色和比例；不要增删物体。",
+      "style": "I04",
+      "mode": "refine",
+      "role": "source",
+      "ratio": "",
+      "palette": "",
+      "background": "auto",
+      "input_case": "V03",
+      "checks": [
+        "保留V03主体与构图",
+        "保留原色",
+        "无灰绿默认配色",
+        "无新增背景纹"
+      ]
+    },
+    {
+      "id": "V05",
+      "subject": "极简品牌标志作为内容源，仅改变内部刻线表现，保持几何与透明背景。",
+      "style": "BASE",
+      "mode": "redraw",
+      "role": "source",
+      "ratio": "",
+      "palette": "",
+      "background": "none",
+      "status": "UNVERIFIED",
+      "checks": [
+        "几何身份",
+        "透明通道",
+        "无风景与底纹"
+      ]
+    },
+    {
+      "id": "AB-BRIDGE-T01",
+      "subject": "上传的桥梁照片，保留桥塔、缆索、驳船、城市建筑和构图。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T01",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-BRIDGE-T02",
+      "subject": "上传的桥梁照片，保留桥塔、缆索、驳船、城市建筑和构图。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T02",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-BRIDGE-T03",
+      "subject": "上传的桥梁照片，保留桥塔、缆索、驳船、城市建筑和构图。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T03",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-BRIDGE-T04",
+      "subject": "上传的桥梁照片，保留桥塔、缆索、驳船、城市建筑和构图。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T04",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-BRIDGE-T05",
+      "subject": "上传的桥梁照片，保留桥塔、缆索、驳船、城市建筑和构图。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T05",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-PORTRAIT-T01",
+      "subject": "同一张真人肖像照片，保留人物身份、五官、姿态与裁切。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T01",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-PORTRAIT-T02",
+      "subject": "同一张真人肖像照片，保留人物身份、五官、姿态与裁切。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T02",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-PORTRAIT-T03",
+      "subject": "同一张真人肖像照片，保留人物身份、五官、姿态与裁切。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T03",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-PORTRAIT-T04",
+      "subject": "同一张真人肖像照片，保留人物身份、五官、姿态与裁切。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T04",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-PORTRAIT-T05",
+      "subject": "同一张真人肖像照片，保留人物身份、五官、姿态与裁切。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T05",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-CUP-T01",
+      "subject": "同一张单柄陶瓷杯照片，保留轮廓、杯柄位置与背景。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T01",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-CUP-T02",
+      "subject": "同一张单柄陶瓷杯照片，保留轮廓、杯柄位置与背景。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T02",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-CUP-T03",
+      "subject": "同一张单柄陶瓷杯照片，保留轮廓、杯柄位置与背景。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T03",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-CUP-T04",
+      "subject": "同一张单柄陶瓷杯照片，保留轮廓、杯柄位置与背景。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T04",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    },
+    {
+      "id": "AB-CUP-T05",
+      "subject": "同一张单柄陶瓷杯照片，保留轮廓、杯柄位置与背景。",
+      "mode": "redraw",
+      "role": "source",
+      "style": "BASE",
+      "technique_id": "T05",
+      "palette": "只用石墨黑与自然纸白",
+      "background": "none",
+      "ratio": "source",
+      "fidelity": "strict",
+      "input_case": "same source image for all five within group",
+      "checks": [
+        "主体不变",
+        "主技法特征可辨",
+        "不出现横纹外溢",
+        "25%与100%可读",
+        "颜色、背景一致"
+      ]
+    }
+  ]
+}

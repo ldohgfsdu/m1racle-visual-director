@@ -1,0 +1,191 @@
+{
+  "schema_version": 2,
+  "version": "1.3.0",
+  "profiles": {
+    "I01": {
+      "name": "蓝色海滨刻版",
+      "en": "Azure Waterfront Engraving",
+      "terms": [
+        "海边",
+        "海滨",
+        "渔村",
+        "小镇",
+        "红瓦",
+        "海岸村",
+        "coastal village",
+        "seaside town",
+        "terracotta roofs"
+      ],
+      "technique_id": "T01",
+      "palette_id": "P01",
+      "recipe_zh": "突出直线结构的精密闭合、透视收束和大面积纸白，减少局部交织以获得通透感。",
+      "recipe_en": "Prioritize exact structural edges, perspective convergence and generous white openings, keeping intersections sparse."
+    },
+    "I02": {
+      "name": "赭粉纪念碑幻想",
+      "en": "Mythic Monument",
+      "terms": [
+        "巨构",
+        "巨型",
+        "奇幻",
+        "纪念碑",
+        "神话",
+        "异世界",
+        "超现实",
+        "monumental",
+        "fantasy",
+        "mythic",
+        "colossal",
+        "surreal"
+      ],
+      "technique_id": "T02",
+      "palette_id": "P02",
+      "recipe_zh": "以层叠交叉蚀刻线压低大体块中调，强调尺度与光照对比，不放大或添加任何建筑。",
+      "recipe_en": "Layer etched hatch fields to give large forms weight and lighting contrast; do not introduce or enlarge any structures."
+    },
+    "I03": {
+      "name": "炭黑史诗叙事",
+      "en": "Dramatic Chronicle",
+      "terms": [
+        "战争",
+        "战役",
+        "士兵",
+        "烽火",
+        "史诗",
+        "搏斗",
+        "木马",
+        "战马",
+        "燃烧",
+        "battle",
+        "soldier",
+        "siege",
+        "trojan horse",
+        "conflict",
+        "epic action"
+      ],
+      "technique_id": "T05",
+      "palette_id": "P03",
+      "recipe_zh": "用有选择的暗底、被刮出的轮廓光以及厚重但不堵死的投影形成戏剧节奏。",
+      "recipe_en": "Use selective dark ground, burnished rim lights and substantial but readable shadow masses for drama."
+    },
+    "I04": {
+      "name": "古典山城地志",
+      "en": "Classical Topography",
+      "terms": [
+        "长城",
+        "群山",
+        "山谷",
+        "山城",
+        "古迹",
+        "遗迹",
+        "地貌",
+        "丘陵",
+        "山脊",
+        "城墙",
+        "great wall",
+        "mountain",
+        "valley",
+        "topography",
+        "ruins",
+        "acropolis",
+        "fortress"
+      ],
+      "technique_id": "T02",
+      "palette_id": "P04",
+      "recipe_zh": "沿主要起伏的表面将蚀刻线组织成疏密变化的曲折线群，空间远处细节优先弱化。",
+      "recipe_en": "Organize etched strokes into variable-density meandering groups around relief; attenuate detail with depth."
+    },
+    "I05": {
+      "name": "雕刻人物肖像",
+      "en": "Scholar Portrait",
+      "terms": [
+        "肖像",
+        "人像",
+        "脸部",
+        "人物特写",
+        "学者",
+        "诗人",
+        "读书",
+        "写字",
+        "portrait",
+        "face",
+        "philosopher",
+        "scholar",
+        "writer"
+      ],
+      "technique_id": "T04",
+      "palette_id": "P05",
+      "recipe_zh": "利用微小点簇保留细腻转折和可辨识的局部特征，轮廓不硬化、不过度修饰。",
+      "recipe_en": "Use minute stipple clusters for delicate form transitions and distinctive details without hardening outlines or beautifying."
+    },
+    "I06": {
+      "name": "青蓝全景银行刻版",
+      "en": "Cyan Panorama",
+      "terms": [
+        "全景",
+        "俯瞰",
+        "航拍",
+        "辽阔",
+        "峡湾",
+        "海湾",
+        "开阔",
+        "panorama",
+        "aerial",
+        "wide view",
+        "bay",
+        "coastline",
+        "vast landscape"
+      ],
+      "technique_id": "T01",
+      "palette_id": "P06",
+      "recipe_zh": "以较长的连续刀刻线带组织大片表面，远近通过线距与对比控制，避免横纹整图贯穿。",
+      "recipe_en": "Use long continuous carved bands on expansive surfaces; vary spacing and contrast by depth without global stripes."
+    },
+    "I07": {
+      "name": "靛蓝樱粉套印",
+      "en": "Indigo & Blush",
+      "terms": [
+        "樱花",
+        "花海",
+        "春天",
+        "粉色",
+        "粉红",
+        "花枝",
+        "樱粉",
+        "靛蓝",
+        "sakura",
+        "cherry blossoms",
+        "spring blossoms",
+        "blush",
+        "indigo"
+      ],
+      "technique_id": "T03",
+      "palette_id": "P07",
+      "recipe_zh": "细短柔边刻线和较疏的留白交替，弱化次要区域；保持空白与线簇对比。",
+      "recipe_en": "Alternate delicate burr-edged marks with airy negative space; subordinate less important regions without adding background motifs."
+    },
+    "I08": {
+      "name": "档案港口志书",
+      "en": "Archival Harbor",
+      "terms": [
+        "港口",
+        "港湾",
+        "帆船",
+        "旧城",
+        "码头",
+        "海港",
+        "城市史",
+        "harbor",
+        "port",
+        "sailing ship",
+        "old city",
+        "old town",
+        "pier"
+      ],
+      "technique_id": "T02",
+      "palette_id": "P08",
+      "recipe_zh": "依靠分段线组、局部交叉排线和明确留白表达复杂层次，保持档案插画的可检索清晰度。",
+      "recipe_en": "Use segmented etched line groups, local cross-hatching and planned white breaks for legible documentary structure."
+    }
+  }
+}

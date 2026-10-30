@@ -1,6 +1,4 @@
 interface:
-  display_name: "M1racle Visual Director"
-  short_description: "显式调用：超精细纸币钢版雕刻与 Guilloché 生图"
-  default_prompt: "使用 $m1racle-visual-director，将我指定的内容直接生成精细纸币钢版雕刻图片；有上传图时按我的保留约束做再创作。"
-policy:
-  allow_implicit_invocation: false
+  display_name: "M1racle Intaglio Director"
+  short_description: "精密雕刻版画生成与改图，独立选择刻线和配色，保留主体与构图。"
+  default_prompt: "用 $m1racle-intaglio-director 将我的主题或图片制作成精密雕刻版画，保留明确指定的主体与配色。"

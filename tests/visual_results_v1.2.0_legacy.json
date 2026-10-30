@@ -1,0 +1,96 @@
+{
+  "version": "1.2.0",
+  "date": "2026-10-29",
+  "method": "Built-in image generation/editing; results inspected in the originating conversation at 1536x1024. Original style samples are not counted as generated results.",
+  "limitations": [
+    "Four task-specific samples do not establish a general success rate.",
+    "Generated proof images are displayed and saved with the originating conversation, not embedded in this skill archive.",
+    "Strict visual fidelity is not a guarantee of pixel-identical editing.",
+    "Transparent-background and logo-geometry case V05 was not executed."
+  ],
+  "results": [
+    {
+      "id": "V01",
+      "status": "PASS",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "reference_inputs": [],
+      "observations": [
+        "One snowy temple with no people, plants, extra buildings or lettering.",
+        "Charcoal/grayscale linework; no decorative guilloche."
+      ]
+    },
+    {
+      "id": "V02",
+      "status": "PASS",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "reference_inputs": [],
+      "observations": [
+        "Same requested theme as V01 with a separate generated composition.",
+        "Indigo/blush palette; no blossoms, trees, people or extra buildings."
+      ]
+    },
+    {
+      "id": "V03",
+      "status": "PASS",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "reference_inputs": [
+        "assets/examples/I08_archival_harbor.jpg (technique only)"
+      ],
+      "observations": [
+        "One single-handle ceramic cup on white.",
+        "Red-black linework; no slate-blue harbor palette, buildings, ships or bay."
+      ]
+    },
+    {
+      "id": "V04",
+      "status": "PASS_WITH_LIMIT",
+      "actual_size": [
+        1536,
+        1024
+      ],
+      "reference_inputs": [
+        "V03 generated cup (content source)"
+      ],
+      "observations": [
+        "Red-black palette retained after I04 refinement; no sage/green leakage.",
+        "Single cup, handle, overall framing and white background visually retained.",
+        "Dark-mark bounding box changed from [234,98,1375,936] to [235,98,1376,936]; this is not a strict geometry proof.",
+        "Fine linework was redrawn. Pixel-exact locality is UNVERIFIED, and the edited image is not pixel-identical."
+      ]
+    },
+    {
+      "id": "V05",
+      "status": "UNVERIFIED",
+      "observations": [
+        "No corresponding transparent logo source was available in this task; no claim of tested alpha-channel or brand-geometry preservation."
+      ]
+    }
+  ],
+  "production_prompts": [
+    {
+      "id": "V01",
+      "prompt": "主题与用户要求：一座无人的中国冬季古寺，单栋主体，积雪屋顶，院前只有平整积雪；不要花木、山岳、其他建筑、人物或文字。\n\n依据主题原创构图；风格资料只提供表现技法，不提供场景内容。\n\n以精密钢凹版与铜版蚀刻语言重建可见形体。刻线随表面曲率、材质和透视转折；亮暗由平行排线、交叉排线、点刻、线距和未着墨留白建立。保持微观线条可辨与缩小观看时的轮廓可读性，细节集中于视觉焦点。模拟细微纸面与油墨印迹，不强制做旧；避免摄影底图叠纹、数码喷枪渐变、机械同向铺纹、过密摩尔纹与随机噪点。不新增主题之外的物体、文字、标记或边框。\n\n刻线配置 I03：深暗交叉排线与有力度的黑位，斜向刻线服从原有形体和动作，暗部保留可读细节。\n\n最终配色（已解析优先级）：炭墨黑与冷灰，纸白；不默认添加火色。\n\n不使用装饰性 guilloché 扭索底纹；保留主题需要的背景内容。\n\n画面比例：3:2"
+    },
+    {
+      "id": "V02",
+      "prompt": "主题与用户要求：一座无人的中国冬季古寺，单栋主体，积雪屋顶，院前只有平整积雪；不要花木、山岳、其他建筑、人物或文字。\n\n依据主题原创构图；风格资料只提供表现技法，不提供场景内容。\n\n以精密钢凹版与铜版蚀刻语言重建可见形体。刻线随表面曲率、材质和透视转折；亮暗由平行排线、交叉排线、点刻、线距和未着墨留白建立。保持微观线条可辨与缩小观看时的轮廓可读性，细节集中于视觉焦点。模拟细微纸面与油墨印迹，不强制做旧；避免摄影底图叠纹、数码喷枪渐变、机械同向铺纹、过密摩尔纹与随机噪点。不新增主题之外的物体、文字、标记或边框。\n\n刻线配置 I07：细碎短刻线与舒缓长曲线交替，细腻半调形成轻盈而克制的诗意节奏。\n\n最终配色（已解析优先级）：靛蓝主墨与柔和樱粉辅墨，象牙纸白。\n\n不使用装饰性 guilloché 扭索底纹；保留主题需要的背景内容。\n\n画面比例：3:2"
+    },
+    {
+      "id": "V03",
+      "prompt": "Input image 1 is solely a linework and print-technique reference. Do not inherit its color palette or any of its scene content.\n\nTheme and user requirements (verbatim): 一只单柄陶瓷杯，杯口椭圆，纯白背景，居中，画面只出现这只杯子，不添加其他物体、文字或装饰。\n\nCompose the requested theme independently; style material supplies technique, never scene content.\n\nStyle references supply line technique, print texture and only colors permitted by the user; never inherit their objects, layout, perspective, lettering or narrative. Label edit targets and style references separately.\n\nRebuild visible forms in precision steel-plate and copperplate engraving. Let etched strokes follow surface curvature, material and perspective. Create tone through parallel hatching, cross-hatching, stippling, spacing and unprinted highlights. Keep individual lines legible up close and silhouettes readable at thumbnail size; concentrate detail at the focal point. Use subtle paper and ink impression without mandatory aging. Avoid photographic texture overlays, digital airbrushing, uniform hatch directions, distracting moire and random grain. Do not add objects, lettering, marks or borders outside the requested theme.\n\nLinework configuration I08: Balance dense fine engraving, clear silhouettes and local unprinted highlights; articulate layered structure with archival illustration clarity.\n\nResolved final palette: red and black ink only on pure white; no other ink colors\n\nUse no decorative guilloche filigree; retain background content required by the theme.\n\nAspect ratio: 3:2"
+    },
+    {
+      "id": "V04",
+      "prompt": "The sole input image is the content source and edit target. Preserve its exact geometry, placement and red-black palette. Do not bring in any earlier image in this conversation. Make the smallest useful local linework refinement only; if no defective line needs repairing, preserve that region.\n\n主题与用户要求：只细化杯身和杯柄局部刻线，保留现有主体、形状、位置、构图、原配色和比例；不要增删物体。\n\n精修上传的既有版画，仅处理可见断线、脏污、摩尔纹或失真，未要求修改的区域和设计保持稳定。\n\n严格保真：保留主体身份、数量、轮廓、姿态、比例、位置、视点、构图及识别性细节；不得增加或删除场景物体。\n\n以精密钢凹版与铜版蚀刻语言重建可见形体。刻线随表面曲率、材质和透视转折；亮暗由平行排线、交叉排线、点刻、线距和未着墨留白建立。保持微观线条可辨与缩小观看时的轮廓可读性，细节集中于视觉焦点。模拟细微纸面与油墨印迹，不强制做旧；避免摄影底图叠纹、数码喷枪渐变、机械同向铺纹、过密摩尔纹与随机噪点。不新增主题之外的物体、文字、标记或边框。\n\n刻线配置 I04：随曲面起伏的长短刻线，远近线密有度，轮廓沉稳，局部交叉排线克制。\n\n最终配色（已解析优先级）：继承内容原图的现有配色、纸底和大色块关系。\n\n继承原背景及其装饰程度，不新增原图没有的装饰底纹。\n\n沿用内容原图的画面比例，不自行裁切。"
+    }
+  ]
+}

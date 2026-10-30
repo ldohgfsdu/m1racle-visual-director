@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "version": "1.3.0",
+  "techniques": {
+    "T01": {
+      "name_zh": "精密刀刻 / 钢凹版视觉",
+      "name_en": "Precision burin engraving",
+      "primary_zh": "以端点收细、宽窄受控的刀刻长线为主要结构；线群沿对象曲率与透视有规律地展开。",
+      "primary_en": "Dominant clean, tapered burin-cut strokes with controlled line-weight, arranged in curved bands aligned to surfaces and perspective.",
+      "tone_zh": "明暗由线距、刻线粗细、成束方向与留白转换；交叉线仅点到为止，保持轮廓干净。",
+      "tone_en": "Modulate tone with spacing, line width, directional bands and untouched paper; cross-hatching remains minimal.",
+      "edge_zh": "轮廓刀锋般清晰，转折处用刻线终止与疏密变化；避免机械等距网屏。",
+      "edge_en": "Crisp cutting edges, with line terminations and spacing changes at form boundaries; never a mechanical screen.",
+      "avoid_zh": "不要把点阵、模糊毛边或大面积连续黑调子作为主表现。",
+      "avoid_en": "Do not replace the main technique with dotted fields, fuzzy edges, or seamless black tonal blankets."
+    },
+    "T02": {
+      "name_zh": "铜版蚀刻",
+      "name_en": "Copperplate etching",
+      "primary_zh": "由笔触感明确、轻微不等距的蚀刻线组织形体；转折、材质和受力决定刻线组方向。",
+      "primary_en": "Dominant slightly irregular etched drawn lines, grouped by contour, material and local tension rather than a rigid grid.",
+      "tone_zh": "用交叉排线的层数、角度变化和局部断线建调子；在关键结构保留开放纸白。",
+      "tone_en": "Build values through intersecting hatch layers, direction changes and broken lines, preserving open unprinted spaces at key forms.",
+      "edge_zh": "边缘有手工绘线的活性，不是齐刷刷的刀口和不间断同向条纹。",
+      "edge_en": "Edges have lively drawn-line character rather than uniform, continuous, machine-parallel strokes.",
+      "avoid_zh": "不要以无方向的均匀点刻或平滑暗调代替蚀刻线。",
+      "avoid_en": "Avoid replacing etched linear construction with uniform dots or smoothly blended dark masses."
+    },
+    "T03": {
+      "name_zh": "干刻柔边",
+      "name_en": "Drypoint with ink burr",
+      "primary_zh": "以有压强轻重差异的短中程划痕刻线为主体，线缘带轻微储墨毛刺和绒感。",
+      "primary_en": "Dominant pressure-variable short-to-medium scratched lines with restrained ink-burr softness along the marks.",
+      "tone_zh": "通过断续线簇与柔绒深浅构建体积，最深处仍见局部刻痕方向；高光由未着墨纸面打开。",
+      "tone_en": "Create form through broken clusters of scratched strokes and soft velvety depth, retaining local mark direction even in shadows; use bare paper for highlights.",
+      "edge_zh": "接触边缘略带自然柔化，但主体身份和形体边界必须可靠。",
+      "edge_en": "Slightly feathered inked edges, but subject silhouette and defining geometry stay accurate.",
+      "avoid_zh": "不要工业式等距排线、规则点阵或整图磨砂噪点。",
+      "avoid_en": "No industrial equally spaced hatching, regular dot screens, or all-over gritty noise."
+    },
+    "T04": {
+      "name_zh": "点刻雕版",
+      "name_en": "Stipple engraving",
+      "primary_zh": "以彼此分离的、疏密与大小受控的雕刻墨点作为主体调子；轮廓只允许极少量清晰辅助线。",
+      "primary_en": "Dominant separated engraved dots of controlled density and size; permit only sparse precise outlines as support.",
+      "tone_zh": "明暗主要靠局部点密与点径阶梯塑形，沿形体变化而非随机散点；纸白亮区点量极少。",
+      "tone_en": "Model values primarily with graded local dot frequency and size that follow form, not random speckle; bright paper zones stay nearly dot-free.",
+      "edge_zh": "柔顺的点群过渡配合精准外轮廓，小图识别性不能丢失。",
+      "edge_en": "Smooth dotted transitions with faithful silhouettes; recognizable at thumbnail scale.",
+      "avoid_zh": "禁止连续平行排线、明显交叉排线、连续黑色喷绘渐变作为主要阴影方式。",
+      "avoid_en": "No continuous parallel hatching, conspicuous cross-hatching, or digital airbrush gradients as the main shading method."
+    },
+    "T05": {
+      "name_zh": "美柔汀调子版",
+      "name_en": "Mezzotint tonal engraving",
+      "primary_zh": "以极细密摇刀颗粒形成的均匀深墨基调为主体，明亮区域通过刮削与磨光从暗底中显现。",
+      "primary_en": "Dominant velvet-rich tonal plate texture, as if prepared by mezzotint rocking; reveal lights through selective scraping and burnishing.",
+      "tone_zh": "用连续但具有版画颗粒感的黑—灰—纸白明度塑造体积，而不是用长排线覆盖照片。",
+      "tone_en": "Model values through rich, print-grained continuous dark-to-light tonality rather than long hatch lines over a photograph.",
+      "edge_zh": "暗部沉厚、亮部柔顺，焦点的形体轮廓仍清晰；不把整幅暗化。",
+      "edge_en": "Deep shadows and soft luminous regions with legible focal contours; do not blacken the entire scene.",
+      "avoid_zh": "不得把大量交叉排线、点阵筛网或喷枪渐变伪装为美柔汀。",
+      "avoid_en": "Do not substitute dense cross-hatching, a digital dot screen, or airbrush gradients for mezzotint plate character."
+    }
+  }
+}

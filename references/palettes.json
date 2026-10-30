@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "version": "1.3.0",
+  "palettes": {
+    "P00": {
+      "name_zh": "中性石墨",
+      "name_en": "Neutral graphite",
+      "palette_zh": "深石墨墨色与自然纸白。",
+      "palette_en": "Deep graphite ink with natural paper white."
+    },
+    "P01": {
+      "name_zh": "海蓝赤陶",
+      "name_en": "Azure / terracotta",
+      "palette_zh": "深海蓝主墨，暖纸白，少量赤陶色辅墨。",
+      "palette_en": "Deep azure ink, warm paper white and sparse terracotta accents."
+    },
+    "P02": {
+      "name_zh": "藏青铜粉",
+      "name_en": "Navy / copper",
+      "palette_zh": "深藏青主墨，暖铜粉辅墨，旧纸灰。",
+      "palette_en": "Deep navy ink, warm copper-pink accents and archival paper gray."
+    },
+    "P03": {
+      "name_zh": "炭墨冷灰",
+      "name_en": "Charcoal / cool gray",
+      "palette_zh": "炭墨黑与冷灰，纸白；不默认添加火色。",
+      "palette_en": "Charcoal black, cool gray and paper white; no automatic flame-colored accent."
+    },
+    "P04": {
+      "name_zh": "石墨灰绿",
+      "name_en": "Graphite / sage",
+      "palette_zh": "石墨主墨，低饱和灰绿辅墨，暖纸白。",
+      "palette_en": "Graphite ink, muted sage accents and warm paper white."
+    },
+    "P05": {
+      "name_zh": "黑墨象牙",
+      "name_en": "Black / ivory",
+      "palette_zh": "深石墨或黑墨与温暖象牙纸白。",
+      "palette_en": "Deep graphite or black ink with warm ivory paper white."
+    },
+    "P06": {
+      "name_zh": "普蓝钴青",
+      "name_en": "Prussian / cobalt",
+      "palette_zh": "普鲁士蓝主墨，钴青辅墨，纸白。",
+      "palette_en": "Prussian-blue ink, cobalt-cyan accents and paper white."
+    },
+    "P07": {
+      "name_zh": "靛蓝樱粉",
+      "name_en": "Indigo / blush",
+      "palette_zh": "靛蓝主墨与柔和樱粉辅墨，象牙纸白。",
+      "palette_en": "Indigo ink with gentle blush accents and ivory paper white."
+    },
+    "P08": {
+      "name_zh": "炭灰档案蓝",
+      "name_en": "Charcoal / slate",
+      "palette_zh": "炭灰主墨，低饱和灰蓝辅墨，旧纸灰白。",
+      "palette_en": "Charcoal-gray ink, muted slate-blue accents and archival gray-white paper."
+    }
+  }
+}

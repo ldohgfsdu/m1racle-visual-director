@@ -1,0 +1,64 @@
+{
+  "version": "1.3.0",
+  "subject_file_sha256": "FILL_AFTER_TEST",
+  "model": "FILL",
+  "conditions": {
+    "same_source_image": true,
+    "same_palette": true,
+    "same_background": true,
+    "same_aspect_ratio": true,
+    "seed": "UNAVAILABLE_OR_FILL"
+  },
+  "results": [
+    {
+      "technique_id": "T01",
+      "image_path": "",
+      "status": "UNVERIFIED",
+      "subject_fidelity": "UNVERIFIED",
+      "dominant_mark": "UNVERIFIED",
+      "technique_collapse": "UNVERIFIED",
+      "moire_or_global_stripes": "UNVERIFIED",
+      "notes": ""
+    },
+    {
+      "technique_id": "T02",
+      "image_path": "",
+      "status": "UNVERIFIED",
+      "subject_fidelity": "UNVERIFIED",
+      "dominant_mark": "UNVERIFIED",
+      "technique_collapse": "UNVERIFIED",
+      "moire_or_global_stripes": "UNVERIFIED",
+      "notes": ""
+    },
+    {
+      "technique_id": "T03",
+      "image_path": "",
+      "status": "UNVERIFIED",
+      "subject_fidelity": "UNVERIFIED",
+      "dominant_mark": "UNVERIFIED",
+      "technique_collapse": "UNVERIFIED",
+      "moire_or_global_stripes": "UNVERIFIED",
+      "notes": ""
+    },
+    {
+      "technique_id": "T04",
+      "image_path": "",
+      "status": "UNVERIFIED",
+      "subject_fidelity": "UNVERIFIED",
+      "dominant_mark": "UNVERIFIED",
+      "technique_collapse": "UNVERIFIED",
+      "moire_or_global_stripes": "UNVERIFIED",
+      "notes": ""
+    },
+    {
+      "technique_id": "T05",
+      "image_path": "",
+      "status": "UNVERIFIED",
+      "subject_fidelity": "UNVERIFIED",
+      "dominant_mark": "UNVERIFIED",
+      "technique_collapse": "UNVERIFIED",
+      "moire_or_global_stripes": "UNVERIFIED",
+      "notes": ""
+    }
+  ]
+}
