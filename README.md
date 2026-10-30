@@ -47,6 +47,8 @@
 
 ## 🚀 快速开始
 
+支持由视觉助手实际看图后，按结构、光影、细节、留白和气质推荐前 2–3 个配方；证据不足时使用 BASE。Python 负责校验和规则排序，仍不自行识图。使用方法与能力边界见 [视觉适配与风格传承](references/visual_director.md)。
+
 **[点击下载完整 ZIP](https://github.com/ldohgfsdu/m1racle-visual-director/archive/refs/heads/main.zip)**
 
 下载后解压，将 `m1racle-visual-director-main` 文件夹改名为 `m1racle-intaglio-director`。也可以在仓库顶部点击 **Code → Download ZIP** 下载。

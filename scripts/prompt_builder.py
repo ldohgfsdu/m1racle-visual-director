@@ -225,6 +225,8 @@ def main(argv: list[str] | None = None) -> int:
             stream.reconfigure(encoding='utf-8')
     a = argparse.ArgumentParser(description='M1racle Intaglio 1.3.0: five techniques, eight recipes, independent palettes; prompts only')
     a.add_argument('--subject', default='', help='Theme / requirements; variables are preserved, not translated')
+    a.add_argument('--visual-analysis', help='JSON observations supplied by a vision agent, bound to --image SHA-256')
+    a.add_argument('--preferences', help='Explicit project preferences JSON; never written automatically')
     a.add_argument('--visual-notes', default='', help='Observations supplied by a person or vision-capable assistant')
     a.add_argument('--mode', choices=['auto', 'generate', 'redraw', 'refine'], default='auto')
     a.add_argument('--style', choices=['auto', 'BASE', *PROFILES], default='auto', help='Visual recipe ID (legacy I01-I08)')
@@ -255,13 +257,24 @@ def main(argv: list[str] | None = None) -> int:
             if args.image and Path(args.image).resolve() == Path(args.style_image).resolve():
                 raise ValueError('The same image cannot be both a content source and a separate style reference')
             probes.append({'path': args.style_image, 'role': 'style', 'probe': image_info(args.style_image)})
+        ranking = None
+        if args.preferences and not args.visual_analysis:
+            raise ValueError('--preferences requires --visual-analysis')
+        if args.visual_analysis:
+            from visual_director import load_analysis, rank_profiles
+            if role != 'source':
+                raise ValueError('Visual matching requires a content-source image')
+            preferences = json.loads(Path(args.preferences).read_text(encoding='utf-8')) if args.preferences else None
+            ranking = rank_profiles(load_analysis(args.visual_analysis, args.image), preferences)
         selected, scores = select_profile(' '.join([args.subject, args.visual_notes]))
         if args.style != 'auto':
             selected = args.style
         elif mode == 'refine':
             selected = 'BASE'
+        elif ranking:
+            selected = ranking['recommended']
         prompts = make_prompts(args.subject, selected, mode, role, args.ratio, args.palette, args.preserve,
-                               background=args.background, fidelity=args.fidelity,
+                               background=('guilloche' if ranking and args.background == 'auto' and mode != 'refine' and ranking['ornament'] == 'guilloche' and not theme_forbids_filigree(args.subject + args.preserve) else args.background), fidelity=args.fidelity,
                                visual_notes=args.visual_notes, style_reference=bool(args.style_image),
                                technique_id=args.technique, palette_id=args.palette_id)
     except (ValueError, OSError) as exc:
@@ -270,12 +283,13 @@ def main(argv: list[str] | None = None) -> int:
     if role == 'source' and not args.image:
         warnings.append('Content-source prompt template only: attach the actual content image in the image tool; no source image was inspected.')
     active = [k for k, value in scores.items() if value and value == max(scores.values())]
-    if args.style == 'auto' and len(active) > 1 and mode != 'refine':
+    if not ranking and args.style == 'auto' and len(active) > 1 and mode != 'refine':
         warnings.append('Text hints tie: ' + ', '.join(active) + '; let a vision-capable assistant decide.')
     info = {'version': VERSION, 'task_mode': mode, 'image_role': role,
             'auto_style': args.style == 'auto', 'selection_basis': 'explicit style' if args.style != 'auto' else
-            ('preserve existing engraving' if mode == 'refine' else 'limited positive-text hints; not visual analysis'),
-            'selection_scores': scores if args.style == 'auto' and mode != 'refine' else None,
+            ('preserve existing engraving' if mode == 'refine' else 'supplied visual observations' if ranking else 'limited positive-text hints; not visual analysis'),
+            'selection_scores': scores if not ranking and args.style == 'auto' and mode != 'refine' else None,
+            'visual_recommendation': ranking,
             'image_probe': '; '.join(p['probe'] for p in probes), 'image_inputs': probes,
             'rendered': False, 'references_uploaded': False, 'warnings': warnings}
     if not prompts['recipe_applied'] and selected != 'BASE':

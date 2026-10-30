@@ -19,13 +19,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "e2cb6bc745910e7bf86678d246edea5fe22ab9161cd7d39df5a3dbea5d2f59db",
-      "bytes": 8516
+      "sha256": "85b0258ea4f299a8df681e48771b75109ef9128b93bbafac836d62eded2bdc56",
+      "bytes": 8811
     },
     {
       "path": "SKILL.md",
-      "sha256": "e66596b56866db2367a8104be159d6f7090f3e688a656404733631c547b4bb94",
-      "bytes": 6534
+      "sha256": "550a6e7d94ea473df97149deeb407aaeab057a12dd8a9fb971427d0aa1f25dc5",
+      "bytes": 7067
     },
     {
       "path": "agents/openai.yaml",
@@ -183,14 +183,24 @@
       "bytes": 2836
     },
     {
+      "path": "references/visual_director.md",
+      "sha256": "7aff969229902c95bc5c5631d644502ccaceb5260e171e0a2f851d04c7220b32",
+      "bytes": 3918
+    },
+    {
+      "path": "references/visual_matching.json",
+      "sha256": "c12a59ce0245cf933e50e53a3b4277bf8b607f3686130ad4e52a1d39f90b9522",
+      "bytes": 1480
+    },
+    {
       "path": "scripts/compare_techniques.py",
       "sha256": "9b7a3960f6e968ac62c343e02a85f3badda34531983a286cb599b8850892692f",
       "bytes": 3092
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "c6548960b55bbebf77ef410b07c543e7aaf8c37a1b58df5ad271cf4474c4e2d2",
-      "bytes": 20740
+      "sha256": "7aee7d08955b33c88b11a269cb25242672efc95ab88f70ebb850c25efff5ab07",
+      "bytes": 21930
     },
     {
       "path": "scripts/task_router.py",
@@ -201,6 +211,11 @@
       "path": "scripts/validate_skill.py",
       "sha256": "406f3a6b6b3da625e5d9b3aad1463f753a8d54f8fc9d2ad4c9671a3050a1efad",
       "bytes": 9480
+    },
+    {
+      "path": "scripts/visual_director.py",
+      "sha256": "b64a92affa0af4248b719698f65de69ce82776a73c2098834fbc7a234d1deefc",
+      "bytes": 6510
     },
     {
       "path": "tests/ab_results_template.json",
@@ -231,6 +246,11 @@
       "path": "tests/test_technique_matrix.py",
       "sha256": "6b55bc785dff60d359059aa761291661ac78f101bf37539649e02fa2f805cbb1",
       "bytes": 5267
+    },
+    {
+      "path": "tests/test_visual_director.py",
+      "sha256": "beb7ce1974f02a7c984d28996ae785576dac1bb94d775ceea089400b55b1a121",
+      "bytes": 4234
     },
     {
       "path": "tests/visual_cases.json",
