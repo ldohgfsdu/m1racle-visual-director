@@ -1,15 +1,19 @@
 import copy
+import contextlib
 import hashlib
+import io
 import json
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'scripts'))
 from visual_director import rank_profiles, RULES
+import prompt_builder
 
 
 def analysis(profile='I01'):
@@ -20,6 +24,22 @@ def analysis(profile='I01'):
 
 
 class VisualDirectorTests(unittest.TestCase):
+    def test_manual_and_refine_do_not_read_selection_files_or_call_rankers(self):
+        for extra in (['--style','I01'], ['--mode','refine','--role','source']):
+            output = io.StringIO()
+            with patch.object(prompt_builder, 'select_profile', side_effect=AssertionError('Unexpected keyword ranking')), \
+                 patch('visual_director.rank_profiles', side_effect=AssertionError('Unexpected visual ranking')), \
+                 contextlib.redirect_stdout(output):
+                code = prompt_builder.main(extra+['--visual-analysis','missing-analysis.json',
+                                                   '--preferences','missing-preferences.json','--json'])
+            self.assertEqual(code,0)
+            result = json.loads(output.getvalue())
+            self.assertIsNone(result['visual_recommendation'])
+            self.assertIsNone(result['selection_scores'])
+            self.assertTrue(any('were not read' in warning for warning in result['warnings']))
+            self.assertEqual(result['style'],'I01' if '--style' in extra else 'BASE')
+            if '--mode' in extra: self.assertEqual(result['technique_id'],'INHERIT')
+
     def test_geometry_not_subject_names_selects_recipe(self):
         self.assertEqual(rank_profiles(analysis())['recommended'], 'I01')
         self.assertEqual(rank_profiles(analysis('I03'))['recommended'], 'I03')

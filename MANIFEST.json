@@ -24,8 +24,8 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "c967d9d0394183d7588b1cc9f6543b48e5f866999829943345719e06ae1b534f",
-      "bytes": 7532
+      "sha256": "faa1fea8b53fee8a5705673634b845a25f21da67ca94ac8989a50c1c3d75f73b",
+      "bytes": 8193
     },
     {
       "path": "agents/openai.yaml",
@@ -133,6 +133,11 @@
       "bytes": 5494
     },
     {
+      "path": "references/direct_execution.md",
+      "sha256": "a0f450946ba5d07902f592f2a02539c341e6361c5139cf6b6475c85b3bad672a",
+      "bytes": 2497
+    },
+    {
       "path": "references/master_prompt_en.md",
       "sha256": "f32dbc2f6e5a79706a49ab6bb18b54f1b423e6b3657c6d839c6baca233003e7c",
       "bytes": 2811
@@ -219,8 +224,8 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "7aee7d08955b33c88b11a269cb25242672efc95ab88f70ebb850c25efff5ab07",
-      "bytes": 21930
+      "sha256": "c3e74105f0e9e28b9cd68377922e45e2cae3b9dd460ab7940cd138421893a62c",
+      "bytes": 22378
     },
     {
       "path": "scripts/task_router.py",
@@ -279,8 +284,8 @@
     },
     {
       "path": "tests/test_visual_director.py",
-      "sha256": "beb7ce1974f02a7c984d28996ae785576dac1bb94d775ceea089400b55b1a121",
-      "bytes": 4234
+      "sha256": "b5f2e328e15f2adede24df97fa899e71c6ff15c5d6c9cf33815e1159aa5829a7",
+      "bytes": 5484
     },
     {
       "path": "tests/visual_cases.json",
