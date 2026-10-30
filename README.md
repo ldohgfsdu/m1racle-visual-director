@@ -47,6 +47,8 @@
 
 ## 🚀 快速开始
 
+想比较实际出图耗时，可直接复制 [三组速度测试提示词](examples/speed-test.md)，用同一张照片分别测试标准流程、合并决策和固定风格。
+
 支持由视觉助手实际看图后，按结构、光影、细节、留白和气质推荐前 2–3 个配方；证据不足时使用 BASE。Python 负责校验和规则排序，仍不自行识图。使用方法与能力边界见 [视觉适配与风格传承](references/visual_director.md)。
 
 **[点击下载完整 ZIP](https://github.com/ldohgfsdu/m1racle-visual-director/archive/refs/heads/main.zip)**

@@ -19,8 +19,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "053db730f322c4e06cdff6b5dcaf16c6a6dead54d93c94abc9928aefb948ed9a",
-      "bytes": 9052
+      "sha256": "7eba4452c750e80a6b8408802cc6c1f641a4364b96acee459366be3d3b9fc469",
+      "bytes": 9231
     },
     {
       "path": "SKILL.md",
@@ -116,6 +116,11 @@
       "path": "examples/bridge_ab_prompts_zh.md",
       "sha256": "ccfdb54d4da7f1190caed93922c9e8c79378043f552558d4386a695bab504162",
       "bytes": 10642
+    },
+    {
+      "path": "examples/speed-test.md",
+      "sha256": "fbaa4e77ee3363e7b47fe37b186b413a7d4ff9e99db313469ddeb1d0b069dca4",
+      "bytes": 6501
     },
     {
       "path": "references/ab_protocol.md",
