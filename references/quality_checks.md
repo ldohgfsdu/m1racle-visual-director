@@ -1,5 +1,7 @@
 # 结果验收 / Output checks
 
+逐项记录与可执行门禁见 [成图验收与真实作品基准](output_review.md)，八套历史配方的验收特征见 [style_acceptance.json](style_acceptance.json)。内容硬门槛优先于风格评价；所有 PASS 必须有实际观察与区域依据，文件摘要必须对应本轮真实输出。
+
 先通过 [runtime_policy.md](runtime_policy.md) 的工具能力门禁，再读回真实生成结果，再对照用户请求及内容原图逐项记录 PASS / ISSUE / UNVERIFIED。没有读取结果、原图缺失或细节分辨率不足时，不得给对应项目 PASS。
 
 | 项目 | 检查方法 | 修复边界 |

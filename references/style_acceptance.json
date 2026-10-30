@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "evidence_status": "UNVERIFIED: acceptance criteria, not measured model results",
+  "profiles": {
+    "I01": {
+      "technique_id": "T01",
+      "reference": "assets/examples/I01_blue_coastal_architecture.jpg",
+      "required": {
+        "I01.1": "清晰曲面与精密轮廓",
+        "I01.2": "沿形体变化的疏密与纸白",
+        "I01.3": "背景曲线不侵入主体"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I02": {
+      "technique_id": "T02",
+      "reference": "assets/examples/I02_warm_monumental_fantasy.jpg",
+      "required": {
+        "I02.1": "层叠蚀线表现原有体块",
+        "I02.2": "中调有重量但细节可读",
+        "I02.3": "尺度气势不靠放大或添加建筑"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I03": {
+      "technique_id": "T05",
+      "reference": "assets/examples/I03_charcoal_epic_narrative.jpg",
+      "required": {
+        "I03.1": "选择性绒黑暗底",
+        "I03.2": "刮光高光形成焦点",
+        "I03.3": "暗部保留主体分离"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I04": {
+      "technique_id": "T02",
+      "reference": "assets/examples/I04_classical_landscape.jpg",
+      "required": {
+        "I04.1": "蚀线跟随不规则起伏",
+        "I04.2": "远处细节和对比递减",
+        "I04.3": "自然分层而非统一横纹"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I05": {
+      "technique_id": "T04",
+      "reference": "assets/examples/I05_engraved_portrait.jpg",
+      "required": {
+        "I05.1": "点群塑造连续体积",
+        "I05.2": "局部特征保持可辨",
+        "I05.3": "柔和轮廓不过度美化"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I06": {
+      "technique_id": "T01",
+      "reference": "assets/examples/I06_cyan_aerial_panorama.jpg",
+      "required": {
+        "I06.1": "连续刀刻线跟随大片曲面",
+        "I06.2": "远近线距和对比有层次",
+        "I06.3": "长线不横贯所有物体"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I07": {
+      "technique_id": "T03",
+      "reference": "assets/examples/I07_indigo_blush_sakura.jpg",
+      "required": {
+        "I07.1": "柔边短刻线与线簇",
+        "I07.2": "留白与局部细节交替",
+        "I07.3": "轻盈节奏不依赖擅自粉蓝换色"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    },
+    "I08": {
+      "technique_id": "T02",
+      "reference": "assets/examples/I08_archival_harbor.jpg",
+      "required": {
+        "I08.1": "分段蚀线与局部交叉排线",
+        "I08.2": "复杂层次有明确纸白分隔",
+        "I08.3": "多主体细节清楚且不新增物体"
+      },
+      "forbidden": [
+        "摄影底图叠纹",
+        "参考图题材混入",
+        "用换色掩盖技法未实现"
+      ]
+    }
+  }
+}

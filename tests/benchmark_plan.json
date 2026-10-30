@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "purpose": "Real source and output evidence must be supplied; no trials executed",
+  "cases": [
+    {
+      "id": "curved_architecture_high_key",
+      "structure": "curved_architecture",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "curved_architecture_low_key",
+      "structure": "curved_architecture",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "curved_architecture_mixed_light",
+      "structure": "curved_architecture",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "industrial_geometry_high_key",
+      "structure": "industrial_geometry",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "industrial_geometry_low_key",
+      "structure": "industrial_geometry",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "industrial_geometry_mixed_light",
+      "structure": "industrial_geometry",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "portrait_high_key",
+      "structure": "portrait",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "portrait_low_key",
+      "structure": "portrait",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "portrait_mixed_light",
+      "structure": "portrait",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "botanical_high_key",
+      "structure": "botanical",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "botanical_low_key",
+      "structure": "botanical",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "botanical_mixed_light",
+      "structure": "botanical",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "crowded_street_high_key",
+      "structure": "crowded_street",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "crowded_street_low_key",
+      "structure": "crowded_street",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "crowded_street_mixed_light",
+      "structure": "crowded_street",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "minimal_object_high_key",
+      "structure": "minimal_object",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "minimal_object_low_key",
+      "structure": "minimal_object",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "minimal_object_mixed_light",
+      "structure": "minimal_object",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "layered_landscape_high_key",
+      "structure": "layered_landscape",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "layered_landscape_low_key",
+      "structure": "layered_landscape",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "layered_landscape_mixed_light",
+      "structure": "layered_landscape",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "transparent_object_high_key",
+      "structure": "transparent_object",
+      "lighting": "high_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "transparent_object_low_key",
+      "structure": "transparent_object",
+      "lighting": "low_key",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    },
+    {
+      "id": "transparent_object_mixed_light",
+      "structure": "transparent_object",
+      "lighting": "mixed_light",
+      "status": "UNVERIFIED",
+      "source": null,
+      "runs": [],
+      "blind_preference": null
+    }
+  ]
+}

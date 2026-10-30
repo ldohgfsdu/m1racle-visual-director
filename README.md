@@ -110,6 +110,8 @@ $ python scripts/prompt_builder.py --image ./photo.jpg --mode redraw --technique
 
 ## ⚙️ 工作方式
 
+成图后先检查主体、几何、构图和配色，再检查技法与所选配方的特征。缺少证据保持未验证；规则分数不能替代真实效果验收。详见 [成图验收与作品基准](references/output_review.md)。
+
 ```text
 上传照片 / 输入主题
          ↓
