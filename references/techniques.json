@@ -5,16 +5,14 @@
     "T01": {
       "name_zh": "精密刀刻 / 钢凹版视觉",
       "name_en": "Precision burin engraving",
-      "primary_zh": "以端点收细、宽窄受控的刀刻线为主要造型手段；线段长短、转向与疏密服从局部表面，不把所有区域铺成长排线。",
-      "primary_en": "Model form with tapered, controlled-width burin strokes; adapt stroke length, curvature and spacing to each local surface instead of covering every region with long parallel bands.",
+      "primary_zh": "以端点收细、宽窄受控的刀刻长线为主要结构；线群沿对象曲率与透视有规律地展开。",
+      "primary_en": "Dominant clean, tapered burin-cut strokes with controlled line-weight, arranged in curved bands aligned to surfaces and perspective.",
       "tone_zh": "明暗由线距、刻线粗细、成束方向与留白转换；交叉线仅点到为止，保持轮廓干净。",
       "tone_en": "Modulate tone with spacing, line width, directional bands and untouched paper; cross-hatching remains minimal.",
       "edge_zh": "轮廓刀锋般清晰，转折处用刻线终止与疏密变化；避免机械等距网屏。",
       "edge_en": "Crisp cutting edges, with line terminations and spacing changes at form boundaries; never a mechanical screen.",
       "avoid_zh": "不要把点阵、模糊毛边或大面积连续黑调子作为主表现。",
-      "avoid_en": "Do not replace the main technique with dotted fields, fuzzy edges, or seamless black tonal blankets.",
-      "application_zh": "分区用线：主体亮面保留原有浅色与开阔纸白，中间调用疏密渐变塑造体积；暗部保留结构间的浅色分隔，不压成连续黑块。原图已有的大面积平滑亮区优先保留平整原色或纸白，不铺连续排线；若原图有晴空，不得用连续水平线填满蓝天，仅在已有云团的体积转折处使用少量短而收细的弧线；已有波纹或纹理保留其透视与尺度变化，不延展成跨物体的整齐网屏。不得凭本段指令添加原图不存在的场景区域；纸感保持细微，不以全图黄褐染色或噪点制造复古感。",
-      "application_en": "Use region-specific strokes: preserve source light colors and open paper on lit subject planes, grade line spacing through midtones, and keep light separations between shadow structures instead of solid black blocks. Broad smooth bright regions already in the source stay sparsely marked or unmarked, preserving flat original colors or paper white. If clear sky exists in the source, keep it free of continuous horizontal hatching; use sparse short tapered arcs only at existing cloud form transitions. Existing ripples or textures retain perspective and scale changes without becoming a grid across objects. These instructions introduce no new scene regions. Keep paper texture subtle; do not create age by yellow-brown tinting or all-over noise."
+      "avoid_en": "Do not replace the main technique with dotted fields, fuzzy edges, or seamless black tonal blankets."
     },
     "T02": {
       "name_zh": "铜版蚀刻",

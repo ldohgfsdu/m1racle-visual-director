@@ -21,20 +21,6 @@ def cli(*args):
 
 
 class PromptTests(unittest.TestCase):
-    def test_t01_models_regions_without_recoloring_or_affecting_other_techniques(self):
-        for ident in ('I01','BASE'):
-            d = p.make_prompts('保留主体','I01' if ident == 'I01' else 'BASE',
-                               'redraw','source','','','',technique_id='T01',background='none')
-            self.assertEqual(d['palette_source'],'source_image')
-            self.assertEqual(d['background'],'none')
-            self.assertIn('不压成连续黑块',d['zh'])
-            self.assertIn('sparsely marked or unmarked',d['en'])
-        other = p.make_prompts('杯子','BASE','generate','none','','','',technique_id='T04')
-        self.assertNotIn('region-specific strokes',other['en'])
-        inherited = p.make_prompts('仅修局部','BASE','refine','source','','','')
-        self.assertEqual(inherited['technique_id'],'INHERIT')
-        self.assertNotIn('region-specific strokes',inherited['en'])
-
     def test_eight_profiles_and_neutral_base(self):
         self.assertEqual(set(p.PROFILES), {f'I{i:02d}' for i in range(1, 9)})
         self.assertEqual(p.select_profile('未知物体')[0], 'BASE')

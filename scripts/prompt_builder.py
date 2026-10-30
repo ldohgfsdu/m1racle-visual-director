@@ -194,9 +194,6 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
     if technique:
         zh.append(f"主雕刻技法 {actual_technique}：{technique['name_zh']}。主导痕迹：{technique['primary_zh']} 调子构成：{technique['tone_zh']} 边缘：{technique['edge_zh']} 排除：{technique['avoid_zh']}")
         en.append(f"Dominant engraving technique {actual_technique}: {technique['name_en']}. Primary marks: {technique['primary_en']} Tone construction: {technique['tone_en']} Edges: {technique['edge_en']} Exclusions: {technique['avoid_en']}")
-        if technique.get('application_zh'):
-            zh.append(technique['application_zh'])
-            en.append(technique['application_en'])
     else:
         zh.append('主技法继承：保留原有版画的主要调子构成、线条或点刻性质与边缘质感，仅修复用户授权的区域。')
         en.append("Inherit existing dominant mark-making: retain the source print's tonal mechanism and edge character; repair authorized regions only.")
