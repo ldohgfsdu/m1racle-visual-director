@@ -24,8 +24,8 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "faa1fea8b53fee8a5705673634b845a25f21da67ca94ac8989a50c1c3d75f73b",
-      "bytes": 8193
+      "sha256": "0621e1def070c4e62c207ee5771b9d50494bb4672fbab141caa60d1ecc2e484e",
+      "bytes": 8650
     },
     {
       "path": "agents/openai.yaml",
@@ -123,6 +123,11 @@
       "bytes": 6501
     },
     {
+      "path": "examples/t01-quality-check.md",
+      "sha256": "71026803f0562b4a68e921698a8ca74c4c76c78ad0e4f37137101fbf2fbed0f0",
+      "bytes": 2123
+    },
+    {
       "path": "references/ab_protocol.md",
       "sha256": "43d641c3e5b4c7faaea234bf9e7852299198ceaaef45a109bc7921f5d766e179",
       "bytes": 2705
@@ -194,13 +199,13 @@
     },
     {
       "path": "references/techniques.json",
-      "sha256": "cad24a5a9db44a9960c22632b471d36eb7ce9b4ab24f725623ef9cd84569a77d",
-      "bytes": 5625
+      "sha256": "5de8e94fe6e6f35bfe5d94b328d159193838c6adf2a22d1e51b6f9361f2ecd95",
+      "bytes": 6859
     },
     {
       "path": "references/techniques.md",
-      "sha256": "27dedc6287c4c06c18e8c313b5301c19c2e23750eef61ed7aba1b0b08b1ff6b3",
-      "bytes": 2836
+      "sha256": "835a7cd5230889c83f1580df5964938581f55154be97fb338f2c074049cf05d9",
+      "bytes": 2875
     },
     {
       "path": "references/visual_director.md",
@@ -224,8 +229,8 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "c3e74105f0e9e28b9cd68377922e45e2cae3b9dd460ab7940cd138421893a62c",
-      "bytes": 22378
+      "sha256": "8465443286808f0bb983f57f543d7b032a7a563c3be9fb8aeffda970f86ad668",
+      "bytes": 22524
     },
     {
       "path": "scripts/task_router.py",
@@ -264,8 +269,8 @@
     },
     {
       "path": "tests/test_prompt_builder.py",
-      "sha256": "1da983ed003f9f04adf8eb01d77babe8cfe821a4bb10f39244c2d0bdaa302023",
-      "bytes": 12792
+      "sha256": "2b336c8f6feac0f95d30b072d3bae79057b7dd2658ae11f6f5e472aa4a5d2e63",
+      "bytes": 13712
     },
     {
       "path": "tests/test_regressions.py",
