@@ -139,8 +139,8 @@
     },
     {
       "path": "references/ab_protocol.md",
-      "sha256": "43d641c3e5b4c7faaea234bf9e7852299198ceaaef45a109bc7921f5d766e179",
-      "bytes": 2705
+      "sha256": "2ed57942135a32d6ba9d4653818457006155bc13fb8d6ff7ba63efa73314a70b",
+      "bytes": 3197
     },
     {
       "path": "references/decision_policy.md",
@@ -164,8 +164,8 @@
     },
     {
       "path": "references/output_review.md",
-      "sha256": "4b11087446cd64d1414b0894e9440abe969b53ec590de5e4c8df6c34713ad022",
-      "bytes": 6325
+      "sha256": "7578bb675a4a3d572e131e94c02c7d4cb8fd3353189b9cd3f2ac91b3239d7d78",
+      "bytes": 7534
     },
     {
       "path": "references/palettes.json",
@@ -198,6 +198,11 @@
       "bytes": 1994
     },
     {
+      "path": "references/source_bound_edit.md",
+      "sha256": "a167ab7f5fa328d424d6432d7e726c1b301cebf2d37f04afb6e8a3430b5941ce",
+      "bytes": 2973
+    },
+    {
       "path": "references/style_acceptance.json",
       "sha256": "3ccae6e07552c3d5adecb113d84ff659045b84d0f978000cde78b6791bea7eee",
       "bytes": 3550
@@ -219,8 +224,8 @@
     },
     {
       "path": "references/visual_director.md",
-      "sha256": "7aff969229902c95bc5c5631d644502ccaceb5260e171e0a2f851d04c7220b32",
-      "bytes": 3918
+      "sha256": "ba33253dfe5d2e621265545b0a39f27f13be674b2d140ac461dc0aa4cec7a55d",
+      "bytes": 6020
     },
     {
       "path": "references/visual_matching.json",
@@ -229,8 +234,8 @@
     },
     {
       "path": "references/visual_scorecard.json",
-      "sha256": "ba7d3e47ff82d8a96eb7b10627f722a4080e2257205cf21ffce255d4ed45a91c",
-      "bytes": 1870
+      "sha256": "61ad6371e8168cf908b4082e9b7fe464de00e533cdc047668fed7616abfd2885",
+      "bytes": 2114
     },
     {
       "path": "scripts/build_release.py",
@@ -239,8 +244,8 @@
     },
     {
       "path": "scripts/compare_techniques.py",
-      "sha256": "9b7a3960f6e968ac62c343e02a85f3badda34531983a286cb599b8850892692f",
-      "bytes": 3092
+      "sha256": "c2a3dd049f3e34c10e1586bcfa2b783d58fcc6bf724ae68c6d25e3bc7f8fd94b",
+      "bytes": 3134
     },
     {
       "path": "scripts/output_review.py",
@@ -249,8 +254,13 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "94c1be4f80b0e8fe4adb50011114616ef23946325e9ac0d977ed8190f85377d7",
-      "bytes": 28503
+      "sha256": "af4f51fbe3593898f4a63c6aa05cc3124b6b9589608d38252cbd82885b0dff20",
+      "bytes": 30616
+    },
+    {
+      "path": "scripts/run_source_bound_edit.py",
+      "sha256": "afb1a6bd67731d60a94dbba56d199a6d18981ee5dfbcb7f5bc9652f278922f35",
+      "bytes": 11285
     },
     {
       "path": "scripts/task_router.py",
@@ -269,13 +279,13 @@
     },
     {
       "path": "scripts/visual_scorecard.py",
-      "sha256": "6c7cef09a3283274af5c0e2ed526dffc74b441bac2cf35f77608c719cecc2f24",
-      "bytes": 8257
+      "sha256": "fbef7d6835ca90a4060774ea5dd1f530b2094e2f523e3e15261ac4e118675294",
+      "bytes": 9415
     },
     {
       "path": "SKILL.md",
-      "sha256": "33713bff11ea1c6f1b6a695ef2447454a9b7d043b39fbe8b56f911d266a5f6d5",
-      "bytes": 9780
+      "sha256": "1eb75e03e842b4312abf7ce99c11197a40429ca96e0f1c292eeeb75058c99e9a",
+      "bytes": 12978
     },
     {
       "path": "tests/ab_results_template.json",
@@ -304,13 +314,18 @@
     },
     {
       "path": "tests/test_prompt_builder.py",
-      "sha256": "1da983ed003f9f04adf8eb01d77babe8cfe821a4bb10f39244c2d0bdaa302023",
-      "bytes": 12792
+      "sha256": "0cb6c4d8b4ef4f310642aeb08c4a6d04bd2d99f9d8ed42d0d3de4e07637e2dc8",
+      "bytes": 13618
     },
     {
       "path": "tests/test_regressions.py",
-      "sha256": "a8451e98911104e56a187be72a142623d89ea5333ee97ad3bba0a3f26eec4625",
-      "bytes": 6569
+      "sha256": "7e92f7b0f37a60df106b7650e103109e53fcba3e96190d9575046869607432c8",
+      "bytes": 8753
+    },
+    {
+      "path": "tests/test_run_source_bound_edit.py",
+      "sha256": "f7f2fb31d3212e586ead0ef6fb8b35979b2bbd628344f98c12e0eeaadb4f0568",
+      "bytes": 5659
     },
     {
       "path": "tests/test_task_router.py",
@@ -319,8 +334,8 @@
     },
     {
       "path": "tests/test_technique_matrix.py",
-      "sha256": "6b55bc785dff60d359059aa761291661ac78f101bf37539649e02fa2f805cbb1",
-      "bytes": 5267
+      "sha256": "580bc8888d8a11306190eca8099b627c424abdaece99223a4d861b4d924ded31",
+      "bytes": 6489
     },
     {
       "path": "tests/test_visual_director.py",
@@ -329,8 +344,8 @@
     },
     {
       "path": "tests/test_visual_scorecard.py",
-      "sha256": "82cecf89f4303672e32e12994999502fadf93f0472dacda7a0c485779aba1967",
-      "bytes": 8173
+      "sha256": "73b80b62720720f3cd814e7253cfa8263b19e8667d58a3190847313933fbfd7c",
+      "bytes": 12018
     },
     {
       "path": "tests/visual_cases.json",

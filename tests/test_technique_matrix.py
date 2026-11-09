@@ -34,6 +34,25 @@ class TechniqueMatrixTests(unittest.TestCase):
             self.assertNotIn('视觉配方',row['zh'])
         self.assertEqual(len({x['zh'] for x in data['rows']}),5)
 
+    def test_default_redraw_matrix_keeps_source_color_across_all_five(self):
+        x = m.build_matrix('原图彩色梯田、人物、木屋和远山')
+        self.assertEqual(len(x['rows']), 5)
+        for item in x['rows']:
+            with self.subTest(technique=item['technique_id']):
+                self.assertEqual(item['palette_source'], 'source_image')
+                self.assertIn('原图配色硬锁', item['zh'])
+                self.assertNotIn('最终配色（已解析优先级）：石墨黑与纸白', item['zh'])
+        override = m.build_matrix('同一张梯田', palette='仅石墨黑和纸白')
+        self.assertTrue(all(row['palette_source'] == 'user' for row in override['rows']))
+
+    def test_cli_default_redraw_matrix_keeps_source_colors(self):
+        proc = subprocess.run([sys.executable, '-B', str(ROOT/'scripts/compare_techniques.py'),
+                               '--subject', '梯田、人物、木屋', '--json'],
+                              capture_output=True, text=True, encoding='utf-8')
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        obj = json.loads(proc.stdout)
+        self.assertTrue(all(r['palette_source'] == 'source_image' for r in obj['rows']))
+
     def test_mezzotint_cannot_import_mandatory_stipple_or_hatch_instruction(self):
         x=p.make_prompts('杯子','BASE','generate','none','','石墨灰','',technique_id='T05')
         self.assertIn('美柔汀',x['zh'])

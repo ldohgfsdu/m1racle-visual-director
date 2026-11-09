@@ -25,7 +25,18 @@ def make_record(score=5, overrides=None, flags=None):
     }
 
 
-MATH_EVIDENCE = {"verified": True, "aspect_ratio_drift_pct": 0.0, "geometry_ratio_gate_failed": False, "source_dimensions": [8, 4], "output_dimensions": [8, 4]}
+MATH_EVIDENCE = {"verified": True, "aspect_ratio_drift_pct": 0.0,
+                 "geometry_ratio_gate_failed": False, "source_binding_documented": True,
+                 "source_dimensions": [8, 4], "output_dimensions": [8, 4]}
+
+
+def attach_binding(record):
+    record["source_binding"] = {
+        "status": "documented", "role": "content_source",
+        "source_sha256": record["source_sha256"], "run_id": record["run_id"],
+        "tool_input_trace": "SYNTHETIC test invocation, not evidence of a real model call",
+    }
+
 
 
 def image(w, h, color=(1, 2, 3)):
@@ -58,6 +69,21 @@ class VisualScorecardTests(unittest.TestCase):
     def test_unauthorized_frame_is_hard_rejection(self):
         result = s.score_record(make_record(flags={"unauthorized_frame": True}), bound_evidence=MATH_EVIDENCE)
         self.assertEqual(result["status"], "REJECTED")
+
+    def test_report_output_is_hard_rejected_even_with_perfect_score_and_matching_dimensions(self):
+        for flag in ('wrong_output_type', 'unauthorized_report_layout'):
+            with self.subTest(flag=flag):
+                result = s.score_record(make_record(flags={flag: True}), bound_evidence=MATH_EVIDENCE)
+                self.assertEqual(result['score'], 100)
+                self.assertEqual(result['status'], 'REJECTED')
+                self.assertIn(flag, result['hard_fail_flags'])
+
+    def test_report_flags_must_be_reviewed_not_omitted(self):
+        record = make_record()
+        del record['flags']['wrong_output_type']
+        result = s.score_record(record, bound_evidence=MATH_EVIDENCE)
+        self.assertEqual(result['status'], 'UNVERIFIED')
+        self.assertIn('wrong_output_type', result['missing_flags'])
 
     def test_eighty_points_is_conditional(self):
         result = s.score_record(make_record(score=4), bound_evidence=MATH_EVIDENCE)
@@ -98,11 +124,56 @@ class VisualScorecardTests(unittest.TestCase):
             record = make_record()
             record["source_sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
             record["output_sha256"] = hashlib.sha256(out.read_bytes()).hexdigest()
+            attach_binding(record)
             evidence = s.verify_evidence(record, src, out)
             self.assertTrue(evidence["verified"])
             self.assertEqual(evidence["source_dimensions"], [128, 64])
             self.assertFalse(evidence["geometry_ratio_gate_failed"])
             self.assertEqual(s.score_record(record, bound_evidence=evidence)["status"], "PASS")
+
+    def test_missing_source_binding_blocks_pass_even_with_perfect_scores(self):
+        with tempfile.TemporaryDirectory() as td:
+            src, out = Path(td) / "source.png", Path(td) / "output.png"
+            src.write_bytes(image(128, 64))
+            out.write_bytes(image(128, 64, (4, 5, 6)))
+            record = make_record()
+            record["source_sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
+            record["output_sha256"] = hashlib.sha256(out.read_bytes()).hexdigest()
+            evidence = s.verify_evidence(record, src, out)
+            self.assertFalse(evidence["source_binding_documented"])
+            result = s.score_record(record, bound_evidence=evidence)
+            self.assertEqual(result["status"], "UNVERIFIED")
+            self.assertIsNone(result["score"])
+            attach_binding(record)
+            record["source_binding"]["source_sha256"] = "0" * 64
+            evidence = s.verify_evidence(record, src, out)
+            self.assertFalse(evidence["source_binding_documented"])
+            self.assertEqual(s.score_record(record, bound_evidence=evidence)["status"], "UNVERIFIED")
+            record["source_binding"]["source_sha256"] = record["source_sha256"]
+            evidence = s.verify_evidence(record, src, out)
+            self.assertTrue(evidence["source_binding_documented"])
+            self.assertEqual(s.score_record(record, bound_evidence=evidence)["status"], "PASS")
+
+    def test_binding_claim_for_different_run_does_not_pass(self):
+        record = make_record()
+        record["source_sha256"] = "a" * 64
+        attach_binding(record)
+        record["source_binding"]["run_id"] = "different-run"
+        self.assertFalse(s.documented_source_binding(record, record["source_sha256"]))
+
+    def test_bad_ratio_fails_even_without_tool_binding_evidence(self):
+        with tempfile.TemporaryDirectory() as td:
+            src, out = Path(td) / "source.png", Path(td) / "output.png"
+            src.write_bytes(image(96, 128))
+            out.write_bytes(image(128, 96, (4, 5, 6)))
+            record = make_record()
+            record["source_sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
+            record["output_sha256"] = hashlib.sha256(out.read_bytes()).hexdigest()
+            evidence = s.verify_evidence(record, src, out)
+            result = s.score_record(record, bound_evidence=evidence)
+            self.assertEqual(result["status"], "REJECTED")
+            self.assertTrue(result["geometry_ratio_gate_failed"])
+            self.assertFalse(result["source_binding_documented"])
 
     def test_real_bytes_mismatch_is_not_scored(self):
         with tempfile.TemporaryDirectory() as td:
@@ -133,6 +204,7 @@ class VisualScorecardTests(unittest.TestCase):
             record = make_record()
             record["source_sha256"] = hashlib.sha256(src.read_bytes()).hexdigest()
             record["output_sha256"] = hashlib.sha256(out.read_bytes()).hexdigest()
+            attach_binding(record)
             evidence = s.verify_evidence(record, src, out)
             self.assertTrue(evidence["geometry_ratio_gate_failed"])
             result = s.score_record(record, bound_evidence=evidence)
