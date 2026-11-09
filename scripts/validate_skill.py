@@ -20,6 +20,7 @@ REQUIRED={
     'examples/bridge_ab_prompts_zh.md',
     'assets/style-contact-sheet.jpg','scripts/prompt_builder.py','scripts/compare_techniques.py','scripts/task_router.py','tests/test_task_router.py',
     'scripts/validate_skill.py','tests/test_prompt_builder.py','tests/test_regressions.py',
+    'references/visual_scorecard.json','scripts/visual_scorecard.py','tests/test_visual_scorecard.py',
     'tests/test_package.py','tests/test_technique_matrix.py','tests/ab_results_template.json',
     'tests/visual_results_v1.2.0_legacy.json','tests/visual_cases.json','tests/visual_results.json','MANIFEST.json',
 }
@@ -80,11 +81,11 @@ def check_package(root: Path) -> list[str]:
         data=json.loads((root/'references/profiles.json').read_text(encoding='utf-8'))
         techdata=json.loads((root/'references/techniques.json').read_text(encoding='utf-8'))
         paldata=json.loads((root/'references/palettes.json').read_text(encoding='utf-8'))
-        if data.get('schema_version')!=2 or data.get('version')!='1.3.1':
+        if data.get('schema_version')!=2 or data.get('version')!='1.3.2':
             errors.append('invalid profile schema/version')
-        if techdata.get('schema_version')!=1 or techdata.get('version')!='1.3.1':
+        if techdata.get('schema_version')!=1 or techdata.get('version')!='1.3.2':
             errors.append('invalid technique schema/version')
-        if paldata.get('schema_version')!=1 or paldata.get('version')!='1.3.1':
+        if paldata.get('schema_version')!=1 or paldata.get('version')!='1.3.2':
             errors.append('invalid palette schema/version')
         profiles=data['profiles'];tech=techdata['techniques'];pal=paldata['palettes']
         if set(profiles)!={f'I{i:02d}' for i in range(1,9)}:
@@ -96,9 +97,9 @@ def check_package(root: Path) -> list[str]:
         doc=(root/'references/profiles.md').read_text(encoding='utf-8')
         tdoc=(root/'references/techniques.md').read_text(encoding='utf-8')
         for ident,t in tech.items():
-            for field in ('name_zh','name_en','primary_zh','primary_en','tone_zh','tone_en','edge_zh','edge_en','avoid_zh','avoid_en'):
+            for field in ('name_zh','name_en','primary_zh','primary_en','tone_zh','tone_en','edge_zh','edge_en','avoid_zh','avoid_en','regional_zh','regional_en'):
                 if not t.get(field):errors.append(f'{ident}: missing {field}')
-            for x in (ident,t.get('name_zh',''),t.get('primary_zh','')):
+            for x in (ident,t.get('name_zh',''),t.get('primary_zh',''),t.get('regional_zh','')):
                 if x and x not in tdoc: errors.append(f'{ident}: stale technique documentation')
         for ident,q in pal.items():
             for field in ('name_zh','name_en','palette_zh','palette_en'):
@@ -126,15 +127,22 @@ def check_package(root: Path) -> list[str]:
                     if not linked.is_relative_to(root.resolve()) or not linked.is_file():
                         errors.append('broken/local escaping link: '+str(path.relative_to(root))+' -> '+target)
         manifest=json.loads((root/'MANIFEST.json').read_text(encoding='utf-8'))
-        if manifest.get('name')!='m1racle-intaglio-director' or manifest.get('version')!='1.3.1':
+        if manifest.get('name')!='m1racle-intaglio-director' or manifest.get('version')!='1.3.2':
             errors.append('manifest identity/version mismatch')
         errors.extend(check_manifest_data(manifest,files))
+        rubric=json.loads((root/'references/visual_scorecard.json').read_text(encoding='utf-8'))
+        weights=[x.get('weight',0) for x in rubric.get('categories',[])]
+        category_ids=[x.get('id') for x in rubric.get('categories',[])]
+        if rubric.get('version')!='1.3.2' or sum(weights)!=100 or len(category_ids)!=len(set(category_ids)):
+            errors.append('invalid visual scorecard version, weights or category IDs')
+        if rubric.get('thresholds',{}).get('pass',0)<=rubric.get('thresholds',{}).get('conditional',0):
+            errors.append('invalid visual scorecard thresholds')
         cases=json.loads((root/'tests/visual_cases.json').read_text(encoding='utf-8'))['cases']
         results=json.loads((root/'tests/visual_results.json').read_text(encoding='utf-8'))
         if len({c['id'] for c in cases})!=len(cases): errors.append('duplicate visual case ID')
         if len([c for c in cases if c['id'].startswith('AB-')])!=15:
             errors.append('expected 15 fixed-variable A/B cases')
-        if results.get('version')!='1.3.1':errors.append('visual results must be v1.3')
+        if results.get('version')!='1.3.2':errors.append('visual results must be v1.3')
         if any(r.get('status')!='UNVERIFIED' for r in results['results']):
             errors.append('unexecuted v1.3 trials must be UNVERIFIED')
         if any(r['id'] not in {c['id'] for c in cases} for r in results['results']):

@@ -148,12 +148,21 @@ python scripts/compare_techniques.py \
 
 </details>
 
-## 🧪 v1.3.1 梯田场景保护补丁
+## 🧪 v1.3.2 梯田场景保护补丁
 
 - **保留雾层与留白**：天空、远山、薄雾、高光不能被统一排线、点网、数码噪点或柔焦覆盖。
 - **保护布局与装饰边界**：不得擅自新增画框、印版框、旧纸边、签名或画面外物体；主体的位置、结构、配色、比例依旧锁定。
 - **降低技法混同**：T02 交叉蚀线限制在必要暗部；T03 保留独立刻痕上的局部毛刺；T05 排除全局高斯模糊和简单暗化。
 - **验证边界**：新增程序回归测试与 [梯田场景测试记录](docs/field-test-20261109.md)。这不构成五技法实际图像保真率已得到验证的声明。
+
+## v1.3.2：原图配色、区域控制与评分
+
+- 彩色原图逐区域保留色相、饱和度、明度、白平衡与综合色调，不再使用可能诱导换成米白纸底的模糊表述。
+- 梯田、植被、木屋、人物、远山、天空与雾气采用分区约束；五种技法分别有对应的区域执行规则。
+- 新增 100 分制视觉评分卡与评分脚本。评分需要人工填写可观察证据；程序不会假装识图。
+- CI 通过只证明代码和打包完整性，不代表五张视觉成品通过。
+
+详见 [视觉评分标准](references/visual_scorecard.json) 与 [v1.3.2 梯田测试方案](docs/field-test-v132.md)。
 
 ## ❓ 常见问题
 
@@ -190,7 +199,7 @@ python scripts/validate_skill.py
 
 <div align="center">
 
-**M1racle Intaglio Director v1.3.1**
+**M1racle Intaglio Director v1.3.2**
 
 *Control the mark-making. Preserve the image. Stop when the tools cannot deliver.*
 
