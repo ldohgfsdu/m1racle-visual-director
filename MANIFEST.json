@@ -1,31 +1,21 @@
 {
   "name": "m1racle-intaglio-director",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "upgraded_from": "1.0.0",
-  "updated": "2026-10-30",
+  "updated": "2026-11-09",
   "source_images": 8,
   "requires_network_for_prompt_templates": false,
   "requires_image_tool_for_rendering": true,
   "files": [
     {
       "path": ".github/workflows/validate.yml",
-      "sha256": "7e1150dd1443d40daf232c0344d287e669b91659135ebb57118d0e0abf7040fa",
-      "bytes": 318
+      "sha256": "3e1ec9cf7b77c3cc60f6a6fc4b8e0bd1c16fb9e84b9e14908492bf66c486f8c9",
+      "bytes": 3100
     },
     {
       "path": ".gitignore",
       "sha256": "74756503e09b3fc51374117e07de92deeecf33c65cec1ff50e3142b75153ada6",
       "bytes": 48
-    },
-    {
-      "path": "README.md",
-      "sha256": "7eba4452c750e80a6b8408802cc6c1f641a4364b96acee459366be3d3b9fc469",
-      "bytes": 9231
-    },
-    {
-      "path": "SKILL.md",
-      "sha256": "faa1fea8b53fee8a5705673634b845a25f21da67ca94ac8989a50c1c3d75f73b",
-      "bytes": 8193
     },
     {
       "path": "agents/openai.yaml",
@@ -78,6 +68,21 @@
       "bytes": 567700
     },
     {
+      "path": "docs/field-test-20261109.md",
+      "sha256": "3777ac90dad5b326bcd437837b1bd4de9ef6dacc24f1e86352ef08d64d2d969d",
+      "bytes": 1758
+    },
+    {
+      "path": "docs/images/bridge-before-after.jpg",
+      "sha256": "d3bb2199dccafc57030a8251adaf790c1ca63ff995182a97ca3138a2c4964118",
+      "bytes": 210534
+    },
+    {
+      "path": "docs/images/bridge-engraving.png",
+      "sha256": "25e506995a59421d3c1d76c68ec00c53faa2e7742ba4374e87dba756c71505df",
+      "bytes": 3858581
+    },
+    {
       "path": "docs/images/T01.png",
       "sha256": "e090aba73cf0ff36a3b599eb8e148e98fe52579de6bafd1cb6792812603c8a8c",
       "bytes": 338927
@@ -103,16 +108,6 @@
       "bytes": 354961
     },
     {
-      "path": "docs/images/bridge-before-after.jpg",
-      "sha256": "d3bb2199dccafc57030a8251adaf790c1ca63ff995182a97ca3138a2c4964118",
-      "bytes": 210534
-    },
-    {
-      "path": "docs/images/bridge-engraving.png",
-      "sha256": "25e506995a59421d3c1d76c68ec00c53faa2e7742ba4374e87dba756c71505df",
-      "bytes": 3858581
-    },
-    {
       "path": "examples/bridge_ab_prompts_zh.md",
       "sha256": "ccfdb54d4da7f1190caed93922c9e8c79378043f552558d4386a695bab504162",
       "bytes": 10642
@@ -121,6 +116,11 @@
       "path": "examples/speed-test.md",
       "sha256": "fbaa4e77ee3363e7b47fe37b186b413a7d4ff9e99db313469ddeb1d0b069dca4",
       "bytes": 6501
+    },
+    {
+      "path": "README.md",
+      "sha256": "b94e4e14afd54186524f6aef971b4177c08c3d7a027a40c6dabde984be62cc33",
+      "bytes": 9906
     },
     {
       "path": "references/ab_protocol.md",
@@ -154,12 +154,12 @@
     },
     {
       "path": "references/palettes.json",
-      "sha256": "ee1358d1cde7fcbb13694c144946f6f14ce021f16033c6e133e784029397086f",
+      "sha256": "992131d88634a067efa9119ed1b39361eea9d9fa3885223213c55f2f7372a05a",
       "bytes": 2278
     },
     {
       "path": "references/profiles.json",
-      "sha256": "f61350f37a46035b9a60b6db5e63179ba438855ed7b8afd6f4c1fd3a76c9929d",
+      "sha256": "46ff7b4069fec3082e29c6ec405cf7a45059def124ac58bdfb35ccf8131eddc5",
       "bytes": 5592
     },
     {
@@ -194,13 +194,13 @@
     },
     {
       "path": "references/techniques.json",
-      "sha256": "cad24a5a9db44a9960c22632b471d36eb7ce9b4ab24f725623ef9cd84569a77d",
-      "bytes": 5625
+      "sha256": "1da71eb6431eefa7a111570d6fe570198418110e1642be4e0a23d26735827b5b",
+      "bytes": 6150
     },
     {
       "path": "references/techniques.md",
-      "sha256": "27dedc6287c4c06c18e8c313b5301c19c2e23750eef61ed7aba1b0b08b1ff6b3",
-      "bytes": 2836
+      "sha256": "cd51ab18fef501e915b8943f2adb7ed5e995d510741b54ed23ddbe028792c29f",
+      "bytes": 3764
     },
     {
       "path": "references/visual_director.md",
@@ -224,8 +224,8 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "c3e74105f0e9e28b9cd68377922e45e2cae3b9dd460ab7940cd138421893a62c",
-      "bytes": 22378
+      "sha256": "caf0f41cf70a46dc990f5d227a3d81d7b0775987946cc56591797b1632ed24ab",
+      "bytes": 23570
     },
     {
       "path": "scripts/task_router.py",
@@ -234,13 +234,18 @@
     },
     {
       "path": "scripts/validate_skill.py",
-      "sha256": "406f3a6b6b3da625e5d9b3aad1463f753a8d54f8fc9d2ad4c9671a3050a1efad",
-      "bytes": 9480
+      "sha256": "e7fa1a0dc6ce72a51e939a4c66bcee11e035fe740da971f4cd56424bc80ee02c",
+      "bytes": 9529
     },
     {
       "path": "scripts/visual_director.py",
       "sha256": "b64a92affa0af4248b719698f65de69ce82776a73c2098834fbc7a234d1deefc",
       "bytes": 6510
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "703c77f545f9cea267ddb8b55902d5e27a18eba23deb33912b1dcd2803950e70",
+      "bytes": 8501
     },
     {
       "path": "tests/ab_results_template.json",
@@ -269,8 +274,8 @@
     },
     {
       "path": "tests/test_regressions.py",
-      "sha256": "0c6d7d59c43f0b68e107e9726f4e1a6e200d2b25cdf4aaa153db0e7d72cec502",
-      "bytes": 2606
+      "sha256": "62e9310313bc982c3ba6f7c1f64df036d5a461d9693d42333404c95677306947",
+      "bytes": 4363
     },
     {
       "path": "tests/test_task_router.py",
@@ -293,16 +298,16 @@
       "bytes": 11899
     },
     {
-      "path": "tests/visual_results.json",
-      "sha256": "4c9bd22a981f0cd195a860d048aa304781d0523af268dceb2884a129a5d2ae2d",
-      "bytes": 4179
-    },
-    {
       "path": "tests/visual_results_v1.2.0_legacy.json",
       "sha256": "a6f7133d56770d05e119215ae301cba3c0885a7e7bc8c7d91bbff1bb66c0178e",
       "bytes": 8213
+    },
+    {
+      "path": "tests/visual_results.json",
+      "sha256": "d4afe0cff2472bed030d19525507643a82226972f4e543a557a9e2384b18348c",
+      "bytes": 4179
     }
   ],
-  "notes": "Runtime safety and cost-control release; does not add an image generation backend.",
-  "note": "v1.3 adds five distinct mark-making families, eight legacy recipes and isolated palette presets; v1.2 runtime guard retained; no v1.3 images claimed"
+  "notes": "Region-aware editing and five-technique separation prompt patch. Does not implement rendering or claim validated visual fidelity.",
+  "note": "v1.3.1: protect sky/mist, prohibit unrequested borders, strengthen technique distinction; full visual benchmarks remain UNVERIFIED."
 }

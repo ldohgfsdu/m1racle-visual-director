@@ -55,5 +55,34 @@ class ConstraintRegressions(unittest.TestCase):
             p.make_prompts("一只杯子", "I04", "generate", "none", "0:1", "", "")
 
 
+    def test_all_redraw_techniques_protect_mist_and_prohibit_unrequested_frames(self):
+        for ident in ('T01', 'T02', 'T03', 'T04', 'T05'):
+            with self.subTest(ident=ident):
+                d=p.make_prompts('梯田、行人、木屋、远山和雾气','BASE','redraw','source',
+                                 '16:9','','',technique_id=ident)
+                self.assertEqual(d['palette_source'],'source_image')
+                self.assertEqual(d['fidelity'],'strict')
+                self.assertIn('天空、云雾、远山',d['zh'])
+                self.assertIn('画框、印版边框',d['zh'])
+                self.assertIn('sky, mist, distant mountains',d['en'])
+                self.assertIn('Do not add ornamental frames',d['en'])
+                self.assertIn('16:9',d['en'])
+
+    def test_t02_t03_t05_have_distinct_mechanisms(self):
+        etch=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T02')
+        dry=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T03')
+        mezz=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T05')
+        self.assertIn('only where local shadows require',etch['en'])
+        self.assertIn('localized ink burr attached to individual scratches',dry['en'])
+        self.assertIn('Gaussian blur',mezz['en'])
+        self.assertEqual(len({etch['en'],dry['en'],mezz['en']}),3)
+
+    def test_region_guard_edit_only_preserves_palette(self):
+        generated=p.make_prompts('古桥','BASE','generate','none','','','')
+        edited=p.make_prompts('古桥','BASE','redraw','source','','','')
+        self.assertNotIn('Do not add ornamental frames',generated['en'])
+        self.assertEqual(edited['palette_source'],'source_image')
+
+
 if __name__ == "__main__":
     unittest.main()
