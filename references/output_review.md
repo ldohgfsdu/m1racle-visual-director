@@ -53,9 +53,16 @@ python scripts/output_review.py --record review.json --source original.png --out
 使用 references/visual_scorecard.json 作为唯一权重来源，按每个项目 0–5 分填写实际观察和证据，再运行：
 
 ```bash
-python scripts/visual_scorecard.py --record review.json
+python scripts/visual_scorecard.py --record review.json --source original.jpg --output generated.png
 ```
 
 权重为：几何与构图 20、原图配色 10、主体数量与位置 5、技法真实性 20、区域控制 10、技法区分度 5、空间与氛围 10、缩略图可读性 10、伪影与装饰洁净度 10。所有项必须附证据。几何、原色、主体完整性、技法真实性、区域控制和画面洁净度设硬门槛；擅自加框、增删物体、严重裁切、擅自换色或严重全局纹理外溢直接 REJECTED。85 分及以上且硬门槛通过为 PASS，75–84.9 为 CONDITIONAL，低于 75 或任一硬门槛失败为 REJECTED。缺少观察或证据为 UNVERIFIED。
 
 评分脚本只计算人工观察输入，不具备视觉识别能力；CI 通过不等于图像通过。
+
+
+## v1.3.3 证据边界
+
+评分记录必须包含 run_id、technique、model_or_tool、output_kind=single_image_edit、source_sha256、output_sha256、逐项可见证据及完整布尔硬失败项。CLI 校验实际文件摘要、PNG/JPEG 固有尺寸和原图宽高比，超过 1% 相对比例漂移直接拒绝。
+
+但相同比例的信息图、错误画面或无效技法不能只靠文件摘要和尺寸识别。必须由实际观看输出的审阅者核对它是否为单张原图编辑、是否多出文字/边框、主体数量与位置、配色和技法质量。评分器是证据绑定的计算器，不是视觉判断器。
