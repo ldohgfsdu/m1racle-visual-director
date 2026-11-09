@@ -198,6 +198,11 @@
       "bytes": 1994
     },
     {
+      "path": "references/source_bound_edit.md",
+      "sha256": "a167ab7f5fa328d424d6432d7e726c1b301cebf2d37f04afb6e8a3430b5941ce",
+      "bytes": 2973
+    },
+    {
       "path": "references/style_acceptance.json",
       "sha256": "3ccae6e07552c3d5adecb113d84ff659045b84d0f978000cde78b6791bea7eee",
       "bytes": 3550
@@ -253,6 +258,11 @@
       "bytes": 30616
     },
     {
+      "path": "scripts/run_source_bound_edit.py",
+      "sha256": "afb1a6bd67731d60a94dbba56d199a6d18981ee5dfbcb7f5bc9652f278922f35",
+      "bytes": 11285
+    },
+    {
       "path": "scripts/task_router.py",
       "sha256": "9999d483bac763cfa1d177514d081445c8d1be8ace5d0722ec6ab10edfdaca76",
       "bytes": 3843
@@ -274,8 +284,8 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "d3dabd33a0aa3eee60d3e90a384822f77a255d5b7c43fbbc4796074476db65a9",
-      "bytes": 12290
+      "sha256": "1eb75e03e842b4312abf7ce99c11197a40429ca96e0f1c292eeeb75058c99e9a",
+      "bytes": 12978
     },
     {
       "path": "tests/ab_results_template.json",
@@ -311,6 +321,11 @@
       "path": "tests/test_regressions.py",
       "sha256": "7e92f7b0f37a60df106b7650e103109e53fcba3e96190d9575046869607432c8",
       "bytes": 8753
+    },
+    {
+      "path": "tests/test_run_source_bound_edit.py",
+      "sha256": "f7f2fb31d3212e586ead0ef6fb8b35979b2bbd628344f98c12e0eeaadb4f0568",
+      "bytes": 5659
     },
     {
       "path": "tests/test_task_router.py",

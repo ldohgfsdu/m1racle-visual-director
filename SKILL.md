@@ -101,3 +101,7 @@ python scripts/prompt_builder.py --image canal.jpg --style-image assets/examples
 ## 8｜源图编辑输入证明（Draft 补强）
 
 正式视觉验收额外需要 `source_binding`：`status=documented`、`role=content_source`、与实际内容原图匹配的 `source_sha256`、同次 `run_id` 和审阅者可查看的 `tool_input_trace`。无输入证明为 `UNVERIFIED`；错误图文海报是 `REJECTED`。字段一致性不能独立认证模型收到原图，必须核对真实工具调用。
+
+## 9｜真实输入绑定的编辑调用（待线上模型验收）
+
+`scripts/run_source_bound_edit.py` 可将内容图与 I01 风格图作为两个真正的文件字节输入提交到 GPT Image 2.5 `/images/edits`，默认源图原生尺寸（若满足模型支持要求），记录可审查的请求及输出 SHA-256；不会自动给作品评分。示例与限制见 [源图输入编辑执行说明](references/source_bound_edit.md)。本功能只在环境设置 `OPENAI_API_KEY` 后执行在线请求；`--dry-run` 只是本地验证，不能算真实生图。持续遵守一轮主生成、至多两轮修复；不得将工具返回的海报或自称 5/5 的图当成验收结果。
