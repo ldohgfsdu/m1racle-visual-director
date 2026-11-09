@@ -1,6 +1,6 @@
 {
   "name": "m1racle-intaglio-director",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "upgraded_from": "1.0.0",
   "updated": "2026-11-09",
   "source_images": 8,
@@ -73,6 +73,11 @@
       "bytes": 1758
     },
     {
+      "path": "docs/field-test-v132.md",
+      "sha256": "2471d602f409e42101240af6e988aac89e5868b1a3cdbb1bf650220f4371d4a2",
+      "bytes": 2415
+    },
+    {
       "path": "docs/images/bridge-before-after.jpg",
       "sha256": "d3bb2199dccafc57030a8251adaf790c1ca63ff995182a97ca3138a2c4964118",
       "bytes": 210534
@@ -119,8 +124,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "b94e4e14afd54186524f6aef971b4177c08c3d7a027a40c6dabde984be62cc33",
-      "bytes": 9906
+      "sha256": "23c1baab5195ffe0e7849a8b248abd48de2d5f66399c49717440e38085d5df0c",
+      "bytes": 10568
     },
     {
       "path": "references/ab_protocol.md",
@@ -149,17 +154,17 @@
     },
     {
       "path": "references/output_review.md",
-      "sha256": "3ea4ed8e5c0469cb32a04c0d1e754d587659d50671c8f1ce6e8a1da27d538ab2",
-      "bytes": 4698
+      "sha256": "b69c4f3b8e9afae55e3bff8d55c2175f1d33bb2048ddc7e60bf4a74429de14dd",
+      "bytes": 5645
     },
     {
       "path": "references/palettes.json",
-      "sha256": "992131d88634a067efa9119ed1b39361eea9d9fa3885223213c55f2f7372a05a",
+      "sha256": "aaa3a42c3e737791fc959b44560fb4afeaa4d9e2c6c48dae96589a9a468dc65a",
       "bytes": 2278
     },
     {
       "path": "references/profiles.json",
-      "sha256": "46ff7b4069fec3082e29c6ec405cf7a45059def124ac58bdfb35ccf8131eddc5",
+      "sha256": "50b67d03ab761bfeb0d38dca477f2009350a5c9448b5db54415cbaf1db1c37f0",
       "bytes": 5592
     },
     {
@@ -194,13 +199,13 @@
     },
     {
       "path": "references/techniques.json",
-      "sha256": "1da71eb6431eefa7a111570d6fe570198418110e1642be4e0a23d26735827b5b",
-      "bytes": 6150
+      "sha256": "ebbf7a080014aa58c9523a43d946545869f41ea0afd4ab0c7c6a44212fc2dd0d",
+      "bytes": 7988
     },
     {
       "path": "references/techniques.md",
-      "sha256": "cd51ab18fef501e915b8943f2adb7ed5e995d510741b54ed23ddbe028792c29f",
-      "bytes": 3764
+      "sha256": "b743b2c44ce6e16e073cae6ecd41518acc59e8fd0762dcdfd0a2ed67626aae59",
+      "bytes": 4881
     },
     {
       "path": "references/visual_director.md",
@@ -211,6 +216,11 @@
       "path": "references/visual_matching.json",
       "sha256": "c12a59ce0245cf933e50e53a3b4277bf8b607f3686130ad4e52a1d39f90b9522",
       "bytes": 1480
+    },
+    {
+      "path": "references/visual_scorecard.json",
+      "sha256": "f9ba273bc1a4272cec00a0cb43162486a7985aa33373ecd7d0fc4dcbf67bc893",
+      "bytes": 1870
     },
     {
       "path": "scripts/compare_techniques.py",
@@ -224,8 +234,8 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "caf0f41cf70a46dc990f5d227a3d81d7b0775987946cc56591797b1632ed24ab",
-      "bytes": 23570
+      "sha256": "dfbcd2b1a1bbf93290658360ddf95264fc7b7f02f0bde105e2fe2c412bcd6d5b",
+      "bytes": 28213
     },
     {
       "path": "scripts/task_router.py",
@@ -234,8 +244,8 @@
     },
     {
       "path": "scripts/validate_skill.py",
-      "sha256": "e7fa1a0dc6ce72a51e939a4c66bcee11e035fe740da971f4cd56424bc80ee02c",
-      "bytes": 9529
+      "sha256": "42afb8b0cc6a616cef902cbe4bb3b72ab13490cf15cc79de33c8661f6ad066bd",
+      "bytes": 10291
     },
     {
       "path": "scripts/visual_director.py",
@@ -243,9 +253,14 @@
       "bytes": 6510
     },
     {
+      "path": "scripts/visual_scorecard.py",
+      "sha256": "4abeea2753cd7cdc6a285f3c388b57051a78cfaf89ab9913b7397aca87a51c11",
+      "bytes": 2649
+    },
+    {
       "path": "SKILL.md",
-      "sha256": "703c77f545f9cea267ddb8b55902d5e27a18eba23deb33912b1dcd2803950e70",
-      "bytes": 8501
+      "sha256": "73e7a470729636a42e1a5c153d98d29473cb02184d93c0d1b7c22997d6bde14e",
+      "bytes": 8975
     },
     {
       "path": "tests/ab_results_template.json",
@@ -274,8 +289,8 @@
     },
     {
       "path": "tests/test_regressions.py",
-      "sha256": "62e9310313bc982c3ba6f7c1f64df036d5a461d9693d42333404c95677306947",
-      "bytes": 4363
+      "sha256": "dead00dde940cb7c118860bf46d2237a45c48fe323fc978a033ccc2772d2c881",
+      "bytes": 6586
     },
     {
       "path": "tests/test_task_router.py",
@@ -293,6 +308,11 @@
       "bytes": 5484
     },
     {
+      "path": "tests/test_visual_scorecard.py",
+      "sha256": "d380e4f780e587eb53fb8c571fdf56a6236be1417b50d894907b636d45bcbe77",
+      "bytes": 2855
+    },
+    {
       "path": "tests/visual_cases.json",
       "sha256": "0d896979f912f154e78f895ed97fdee4d37ab72acfd24754f5048c8adbb3abda",
       "bytes": 11899
@@ -304,10 +324,10 @@
     },
     {
       "path": "tests/visual_results.json",
-      "sha256": "d4afe0cff2472bed030d19525507643a82226972f4e543a557a9e2384b18348c",
-      "bytes": 4179
+      "sha256": "648313a2d6085868e5128dcdb946d9cfd956379784a78c71db4b4b07869ba222",
+      "bytes": 4862
     }
   ],
-  "notes": "Region-aware editing and five-technique separation prompt patch. Does not implement rendering or claim validated visual fidelity.",
+  "notes": "Source-color lock, region-aware scene mapping, technique-specific regional execution, and evidence-based visual scorecard. Actual image results remain pending post-release.",
   "note": "v1.3.1: protect sky/mist, prohibit unrequested borders, strengthen technique distinction; full visual benchmarks remain UNVERIFIED."
 }
