@@ -155,7 +155,7 @@ python scripts/compare_techniques.py \
 - **降低技法混同**：T02 交叉蚀线限制在必要暗部；T03 保留独立刻痕上的局部毛刺；T05 排除全局高斯模糊和简单暗化。
 - **验证边界**：新增程序回归测试与 [梯田场景测试记录](docs/field-test-20261109.md)。这不构成五技法实际图像保真率已得到验证的声明。
 
-## v1.3.2：原图配色、区域控制与评分
+## v1.3.3：原图配色、真实文件证据和可复现发布
 
 - 彩色原图逐区域保留色相、饱和度、明度、白平衡与综合色调，不再使用可能诱导换成米白纸底的模糊表述。
 - 梯田、植被、木屋、人物、远山、天空与雾气采用分区约束；五种技法分别有对应的区域执行规则。
@@ -199,8 +199,21 @@ python scripts/validate_skill.py
 
 <div align="center">
 
-**M1racle Intaglio Director v1.3.2**
+**M1racle Intaglio Director v1.3.3**
 
 *Control the mark-making. Preserve the image. Stop when the tools cannot deliver.*
 
 </div>
+
+
+## v1.3.3 证据绑定门禁
+
+每次视觉评分都须绑定实际源图、独立的单张改绘输出、两份文件的 SHA-256、非空 run_id 与 model_or_tool，并由人或真正有视觉能力的模型查看实图记录逐项证据。执行：
+
+```bash
+python scripts/visual_scorecard.py --record review.json --source original.jpg --output edited.png
+```
+
+未绑定的自填分数只能返回 UNVERIFIED。图片格式无效、原图冒充输出、摘要不一致或原始宽高比相对变化超过 1% 均不能通过。**相同比例的信息图仍可能混入，文件摘要和尺寸校验不具备语义识别能力，不能冒充真实视觉验收。**详见 [v1.3.3 实测记录](docs/field-test-v133.md)。
+
+正式 ZIP 由 `scripts/build_release.py` 以固定的文件时间戳构建，回读每个包内文件并核验完整清单。发布流程使用与标签同版本的发布说明；创建 Release 后必须回读并校验 ZIP 和 SHA-256 附件的真实摘要。

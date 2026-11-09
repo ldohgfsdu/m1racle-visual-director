@@ -1,6 +1,6 @@
 {
   "name": "m1racle-intaglio-director",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "upgraded_from": "1.0.0",
   "updated": "2026-11-09",
   "source_images": 8,
@@ -9,8 +9,8 @@
   "files": [
     {
       "path": ".github/workflows/validate.yml",
-      "sha256": "3e1ec9cf7b77c3cc60f6a6fc4b8e0bd1c16fb9e84b9e14908492bf66c486f8c9",
-      "bytes": 3100
+      "sha256": "d706f303d19d4c0b1cdb69e8d9b1c9bbea107a0288d5d28301dc685b35a0c9c7",
+      "bytes": 3774
     },
     {
       "path": ".gitignore",
@@ -78,6 +78,11 @@
       "bytes": 2415
     },
     {
+      "path": "docs/field-test-v133.md",
+      "sha256": "1a759b2f973481744b554afb3b4e31418616074d4c9de8a0609f3cf644d632de",
+      "bytes": 2484
+    },
+    {
       "path": "docs/images/bridge-before-after.jpg",
       "sha256": "d3bb2199dccafc57030a8251adaf790c1ca63ff995182a97ca3138a2c4964118",
       "bytes": 210534
@@ -113,6 +118,11 @@
       "bytes": 354961
     },
     {
+      "path": "docs/releases/v1.3.3.md",
+      "sha256": "75f80491bf0f29677e5a9b210bc6bde70e618c5f3ce7667bfd67e46eea8c0134",
+      "bytes": 1047
+    },
+    {
       "path": "examples/bridge_ab_prompts_zh.md",
       "sha256": "ccfdb54d4da7f1190caed93922c9e8c79378043f552558d4386a695bab504162",
       "bytes": 10642
@@ -124,8 +134,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "23c1baab5195ffe0e7849a8b248abd48de2d5f66399c49717440e38085d5df0c",
-      "bytes": 10568
+      "sha256": "57b9cc12f439e2e48e5148861308462792a59028b6564c374c509829e79880f0",
+      "bytes": 11567
     },
     {
       "path": "references/ab_protocol.md",
@@ -154,17 +164,17 @@
     },
     {
       "path": "references/output_review.md",
-      "sha256": "b69c4f3b8e9afae55e3bff8d55c2175f1d33bb2048ddc7e60bf4a74429de14dd",
-      "bytes": 5645
+      "sha256": "4b11087446cd64d1414b0894e9440abe969b53ec590de5e4c8df6c34713ad022",
+      "bytes": 6325
     },
     {
       "path": "references/palettes.json",
-      "sha256": "aaa3a42c3e737791fc959b44560fb4afeaa4d9e2c6c48dae96589a9a468dc65a",
+      "sha256": "536036a8f614c62f59aec1379ee308f37fa08a4cb5a2412bd53e1ab4129b2fdb",
       "bytes": 2278
     },
     {
       "path": "references/profiles.json",
-      "sha256": "50b67d03ab761bfeb0d38dca477f2009350a5c9448b5db54415cbaf1db1c37f0",
+      "sha256": "5c72f88f486cd2a41cd635f17ba96094e817c25dfa4d2e053edb7f6adf8b7614",
       "bytes": 5592
     },
     {
@@ -199,7 +209,7 @@
     },
     {
       "path": "references/techniques.json",
-      "sha256": "ebbf7a080014aa58c9523a43d946545869f41ea0afd4ab0c7c6a44212fc2dd0d",
+      "sha256": "8cc4ab5ea40b44c4d27c04825657fbfc9189ca33c8bfee5cfa01eb14ecd3594c",
       "bytes": 7988
     },
     {
@@ -219,8 +229,13 @@
     },
     {
       "path": "references/visual_scorecard.json",
-      "sha256": "f9ba273bc1a4272cec00a0cb43162486a7985aa33373ecd7d0fc4dcbf67bc893",
+      "sha256": "ba7d3e47ff82d8a96eb7b10627f722a4080e2257205cf21ffce255d4ed45a91c",
       "bytes": 1870
+    },
+    {
+      "path": "scripts/build_release.py",
+      "sha256": "2977df4f493d264253c1733c6f368f318a71a510fd9014368f12a6a2c9c702ae",
+      "bytes": 2508
     },
     {
       "path": "scripts/compare_techniques.py",
@@ -244,8 +259,8 @@
     },
     {
       "path": "scripts/validate_skill.py",
-      "sha256": "42afb8b0cc6a616cef902cbe4bb3b72ab13490cf15cc79de33c8661f6ad066bd",
-      "bytes": 10291
+      "sha256": "29b7f1db64c4619446893793f89cee5c85e1a3fc812ac29efb3595e40797f026",
+      "bytes": 10379
     },
     {
       "path": "scripts/visual_director.py",
@@ -254,13 +269,13 @@
     },
     {
       "path": "scripts/visual_scorecard.py",
-      "sha256": "4abeea2753cd7cdc6a285f3c388b57051a78cfaf89ab9913b7397aca87a51c11",
-      "bytes": 2649
+      "sha256": "6c7cef09a3283274af5c0e2ed526dffc74b441bac2cf35f77608c719cecc2f24",
+      "bytes": 8257
     },
     {
       "path": "SKILL.md",
-      "sha256": "73e7a470729636a42e1a5c153d98d29473cb02184d93c0d1b7c22997d6bde14e",
-      "bytes": 8975
+      "sha256": "33713bff11ea1c6f1b6a695ef2447454a9b7d043b39fbe8b56f911d266a5f6d5",
+      "bytes": 9780
     },
     {
       "path": "tests/ab_results_template.json",
@@ -271,6 +286,11 @@
       "path": "tests/benchmark_plan.json",
       "sha256": "fafd2cdad98279902f4293d4a3fc0c98175f57deafcea2ee6b6615ac30ad344e",
       "bytes": 5476
+    },
+    {
+      "path": "tests/test_build_release.py",
+      "sha256": "d7308740c191e61eb0968ef4156e54b8d7be490c5c700e3b324dac3f1ff95c5a",
+      "bytes": 1570
     },
     {
       "path": "tests/test_output_review.py",
@@ -309,8 +329,8 @@
     },
     {
       "path": "tests/test_visual_scorecard.py",
-      "sha256": "d380e4f780e587eb53fb8c571fdf56a6236be1417b50d894907b636d45bcbe77",
-      "bytes": 2855
+      "sha256": "82cecf89f4303672e32e12994999502fadf93f0472dacda7a0c485779aba1967",
+      "bytes": 8173
     },
     {
       "path": "tests/visual_cases.json",
@@ -324,10 +344,10 @@
     },
     {
       "path": "tests/visual_results.json",
-      "sha256": "648313a2d6085868e5128dcdb946d9cfd956379784a78c71db4b4b07869ba222",
-      "bytes": 4862
+      "sha256": "693c7f7dc2d522705fa95d40b4fd7f8c4c6933201da064ef6ebaf09df3fc775a",
+      "bytes": 4702
     }
   ],
-  "notes": "Source-color lock, region-aware scene mapping, technique-specific regional execution, and evidence-based visual scorecard. Actual image results remain pending post-release.",
+  "notes": "Real image SHA-256 evidence-bound scorecard, geometry gate and deterministic archive release verification. Complete five-technique visual acceptance remains UNVERIFIED.",
   "note": "v1.3.1: protect sky/mist, prohibit unrequested borders, strengthen technique distinction; full visual benchmarks remain UNVERIFIED."
 }

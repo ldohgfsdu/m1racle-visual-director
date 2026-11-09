@@ -42,47 +42,61 @@ jobs:
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-      - name: Create source ZIP and SHA-256
+          NOTES="docs/releases/$TAG.md"
+          if [ ! -s "$NOTES" ]; then
+            echo "Release notes missing: $NOTES" >&2
+            exit 1
+          fi
+      - name: Build deterministic ZIP and SHA-256
         shell: bash
         run: |
           set -euo pipefail
           python scripts/validate_skill.py
-          mkdir -p dist
-          python - <<'PY'
-          from pathlib import Path
-          from zipfile import ZipFile, ZIP_DEFLATED
-          import json
-          root = Path.cwd()
-          version = json.loads((root / "MANIFEST.json").read_text(encoding="utf-8"))["version"]
-          name = f"m1racle-intaglio-director-v{version}.zip"
-          with ZipFile(root / "dist" / name, "w", compression=ZIP_DEFLATED) as z:
-              for path in sorted(root.rglob("*")):
-                  if path.is_file() and not set(path.relative_to(root).parts) & {".git", "dist", "__pycache__"} and path.suffix != ".pyc":
-                      z.write(path, arcname=str(Path("m1racle-intaglio-director") / path.relative_to(root)))
-          print(name)
-          PY
+          python scripts/build_release.py
           (
             cd dist
-            for archive in *.zip; do
-              sha256sum "$archive" > "$archive.sha256"
+            for digest in *.zip.sha256; do
+              sha256sum -c "$digest"
             done
           )
-      - name: Publish immutable release or complete an existing tag
+      - name: Publish and verify immutable release assets
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ steps.version.outputs.tag }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
+          ZIP="m1racle-intaglio-director-v$VERSION.zip"
+          LOCAL_ZIP="dist/$ZIP"
+          LOCAL_SUM="dist/$ZIP.sha256"
+          NOTES="docs/releases/$TAG.md"
           if ! git show-ref --verify --quiet "refs/tags/$TAG"; then
             git tag "$TAG"
             git push origin "refs/tags/$TAG"
           fi
-          if gh release view "$TAG" >/dev/null 2>&1; then
-            echo "Release already published: $TAG"
-            exit 0
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" "$LOCAL_ZIP" "$LOCAL_SUM" \\
+              --verify-tag \\
+              --title "M1racle Intaglio Director $TAG" \\
+              --notes-file "$NOTES"
           fi
-          gh release create "$TAG" dist/*.zip dist/*.sha256 \
-            --verify-tag \
-            --title "M1racle Intaglio Director $TAG" \
-            --notes-file docs/field-test-20261109.md
+          export EXPECTED_ZIP_DIGEST="sha256:$(cut -d ' ' -f 1 "$LOCAL_SUM")"
+          export EXPECTED_SUM_DIGEST="sha256:$(sha256sum "$LOCAL_SUM" | cut -d ' ' -f 1)"
+          export RELEASE_JSON="$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$TAG")"
+          python - <<'PY'
+          import json, os, sys
+          release = json.loads(os.environ["RELEASE_JSON"])
+          version = os.environ["VERSION"]
+          archive = f"m1racle-intaglio-director-v{version}.zip"
+          assets = {asset["name"]: asset for asset in release.get("assets", [])}
+          expected = {
+              archive: os.environ["EXPECTED_ZIP_DIGEST"],
+              archive + ".sha256": os.environ["EXPECTED_SUM_DIGEST"],
+          }
+          for name, digest in expected.items():
+              asset = assets.get(name)
+              if not asset or asset.get("state") != "uploaded" or asset.get("digest") != digest:
+                  raise SystemExit(f"Release asset verification failed for {name}: {asset}")
+          print("PASS: release ZIP and SHA-256 attachment digests match local build")
+          PY
