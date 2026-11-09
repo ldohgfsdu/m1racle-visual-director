@@ -229,8 +229,8 @@
     },
     {
       "path": "references/visual_scorecard.json",
-      "sha256": "ba7d3e47ff82d8a96eb7b10627f722a4080e2257205cf21ffce255d4ed45a91c",
-      "bytes": 1870
+      "sha256": "61ad6371e8168cf908b4082e9b7fe464de00e533cdc047668fed7616abfd2885",
+      "bytes": 2114
     },
     {
       "path": "scripts/build_release.py",
@@ -249,8 +249,8 @@
     },
     {
       "path": "scripts/prompt_builder.py",
-      "sha256": "94c1be4f80b0e8fe4adb50011114616ef23946325e9ac0d977ed8190f85377d7",
-      "bytes": 28503
+      "sha256": "ab011f115922d0feb2fc2ea074e097eab7969c8940978eed2795f98faa4c8133",
+      "bytes": 29969
     },
     {
       "path": "scripts/task_router.py",
@@ -309,8 +309,8 @@
     },
     {
       "path": "tests/test_regressions.py",
-      "sha256": "a8451e98911104e56a187be72a142623d89ea5333ee97ad3bba0a3f26eec4625",
-      "bytes": 6569
+      "sha256": "e182ff3322537dbeddfe1ef72332857bfa06ed5a66d21ebc571f2d509fec8eaf",
+      "bytes": 7669
     },
     {
       "path": "tests/test_task_router.py",
@@ -329,8 +329,8 @@
     },
     {
       "path": "tests/test_visual_scorecard.py",
-      "sha256": "82cecf89f4303672e32e12994999502fadf93f0472dacda7a0c485779aba1967",
-      "bytes": 8173
+      "sha256": "47c5b2a71980a2b4329a8d50c8f86d7fe44472071af7916a828d124f31bebfcc",
+      "bytes": 9010
     },
     {
       "path": "tests/visual_cases.json",

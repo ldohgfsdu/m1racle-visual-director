@@ -70,11 +70,13 @@
     "missing_or_added_subject",
     "major_geometry_or_crop_change",
     "unauthorized_recoloring",
-    "severe_global_texture_overflow"
+    "severe_global_texture_overflow",
+    "wrong_output_type",
+    "unauthorized_report_layout"
   ],
   "thresholds": {
     "pass": 85,
     "conditional": 75
   },
-  "note": "Weighted calculator for documented human visual observations. It does not inspect images or infer scores."
+  "note": "Weighted calculator for documented human visual observations. It does not inspect images or infer scores. Human review must reject infographics, reports, posters or multi-panel layouts even if file hashes, dimensions and ratio are valid; a declared output_kind is not semantic verification."
 }

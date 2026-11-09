@@ -68,6 +68,21 @@ class ConstraintRegressions(unittest.TestCase):
                 self.assertIn('Do not add frames',d['en'])
                 self.assertIn('16:9',d['en'])
 
+    def test_redraw_output_is_one_artwork_not_a_report_for_every_technique(self):
+        for ident in ('T01', 'T02', 'T03', 'T04', 'T05'):
+            with self.subTest(technique=ident):
+                d = p.make_prompts('梯田、人物、木屋、远山和雾气', 'BASE', 'redraw', 'source',
+                                   '', '', '', technique_id=ident)
+                self.assertTrue(d['zh'].startswith('输出合同（最高优先级）'))
+                self.assertTrue(d['en'].startswith('HIGHEST PRIORITY OUTPUT CONTRACT'))
+                for phrase in ('信息图', '评分表', '多面板', '原照片的单幅视觉重绘'):
+                    self.assertIn(phrase, d['zh'])
+                for phrase in ('infographic', 'scoring sheet', 'multi-panel collage', 'single visual redraw'):
+                    self.assertIn(phrase, d['en'])
+                self.assertEqual(d['palette_source'], 'source_image')
+        other = p.make_prompts('设计教学信息图', 'BASE', 'generate', 'none', '', '', '')
+        self.assertNotIn('HIGHEST PRIORITY OUTPUT CONTRACT', other['en'])
+
     def test_t02_t03_t05_have_distinct_mechanisms(self):
         etch=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T02')
         dry=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T03')

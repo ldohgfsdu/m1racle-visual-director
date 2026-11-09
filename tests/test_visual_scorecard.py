@@ -59,6 +59,21 @@ class VisualScorecardTests(unittest.TestCase):
         result = s.score_record(make_record(flags={"unauthorized_frame": True}), bound_evidence=MATH_EVIDENCE)
         self.assertEqual(result["status"], "REJECTED")
 
+    def test_report_output_is_hard_rejected_even_with_perfect_score_and_matching_dimensions(self):
+        for flag in ('wrong_output_type', 'unauthorized_report_layout'):
+            with self.subTest(flag=flag):
+                result = s.score_record(make_record(flags={flag: True}), bound_evidence=MATH_EVIDENCE)
+                self.assertEqual(result['score'], 100)
+                self.assertEqual(result['status'], 'REJECTED')
+                self.assertIn(flag, result['hard_fail_flags'])
+
+    def test_report_flags_must_be_reviewed_not_omitted(self):
+        record = make_record()
+        del record['flags']['wrong_output_type']
+        result = s.score_record(record, bound_evidence=MATH_EVIDENCE)
+        self.assertEqual(result['status'], 'UNVERIFIED')
+        self.assertIn('wrong_output_type', result['missing_flags'])
+
     def test_eighty_points_is_conditional(self):
         result = s.score_record(make_record(score=4), bound_evidence=MATH_EVIDENCE)
         self.assertEqual(result["score"], 80)

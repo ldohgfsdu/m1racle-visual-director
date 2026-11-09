@@ -29,6 +29,24 @@ DNA_EN = ('Interpret visible form in an intaglio-print aesthetic: identify volum
           'No photographic texture overlays, picture-wide stripes, moire, unmotivated noise, watermarks, lettering or new objects.')
 
 
+
+# One-image output contract for redraw prompts; CLI still never calls an image model.
+REDRAW_OUTPUT_ZH = (
+    '输出合同（最高优先级）：只生成一张独立完整的艺术改绘图像，不附加解释、审查记录或第二张图。'
+    '禁止把生成要求画成信息图、教程图、报告海报、评分表、图表、PPT、UI 截图、分栏拼贴、前后对比或多面板展示。'
+    '画面不得新增标题、标签、技法编号、说明文字、数值标注、图例、署名或水印；如原图已有文字则原样保留，不擅自删除。'
+    '内容必须是原照片的单幅视觉重绘，而不是关于重绘任务的可视化说明。'
+)
+REDRAW_OUTPUT_EN = (
+    'HIGHEST PRIORITY OUTPUT CONTRACT: Return exactly ONE standalone edited artwork image, not a written explanation or second image. '
+    'Never turn the request into an infographic, tutorial, research report, scoring sheet, chart, poster layout, slide, UI screenshot, '
+    'before/after comparison, split composition or multi-panel collage. '
+    'Do not add titles, captions, labels, technique IDs, measurements, legends, signatures or watermarks inside the image; '
+    'preserve any lettering already present in the source exactly as-is. '
+    'This must be a single visual redraw OF the source photo, not a visualization ABOUT the assignment.'
+)
+
+
 EDIT_REGION_ZH = (
     '区域化改绘：先按原图已有轮廓、材质、明暗与空间层级分区，再在各区域内部使用主技法。'
     '纹理不得跨越物体边界；天空、雾气、反光、渐变和低细节区保留原图已有的亮度、颜色与过渡，只允许与原始细节相称的稀疏痕迹。'
@@ -231,8 +249,8 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
         'refine': ('精修上传的既有版画，仅处理可见断线、脏污、摩尔纹或失真，未要求修改的区域和设计保持稳定。',
                    'Refine the existing engraving only where visible broken lines, artifacts, moire or distortions require repair; keep other regions and design stable.'),
     }
-    zh = [f'主题与用户要求：{s}', leads[mode][0]]
-    en = [f'Theme and user requirements (verbatim): {s}', leads[mode][1]]
+    zh = ([REDRAW_OUTPUT_ZH] if mode == 'redraw' else []) + [f'主题与用户要求：{s}', leads[mode][0]]
+    en = ([REDRAW_OUTPUT_EN] if mode == 'redraw' else []) + [f'Theme and user requirements (verbatim): {s}', leads[mode][1]]
     if editing:
         locks = {
             'strict': ('严格保真：保留主体身份、数量、轮廓、姿态、比例、位置、视点、构图及识别性细节；不得增加或删除场景物体。',
