@@ -9,7 +9,7 @@ from pathlib import Path
 from prompt_builder import TECHNIQUES, VERSION, image_info, make_prompts
 
 
-def build_matrix(subject: str, mode: str = 'redraw', palette: str = '石墨黑与纸白',
+def build_matrix(subject: str, mode: str = 'redraw', palette: str = '',
                  background: str = 'none', ratio: str = '', fidelity: str = 'strict',
                  preserve: str = '', image: str | None = None) -> dict:
     if mode not in {'redraw','generate'}:
@@ -35,7 +35,7 @@ def main(argv=None) -> int:
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--subject',required=True)
     ap.add_argument('--mode',choices=['generate','redraw'],default='redraw')
-    ap.add_argument('--palette',default='石墨黑与纸白')
+    ap.add_argument('--palette',default='',help='Optional explicit palette; redraw defaults to preserving source colors')
     ap.add_argument('--background',choices=['auto','none','guilloche'],default='none')
     ap.add_argument('--ratio',default='')
     ap.add_argument('--fidelity',choices=['strict','balanced','free'],default='strict')

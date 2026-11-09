@@ -139,8 +139,8 @@
     },
     {
       "path": "references/ab_protocol.md",
-      "sha256": "43d641c3e5b4c7faaea234bf9e7852299198ceaaef45a109bc7921f5d766e179",
-      "bytes": 2705
+      "sha256": "2ed57942135a32d6ba9d4653818457006155bc13fb8d6ff7ba63efa73314a70b",
+      "bytes": 3197
     },
     {
       "path": "references/decision_policy.md",
@@ -239,8 +239,8 @@
     },
     {
       "path": "scripts/compare_techniques.py",
-      "sha256": "9b7a3960f6e968ac62c343e02a85f3badda34531983a286cb599b8850892692f",
-      "bytes": 3092
+      "sha256": "c2a3dd049f3e34c10e1586bcfa2b783d58fcc6bf724ae68c6d25e3bc7f8fd94b",
+      "bytes": 3134
     },
     {
       "path": "scripts/output_review.py",
@@ -319,8 +319,8 @@
     },
     {
       "path": "tests/test_technique_matrix.py",
-      "sha256": "6b55bc785dff60d359059aa761291661ac78f101bf37539649e02fa2f805cbb1",
-      "bytes": 5267
+      "sha256": "580bc8888d8a11306190eca8099b627c424abdaece99223a4d861b4d924ded31",
+      "bytes": 6489
     },
     {
       "path": "tests/test_visual_director.py",
