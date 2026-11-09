@@ -164,8 +164,8 @@
     },
     {
       "path": "references/output_review.md",
-      "sha256": "4b11087446cd64d1414b0894e9440abe969b53ec590de5e4c8df6c34713ad022",
-      "bytes": 6325
+      "sha256": "7578bb675a4a3d572e131e94c02c7d4cb8fd3353189b9cd3f2ac91b3239d7d78",
+      "bytes": 7534
     },
     {
       "path": "references/palettes.json",
@@ -269,13 +269,13 @@
     },
     {
       "path": "scripts/visual_scorecard.py",
-      "sha256": "6c7cef09a3283274af5c0e2ed526dffc74b441bac2cf35f77608c719cecc2f24",
-      "bytes": 8257
+      "sha256": "fbef7d6835ca90a4060774ea5dd1f530b2094e2f523e3e15261ac4e118675294",
+      "bytes": 9415
     },
     {
       "path": "SKILL.md",
-      "sha256": "b3c563350e6923900cac2fe878fb9d30ca8830f80b3a480a9b0387b191c7e6d9",
-      "bytes": 11873
+      "sha256": "d3dabd33a0aa3eee60d3e90a384822f77a255d5b7c43fbbc4796074476db65a9",
+      "bytes": 12290
     },
     {
       "path": "tests/ab_results_template.json",
@@ -329,8 +329,8 @@
     },
     {
       "path": "tests/test_visual_scorecard.py",
-      "sha256": "47c5b2a71980a2b4329a8d50c8f86d7fe44472071af7916a828d124f31bebfcc",
-      "bytes": 9010
+      "sha256": "73b80b62720720f3cd814e7253cfa8263b19e8667d58a3190847313933fbfd7c",
+      "bytes": 12018
     },
     {
       "path": "tests/visual_cases.json",

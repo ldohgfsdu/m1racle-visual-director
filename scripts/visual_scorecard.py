@@ -59,6 +59,20 @@ def image_dimensions(path: Path) -> tuple[int, int]:
     return width, height
 
 
+def documented_source_binding(record: dict, source_hash: str) -> bool:
+    """Check a traceable input claim, not actual model-input authenticity."""
+    claim = record.get("source_binding")
+    return bool(
+        isinstance(claim, dict)
+        and claim.get("status") == "documented"
+        and claim.get("role") == "content_source"
+        and claim.get("source_sha256") == source_hash
+        and claim.get("run_id") == record.get("run_id")
+        and isinstance(claim.get("tool_input_trace"), str)
+        and bool(claim["tool_input_trace"].strip())
+    )
+
+
 def verify_evidence(record: dict, source: Path, output: Path) -> dict:
     """Bind review claims to real, distinct source and output image bytes."""
     if not isinstance(record, dict):
@@ -92,7 +106,8 @@ def verify_evidence(record: dict, source: Path, output: Path) -> dict:
         "verified": True, "source_dimensions": [sw, sh], "output_dimensions": [ow, oh],
         "aspect_ratio_drift_pct": round(drift, 3),
         "geometry_ratio_gate_failed": drift > 1.0,
-        "basis": "Actual image byte hashes and file headers; visual semantics remain human-reviewed",
+        "source_binding_documented": documented_source_binding(record, hashes[0]),
+        "basis": "Byte hashes, dimensions and structured input claim checked; actual model input and image semantics require external human verification",
     }
 
 
@@ -125,10 +140,13 @@ def score_record(record: dict, rubric: dict = RUBRIC, *, bound_evidence: dict | 
     active_flags = [name for name in rubric["hard_fail_flags"] if flags.get(name) is True]
     metadata_verified = bound_evidence is not None and bound_evidence.get("verified") is True
     geometry_ratio_gate_failed = bool(metadata_verified and bound_evidence.get("geometry_ratio_gate_failed"))
+    source_binding_documented = bool(metadata_verified and bound_evidence.get("source_binding_documented") is True)
     if geometry_ratio_gate_failed:
         active_flags = list(dict.fromkeys(active_flags + ["major_geometry_or_crop_change"]))
     unknown_categories = sorted(set(scores) - {x["id"] for x in categories})
-    if missing or invalid or missing_flags or invalid_flags or unknown_categories or not metadata_verified:
+    if geometry_ratio_gate_failed and metadata_verified:
+        status, total = "REJECTED", (round(weighted, 1) if not (missing or invalid or unknown_categories) else None)
+    elif missing or invalid or missing_flags or invalid_flags or unknown_categories or not metadata_verified or not source_binding_documented:
         status, total = "UNVERIFIED", None
     else:
         total = round(weighted, 1)
@@ -144,11 +162,12 @@ def score_record(record: dict, rubric: dict = RUBRIC, *, bound_evidence: dict | 
         "invalid_categories": invalid, "unknown_categories": unknown_categories,
         "missing_flags": missing_flags, "invalid_flags": invalid_flags,
         "evidence_verified": metadata_verified,
+        "source_binding_documented": source_binding_documented,
         "geometry_ratio_gate_failed": geometry_ratio_gate_failed,
         "source_dimensions": bound_evidence.get("source_dimensions") if metadata_verified else None,
         "output_dimensions": bound_evidence.get("output_dimensions") if metadata_verified else None,
         "aspect_ratio_drift_pct": bound_evidence.get("aspect_ratio_drift_pct") if metadata_verified else None,
-        "disclaimer": "Human observations are not independently proven by file hashes or by this calculator.",
+        "disclaimer": "The tool-input trace and all visual observations remain reviewable human claims; this calculator cannot independently confirm image-model input binding.",
     }
 
 

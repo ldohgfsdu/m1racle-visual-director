@@ -66,3 +66,24 @@ python scripts/visual_scorecard.py --record review.json --source original.jpg --
 评分记录必须包含 run_id、technique、model_or_tool、output_kind=single_image_edit、source_sha256、output_sha256、逐项可见证据及完整布尔硬失败项。CLI 校验实际文件摘要、PNG/JPEG 固有尺寸和原图宽高比，超过 1% 相对比例漂移直接拒绝。
 
 但相同比例的信息图、错误画面或无效技法不能只靠文件摘要和尺寸识别。必须由实际观看输出的审阅者核对它是否为单张原图编辑、是否多出文字/边框、主体数量与位置、配色和技法质量。评分器是证据绑定的计算器，不是视觉判断器。
+
+
+## 源图输入绑定证据门禁（2026-11-09，Draft PR）
+
+**不能从原图与输出图的 SHA-256、相同尺寸或主观相似度推断生成器真正接收了原图。** 一张评测海报即使文件有效，也不能当作成功的单幅照片编辑。
+
+在 `visual_scorecard.py` 的审查 JSON 中增加实际图像编辑输入的可追溯声明：
+
+```json
+{"source_binding": {
+  "status": "documented",
+  "role": "content_source",
+  "source_sha256": "<实际源图 SHA-256>",
+  "run_id": "<本次真实生成运行 ID>",
+  "tool_input_trace": "<审阅者可回看的实际工具调用记录位置>"
+}}
+```
+
+缺少声明或其中 run_id / 摘要不匹配，结果为 `UNVERIFIED`，满分也不能变为 PASS。实测宽高比漂移大于 1% 时，仍然 `REJECTED`。错误报告图须经人工审核标记 `wrong_output_type=true` 或 `unauthorized_report_layout=true`。
+
+**关键边界**：代码只核查字段一致性；`tool_input_trace` 必须来自真实存在、经审阅者检查的工具请求。人为编写任何字符串并不能自动证明模型已经读取原图。生成单张作品与制作评分报告必须严格分离，不能让图像模型生成自己的验收分数。

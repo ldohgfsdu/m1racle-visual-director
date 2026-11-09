@@ -96,3 +96,8 @@ python scripts/prompt_builder.py --image canal.jpg --style-image assets/examples
 ```
 
 真实成图应将 **内容原图与参考图分别绑定** 至具备图片编辑能力的工具；某工具若只能文生图、不能验证原图输入已绑定，必须把输出标记 `UNVERIFIED` 或 `REJECTED`，不得声称实现原图重绘。即使风格很相似，输出横竖方向变化、比例漂移超过 1%、建筑重排或原始画面文字被删除，仍是内容门禁失败。详细规则见 [视觉适配与风格传承](references/visual_director.md)。
+
+
+## 8｜源图编辑输入证明（Draft 补强）
+
+正式视觉验收额外需要 `source_binding`：`status=documented`、`role=content_source`、与实际内容原图匹配的 `source_sha256`、同次 `run_id` 和审阅者可查看的 `tool_input_trace`。无输入证明为 `UNVERIFIED`；错误图文海报是 `REJECTED`。字段一致性不能独立认证模型收到原图，必须核对真实工具调用。
