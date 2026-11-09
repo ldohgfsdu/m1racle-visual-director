@@ -79,3 +79,20 @@ python scripts/validate_skill.py
 ## 6｜v1.3.3 评分执行门禁
 
 使用 `python scripts/visual_scorecard.py --record review.json --source original.jpg --output output.png`，记录必须包含真实的 `source_sha256`、`output_sha256`、非空 `run_id`、`technique`、`model_or_tool`、`output_kind: single_image_edit`、逐项证据和全部布尔硬失败项。脚本校验文件摘要、格式、原始宽高比漂移（超过 1% 直接拒绝），但不能独立检测带字信息图；`output_kind` 是审核人的声明，必须实际查看图像，不能仅凭字段宣布视觉通过。没有绑定的人工分数为 UNVERIFIED。参见 [现场测试报告](docs/field-test-v133.md) 和 [评分器标准](references/visual_scorecard.json)。
+
+
+## 7｜历史参考风格驱动：与五技法 A/B 实验分离（待实际验证）
+
+原始 I01–I08 图鉴是历史视觉语言参考，**不是**五次同图同参实测。用户选择复现某张参考图时，应先真实观察那张图的线条微结构、墨色、纸白、留白、机刻扭索纹（guilloché）和造型秩序。内容图决定人物、物体、透视、地平线和画幅；参考图只决定获得授权的风格属性，不能借入参考图中的船、山、建筑等题材。先完成内容保真门禁，才判断风格传承是否成功。
+
+**配色分流**：照片重绘默认继续继承原图颜色；用户明确要求参照蓝色港口雕版时，允许通过 `--palette` 授权蓝墨／浅纸配色。不要在同一次提示词中既要求蓝白印刷又要求维持原照片所有原色。`--style-image` 本身并不自动获得换色授权。
+
+**纹样分流**：明确指定 I01 的机刻天空时可用 `--background guilloche`。Guilloché 属于独立、连续、有结构的背景装饰，不等于均匀无意义排线、摩尔纹或随机噪点；不得跨越主体或改变内容原图天空的形状与位置。不是所有 I 配方都要求 Guilloché，T05 美柔汀更不应被迫使用线刻底。
+
+**广州运河参考测试（仅构建提示词，不上传或出图）：**
+
+```bash
+python scripts/prompt_builder.py --image canal.jpg --style-image assets/examples/I01_blue_coastal_architecture.jpg --style I01 --technique T01 --mode redraw --fidelity strict --background guilloche --palette '仅深蓝色雕版墨与浅色纸底' --ratio 3:4 --json
+```
+
+真实成图应将 **内容原图与参考图分别绑定** 至具备图片编辑能力的工具；某工具若只能文生图、不能验证原图输入已绑定，必须把输出标记 `UNVERIFIED` 或 `REJECTED`，不得声称实现原图重绘。即使风格很相似，输出横竖方向变化、比例漂移超过 1%、建筑重排或原始画面文字被删除，仍是内容门禁失败。详细规则见 [视觉适配与风格传承](references/visual_director.md)。

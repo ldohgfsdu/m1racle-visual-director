@@ -83,6 +83,24 @@ class ConstraintRegressions(unittest.TestCase):
         other = p.make_prompts('设计教学信息图', 'BASE', 'generate', 'none', '', '', '')
         self.assertNotIn('HIGHEST PRIORITY OUTPUT CONTRACT', other['en'])
 
+    def test_explicit_i01_blue_palette_and_guilloche_do_not_conflict_with_source_color_lock(self):
+        d = p.make_prompts('保留原照片广州运河、广州塔、楼群和水面', 'I01', 'redraw',
+                           'source', '3:4', '深蓝墨与浅色纸底', '',
+                           background='guilloche', fidelity='strict',
+                           style_reference=True, technique_id='T01')
+        self.assertEqual(d['palette_source'], 'user')
+        self.assertFalse(d['source_color_locked'])
+        self.assertEqual(d['background'], 'guilloche')
+        self.assertIn('3:4', d['zh'])
+        self.assertIn('guilloché', d['zh'])
+        self.assertNotIn(p.SOURCE_COLOR_LOCK_ZH, d['zh'])
+        self.assertNotIn(p.SOURCE_COLOR_LOCK_EN, d['en'])
+        self.assertNotIn('必须服从原图配色锁', d['zh'])
+        self.assertIn('只有用户明确授权换色', d['zh'])
+        self.assertIn('explicitly authorizes recoloring', d['en'])
+        self.assertIn('Style references supply', d['en'])
+        self.assertIn('Strict fidelity', d['en'])
+
     def test_t02_t03_t05_have_distinct_mechanisms(self):
         etch=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T02')
         dry=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id='T03')

@@ -20,12 +20,12 @@ BASE = {
 }
 DNA_ZH = ('将内容转为可辨的凹版印痕视觉：先识别主体体积、材质、转折和透视，再完全交由当前唯一主技法建调子。'
           '局部痕迹须贴合对应形体；焦点清楚，缩略图轮廓可读。'
-          '仅模拟凹版印痕与承印表面的视觉质感，不声称真实印版或真实分色印刷；编辑彩色原图时必须服从原图配色锁。'
+          '仅模拟凹版印痕与承印表面的视觉质感，不声称真实印版或真实分色印刷；默认保留内容原图的配色；只有用户明确授权换色时才采用参考图或指定色板。'
           '禁止摄影底图叠纹、整幅同向条纹、摩尔纹、无根据的噪点、文字水印及新增物体。')
 DNA_EN = ('Interpret visible form in an intaglio-print aesthetic: identify volume, material, contours and perspective, '
           'then rely on exactly ONE chosen dominant mark-making method for tone construction. '
           'Local marks must belong to the corresponding form; keep focal details and thumbnail silhouettes legible. '
-          'Suggest engraved ink and print-surface texture without claiming physical plates or separations; color edits must obey the source-palette lock. '
+          'Suggest engraved ink and print-surface texture without claiming physical plates or separations; preserve source colors by default; use a style reference or custom palette only when the user explicitly authorizes recoloring. '
           'No photographic texture overlays, picture-wide stripes, moire, unmotivated noise, watermarks, lettering or new objects.')
 
 
@@ -49,14 +49,14 @@ REDRAW_OUTPUT_EN = (
 
 EDIT_REGION_ZH = (
     '区域化改绘：先按原图已有轮廓、材质、明暗与空间层级分区，再在各区域内部使用主技法。'
-    '纹理不得跨越物体边界；天空、雾气、反光、渐变和低细节区保留原图已有的亮度、颜色与过渡，只允许与原始细节相称的稀疏痕迹。'
-    '这些区域不自动变成纸白，不得被整幅同向排线、均匀点阵、磨砂噪点或数码柔焦覆盖。'
+    '纹理不得跨越物体边界；天空、雾气、反光、渐变和低细节区保留原图形状、明暗层次与空间关系；无明确授权换色时保持原色，无批准装饰底纹时仅允许稀疏刻痕。'
+    '这些区域不自动变成纸白（除非最终色板明确要求）；批准的 guilloché 仅在背景留白中有序展开且不遮挡主体，禁止整幅同向排线、均匀点阵、磨砂噪点或数码柔焦。'
     '未获用户明确授权，不新增画框、印版边框、仿旧纸边、污渍、签名或画外物体。'
 )
 EDIT_REGION_EN = (
     'Region-aware redraw: segment only regions visible in the source by their existing contours, materials, values and depth. '
-    'Keep marks inside their source regions. Preserve source brightness, color and gradients in sky, mist, reflections and low-detail areas; '
-    'use only sparse marks proportionate to visible detail. Do not force these regions to white paper or blanket them with uniform hatching, '
+    'Keep marks inside their source regions. Preserve source shapes, tonal hierarchy and spatial depth in sky, mist, reflections and low-detail areas; retain source colors unless recoloring is explicitly authorized. '
+    'Without approved ornamental marks, use only sparse engraving marks proportionate to visible detail. Do not force white paper unless the approved final palette requires it; approved guilloche may occupy background negative space without obscuring objects. Never blanket regions with arbitrary uniform hatching, '
     'dot screens, grit or digital blur. Do not add frames, plate borders, aged-paper edges, stains, signatures or off-scene objects without authorization.'
 )
 
@@ -74,12 +74,12 @@ SOURCE_COLOR_LOCK_EN = (
 
 GENERIC_REGION_ZH = (
     '分区细则：只在原图中实际存在且承载纹理的物体表面建立刻痕；轮廓外不延伸。'
-    '远景、雾气、天空、反光和大面积渐变按原图细节密度降低纹理，不得用统一纹理填满留白；不推断或新增原图没有的物体类别。'
+    '远景、雾气、天空、反光和大面积渐变按原图细节密度降低无意义刻痕；经批准的 guilloché 是独立背景纹样，不能替代形体刻线；不推断或新增原图没有的物体类别。'
 )
 GENERIC_REGION_EN = (
     'Regional rule: place engraved marks only inside source-visible objects and texture-bearing surfaces; never spill across their contours. '
-    'Reduce mark density in distant forms, haze, sky, reflections and broad gradients according to source detail. '
-    'Do not fill negative space with uniform texture or invent object categories absent from the source.'
+    'Reduce form-engraving mark density in distant forms, haze, sky, reflections and broad gradients according to source detail. '
+    'Approved guilloche is an independent background ornament, not a substitute for form marks or permission to invent object categories absent from the source.'
 )
 
 TERRACE_REGION_ZH = (

@@ -197,6 +197,20 @@ class PromptTests(unittest.TestCase):
         self.assertEqual([v['role'] for v in d['image_inputs']],['source','style'])
         self.assertEqual(d['palette_source'],'source_image')
 
+    def test_cli_i01_style_reference_color_override_and_portrait_ratio(self):
+        samples = list((ROOT/'assets/examples').glob('*.jpg'))
+        r = cli('--subject', '广州河道与广州塔', '--mode', 'redraw',
+                '--image', str(samples[0]), '--style-image', str(samples[1]),
+                '--style', 'I01', '--technique', 'T01',
+                '--palette', '深蓝色墨水和浅色纸底', '--background', 'guilloche',
+                '--fidelity', 'strict', '--ratio', '3:4', '--json')
+        self.assertEqual(r.returncode, 0, r.stderr)
+        d = json.loads(r.stdout)
+        self.assertEqual(d['palette_source'], 'user')
+        self.assertEqual([x['role'] for x in d['image_inputs']], ['source', 'style'])
+        self.assertIn('3:4', str(d))
+        self.assertFalse(d['references_uploaded'])
+
     def test_cli_duplicate_roles_for_same_file_rejected(self):
         sample=next((ROOT/'assets/examples').glob('*.jpg'))
         self.assertNotEqual(cli('--image',str(sample),'--style-image',str(sample)).returncode,0)
