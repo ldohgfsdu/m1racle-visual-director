@@ -32,16 +32,25 @@ jobs:
           set -euo pipefail
           VERSION=$(python -c 'import json; print(json.load(open("MANIFEST.json", encoding="utf-8"))["version"])')
           TAG="v$VERSION"
+          BUILD_REF="$GITHUB_SHA"
           git fetch --tags --quiet
           if git show-ref --verify --quiet "refs/tags/$TAG"; then
             EXISTING=$(git rev-list -n 1 "$TAG")
             if [ "$EXISTING" != "$GITHUB_SHA" ]; then
-              echo "Release tag $TAG already points to $EXISTING, refusing to move it" >&2
-              exit 1
+              # One-time recovery of a tag created by the failed v1.3.3 upload.
+              # Use the immutable tagged bytes, never the new workflow commit.
+              if [ "$TAG" = "v1.3.3" ] && [ "$EXISTING" = "899b8d1eae5a73b74f330720958032dd5382d530" ] && git merge-base --is-ancestor "$EXISTING" "$GITHUB_SHA"; then
+                BUILD_REF="$TAG"
+                echo "Recovering immutable $TAG from its original tagged commit"
+              else
+                echo "Release tag $TAG points to $EXISTING, refusing to move it" >&2
+                exit 1
+              fi
             fi
           fi
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "build_ref=$BUILD_REF" >> "$GITHUB_OUTPUT"
           NOTES="docs/releases/$TAG.md"
           if [ ! -s "$NOTES" ]; then
             echo "Release notes missing: $NOTES" >&2
@@ -49,10 +58,21 @@ jobs:
           fi
       - name: Build deterministic ZIP and SHA-256
         shell: bash
+        env:
+          BUILD_REF: ${{ steps.version.outputs.build_ref }}
         run: |
           set -euo pipefail
+          git checkout --detach "$BUILD_REF"
           python scripts/validate_skill.py
           python scripts/build_release.py
+          if [ "$BUILD_REF" = "v1.3.3" ]; then
+            ACTUAL="$(sha256sum dist/m1racle-intaglio-director-v1.3.3.zip | cut -d ' ' -f 1)"
+            EXPECTED="261ea8b550620b66daef812610190075bb0320556a16a8f4059864c5665efe86"
+            if [ "$ACTUAL" != "$EXPECTED" ]; then
+              echo "Immutable v1.3.3 recovery archive changed: $ACTUAL" >&2
+              exit 1
+            fi
+          fi
           (
             cd dist
             for digest in *.zip.sha256; do
@@ -76,10 +96,7 @@ jobs:
             git push origin "refs/tags/$TAG"
           fi
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" "$LOCAL_ZIP" "$LOCAL_SUM" \\
-              --verify-tag \\
-              --title "M1racle Intaglio Director $TAG" \\
-              --notes-file "$NOTES"
+            gh release create "$TAG" "$LOCAL_ZIP" "$LOCAL_SUM" --verify-tag --title "M1racle Intaglio Director $TAG" --notes-file "$NOTES"
           fi
           export EXPECTED_ZIP_DIGEST="sha256:$(cut -d ' ' -f 1 "$LOCAL_SUM")"
           export EXPECTED_SUM_DIGEST="sha256:$(sha256sum "$LOCAL_SUM" | cut -d ' ' -f 1)"
