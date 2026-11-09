@@ -234,8 +234,8 @@
     },
     {
       "path": "scripts/validate_skill.py",
-      "sha256": "2a9a4d000929f3aa46b4d375d2600754be844ee3a770d35ca179418bb427b5cf",
-      "bytes": 9480
+      "sha256": "e7fa1a0dc6ce72a51e939a4c66bcee11e035fe740da971f4cd56424bc80ee02c",
+      "bytes": 9529
     },
     {
       "path": "scripts/visual_director.py",

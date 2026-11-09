@@ -47,7 +47,7 @@ def check_manifest_data(manifest: dict, files: dict[str,bytes]) -> list[str]:
         if len(data)!=item.get('bytes'):
             errors.append('size mismatch: '+name)
         if hashlib.sha256(data).hexdigest()!=item.get('sha256'):
-            errors.append('hash mismatch: '+name)
+            errors.append('hash mismatch: '+name+' (actual='+hashlib.sha256(data).hexdigest()+')')
     if seen!=set(files):
         errors.append('manifest coverage mismatch: '+', '.join(sorted(seen ^ set(files))))
     return errors
