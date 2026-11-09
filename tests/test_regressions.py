@@ -62,10 +62,10 @@ class ConstraintRegressions(unittest.TestCase):
                                  '16:9','','',technique_id=ident)
                 self.assertEqual(d['palette_source'],'source_image')
                 self.assertEqual(d['fidelity'],'strict')
-                self.assertIn('天空、云雾、远山',d['zh'])
+                self.assertIn('天空、雾气、反光',d['zh'])
                 self.assertIn('画框、印版边框',d['zh'])
-                self.assertIn('sky, mist, distant mountains',d['en'])
-                self.assertIn('Do not add ornamental frames',d['en'])
+                self.assertIn('sky, mist, reflections',d['en'])
+                self.assertIn('Do not add frames',d['en'])
                 self.assertIn('16:9',d['en'])
 
     def test_t02_t03_t05_have_distinct_mechanisms(self):
