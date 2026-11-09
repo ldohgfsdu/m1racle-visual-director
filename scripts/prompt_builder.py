@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.3.1'
+VERSION = '1.3.2'
 PROFILES = json.loads((ROOT / 'references/profiles.json').read_text(encoding='utf-8'))['profiles']
 TECHNIQUES = json.loads((ROOT / 'references/techniques.json').read_text(encoding='utf-8'))['techniques']
 PALETTES = json.loads((ROOT / 'references/palettes.json').read_text(encoding='utf-8'))['palettes']
@@ -20,28 +20,70 @@ BASE = {
 }
 DNA_ZH = ('将内容转为可辨的凹版印痕视觉：先识别主体体积、材质、转折和透视，再完全交由当前唯一主技法建调子。'
           '局部痕迹须贴合对应形体；焦点清楚，缩略图轮廓可读。'
-          '只模拟纸面与油墨的视觉质感，不声称真实印版或真实分色印刷。'
+          '仅模拟凹版印痕与承印表面的视觉质感，不声称真实印版或真实分色印刷；编辑彩色原图时必须服从原图配色锁。'
           '禁止摄影底图叠纹、整幅同向条纹、摩尔纹、无根据的噪点、文字水印及新增物体。')
-DNA_EN = ('Interpret visible form in an intaglio-print aesthetic: first identify volume, material, contours and perspective, '
-          'then rely on exactly ONE chosen dominant mark-making method for all tone construction. '
+DNA_EN = ('Interpret visible form in an intaglio-print aesthetic: identify volume, material, contours and perspective, '
+          'then rely on exactly ONE chosen dominant mark-making method for tone construction. '
           'Local marks must belong to the corresponding form; keep focal details and thumbnail silhouettes legible. '
-          'Suggest ink and paper without claiming physical plates or separations. '
+          'Suggest engraved ink and print-surface texture without claiming physical plates or separations; color edits must obey the source-palette lock. '
           'No photographic texture overlays, picture-wide stripes, moire, unmotivated noise, watermarks, lettering or new objects.')
 
 
 EDIT_REGION_ZH = (
-    '内容区域保护：天空、云雾、远山、高光与低细节区域是需要独立处理的留白与空气透视区。'
-    '这些区域可保留纸白或极稀疏的局部印痕，不得用整幅同向排线、均匀点阵、磨砂噪点、数码柔焦覆盖。'
-    '梯田台阶、地形边界、植被和建筑必须顺应真实形体组织局部痕迹，主体数量、位置与比例不变。'
+    '区域化改绘：先按原图已有轮廓、材质、明暗与空间层级分区，再在各区域内部使用主技法。'
+    '纹理不得跨越物体边界；天空、雾气、反光、渐变和低细节区保留原图已有的亮度、颜色与过渡，只允许与原始细节相称的稀疏痕迹。'
+    '这些区域不自动变成纸白，不得被整幅同向排线、均匀点阵、磨砂噪点或数码柔焦覆盖。'
     '未获用户明确授权，不新增画框、印版边框、仿旧纸边、污渍、签名或画外物体。'
 )
 EDIT_REGION_EN = (
-    'Protect separate regions: sky, mist, distant mountains, highlights and low-detail areas need airy negative space. '
-    'Keep open paper or sparse local marks there; never blanket these regions with uniform hatching, dot screens, '
-    'grit or digital blur. Marks must follow the actual terrain, terraces, vegetation and architecture; preserve '
-    'object count, location and proportions. Do not add ornamental frames, plate borders, aged-paper edges, '
-    'faux stains, signatures or off-scene objects without explicit authorization.'
+    'Region-aware redraw: segment only regions visible in the source by their existing contours, materials, values and depth. '
+    'Keep marks inside their source regions. Preserve source brightness, color and gradients in sky, mist, reflections and low-detail areas; '
+    'use only sparse marks proportionate to visible detail. Do not force these regions to white paper or blanket them with uniform hatching, '
+    'dot screens, grit or digital blur. Do not add frames, plate borders, aged-paper edges, stains, signatures or off-scene objects without authorization.'
 )
+
+SOURCE_COLOR_LOCK_ZH = (
+    '原图配色硬锁：逐区域保留内容原图的色相、饱和度、明度、色温、白平衡、综合色调和区域间颜色关系。'
+    '彩色原图必须保持彩色，不得自动转黑白、灰度、棕褐、奶油纸色、复古黄或套用预设色板。'
+    '纹理使用原图对应区域已有的颜色关系；原图亮部保持其原有颜色，不强制变成纸白。只有用户明确要求改色时才允许覆盖本规则。'
+)
+SOURCE_COLOR_LOCK_EN = (
+    'Hard source-palette lock: preserve each source region hue, saturation, value, color temperature, white balance, overall cast and inter-region color relationships. '
+    'A color source must remain color; do not convert it to monochrome, grayscale, sepia, cream paper, warm vintage or any preset palette. '
+    'Render engraved marks within the existing regional colors. Preserve source colors in highlights instead of forcing them to white paper. '
+    'Override this lock only when the user explicitly requests recoloring.'
+)
+
+GENERIC_REGION_ZH = (
+    '分区细则：只在原图中实际存在且承载纹理的物体表面建立刻痕；轮廓外不延伸。'
+    '远景、雾气、天空、反光和大面积渐变按原图细节密度降低纹理，不得用统一纹理填满留白；不推断或新增原图没有的物体类别。'
+)
+GENERIC_REGION_EN = (
+    'Regional rule: place engraved marks only inside source-visible objects and texture-bearing surfaces; never spill across their contours. '
+    'Reduce mark density in distant forms, haze, sky, reflections and broad gradients according to source detail. '
+    'Do not fill negative space with uniform texture or invent object categories absent from the source.'
+)
+
+TERRACE_REGION_ZH = (
+    '梯田场景分区图（仅对原图确实可见的区域生效）：田埂与阶梯保留每一级的数量、边界、走向、宽度、弧度和透视，刻痕沿田埂曲线与坡面组织，不得合并、拉直或增减台阶。'
+    '植被纹理限制在原有草丛和稻田区域内部，不越过田埂边界。木屋保留屋顶角度、檐线、墙体、支柱数量、比例和位置。人物保留数量、尺寸、姿态、轮廓、服装色块和所在台阶，不放大或替换。'
+    '远山保留原始山脊轮廓和层叠关系，细节、对比与刻痕密度随距离递减。天空与雾气保留原有色相、亮度和渐变，纹理应极稀疏或不出现，严禁整片铺线、铺点或压暗。'
+)
+TERRACE_REGION_EN = (
+    'Terraced-landscape region map, applied only to regions actually visible in the source: preserve the count, boundaries, direction, width, curves and perspective of every terrace step; '
+    'marks follow each ridge and slope without merging, straightening, adding or removing steps. Keep vegetation marks inside existing grass and rice areas, never crossing terrace edges. '
+    'Preserve the hut roof angle, eaves, walls, post count, proportions and position. Preserve the person count, scale, pose, silhouette, clothing color blocks and terrace position; do not enlarge or replace the figure. '
+    'Keep original mountain-ridge silhouettes and overlapping layers, reducing detail, contrast and mark density with distance. Preserve source hue, brightness and gradients in sky and mist; '
+    'use extremely sparse marks or none there, never blanket the area with lines, dots or dark tone.'
+)
+
+
+def resolve_region_policy(subject: str, editing: bool) -> tuple[str, str, str]:
+    if not editing:
+        return 'none', '', ''
+    if re.search(r'梯田|稻田梯田|田埂|terraced? (?:rice )?fields?|rice terraces|paddy terraces', subject, re.I):
+        return 'terraced_landscape', GENERIC_REGION_ZH + TERRACE_REGION_ZH, GENERIC_REGION_EN + TERRACE_REGION_EN
+    return 'generic', GENERIC_REGION_ZH, GENERIC_REGION_EN
 
 
 def positive_selection_text(text: str) -> str:
@@ -120,8 +162,8 @@ def resolve_palette(p: dict, mode: str, palette: str, subject: str = '', palette
                 'en': 'Follow explicit color, color-preservation, and exclusion instructions in the theme; use no preset palette.'}
     if palette_id == 'auto' and mode in {'redraw', 'refine'}:
         return {'source': 'source_image', 'id': None,
-                'zh': '继承内容原图的现有配色、纸底和大色块关系。',
-                'en': "Inherit the content image's existing palette, paper tone and major color relationships."}
+                'zh': '继承内容原图各区域的现有配色、背景底色和大色块关系，不引入预设换色。',
+                'en': "Inherit the source image's existing regional palette, background base colors and major color relationships; apply no preset recoloring."}
     actual_id = palette_id if palette_id != 'auto' else p['palette_id']
     entry = PALETTES[actual_id]
     return {'source': ('palette_id' if palette_id != 'auto' else ('preset' if p is not BASE else 'neutral')),
@@ -174,6 +216,8 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
     p = PROFILES.get(profile, BASE)
     requirements = subject + ('；保留' + preserve if preserve.strip() else '')
     colors = resolve_palette(p, mode, palette, requirements, palette_id=palette_id)
+    region_policy, region_zh, region_en = resolve_region_policy(requirements, editing)
+    source_color_locked = editing and colors['source'] == 'source_image'
     actual_technique, technique = resolve_technique(profile, mode, technique_id)
     if background == 'auto' and theme_forbids_filigree(requirements):
         background = 'none'
@@ -201,6 +245,9 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
         zh.append(locks[fidelity][0]); en.append(locks[fidelity][1])
     if editing:
         zh.append(EDIT_REGION_ZH); en.append(EDIT_REGION_EN)
+        zh.append(region_zh); en.append(region_en)
+        if source_color_locked:
+            zh.append(SOURCE_COLOR_LOCK_ZH); en.append(SOURCE_COLOR_LOCK_EN)
     if role == 'style' or style_reference:
         zh.append('风格参考图只提供刻线、印刷质感与经用户允许的色彩；不得继承其中的物体、布局、透视、文字或故事。内容原图与风格参考须分别标记。')
         en.append('Style references supply line technique, print texture and only colors permitted by the user; never inherit their objects, layout, perspective, lettering or narrative. Label edit targets and style references separately.')
@@ -210,7 +257,8 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
     zh.append(DNA_ZH); en.append(DNA_EN)
     if technique:
         zh.append(f"主雕刻技法 {actual_technique}：{technique['name_zh']}。主导痕迹：{technique['primary_zh']} 调子构成：{technique['tone_zh']} 边缘：{technique['edge_zh']} 排除：{technique['avoid_zh']}")
-        en.append(f"Dominant engraving technique {actual_technique}: {technique['name_en']}. Primary marks: {technique['primary_en']} Tone construction: {technique['tone_en']} Edges: {technique['edge_en']} Exclusions: {technique['avoid_en']}")
+        zh.append('区域化执行：' + technique['regional_zh'])
+        en.append(f"Dominant engraving technique {actual_technique}: {technique['name_en']}. Primary marks: {technique['primary_en']} Tone construction: {technique['tone_en']} Edges: {technique['edge_en']} Exclusions: {technique['avoid_en']} Regional execution: {technique['regional_en']}")
     else:
         zh.append('主技法继承：保留原有版画的主要调子构成、线条或点刻性质与边缘质感，仅修复用户授权的区域。')
         en.append("Inherit existing dominant mark-making: retain the source print's tonal mechanism and edge character; repair authorized regions only.")
@@ -233,6 +281,7 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
             'technique_id': actual_technique, 'technique_name_zh': technique['name_zh'] if technique else '继承原技法',
             'palette_id': colors['id'], 'palette_source': colors['source'],
             'recipe_applied': recipe_applied, 'fidelity': fidelity, 'background': background,
+            'region_policy': region_policy, 'source_color_locked': source_color_locked,
             'zh': '\n\n'.join(zh), 'en': '\n\n'.join(en)}
 
 
