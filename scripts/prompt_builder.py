@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.3.0'
+VERSION = '1.3.1'
 PROFILES = json.loads((ROOT / 'references/profiles.json').read_text(encoding='utf-8'))['profiles']
 TECHNIQUES = json.loads((ROOT / 'references/techniques.json').read_text(encoding='utf-8'))['techniques']
 PALETTES = json.loads((ROOT / 'references/palettes.json').read_text(encoding='utf-8'))['palettes']
@@ -27,6 +27,21 @@ DNA_EN = ('Interpret visible form in an intaglio-print aesthetic: first identify
           'Local marks must belong to the corresponding form; keep focal details and thumbnail silhouettes legible. '
           'Suggest ink and paper without claiming physical plates or separations. '
           'No photographic texture overlays, picture-wide stripes, moire, unmotivated noise, watermarks, lettering or new objects.')
+
+
+EDIT_REGION_ZH = (
+    '内容区域保护：天空、云雾、远山、高光与低细节区域是需要独立处理的留白与空气透视区。'
+    '这些区域可保留纸白或极稀疏的局部印痕，不得用整幅同向排线、均匀点阵、磨砂噪点、数码柔焦覆盖。'
+    '梯田台阶、地形边界、植被和建筑必须顺应真实形体组织局部痕迹，主体数量、位置与比例不变。'
+    '未获用户明确授权，不新增画框、印版边框、仿旧纸边、污渍、签名或画外物体。'
+)
+EDIT_REGION_EN = (
+    'Protect separate regions: sky, mist, distant mountains, highlights and low-detail areas need airy negative space. '
+    'Keep open paper or sparse local marks there; never blanket these regions with uniform hatching, dot screens, '
+    'grit or digital blur. Marks must follow the actual terrain, terraces, vegetation and architecture; preserve '
+    'object count, location and proportions. Do not add ornamental frames, plate borders, aged-paper edges, '
+    'faux stains, signatures or off-scene objects without explicit authorization.'
+)
 
 
 def positive_selection_text(text: str) -> str:
@@ -184,6 +199,8 @@ def make_prompts(subject: str, profile: str, mode: str, role: str,
                      'Free reinterpretation: composition and secondary detail may change within the requested theme, explicit invariants and exclusions; add no unrelated objects.'),
         }
         zh.append(locks[fidelity][0]); en.append(locks[fidelity][1])
+    if editing:
+        zh.append(EDIT_REGION_ZH); en.append(EDIT_REGION_EN)
     if role == 'style' or style_reference:
         zh.append('风格参考图只提供刻线、印刷质感与经用户允许的色彩；不得继承其中的物体、布局、透视、文字或故事。内容原图与风格参考须分别标记。')
         en.append('Style references supply line technique, print texture and only colors permitted by the user; never inherit their objects, layout, perspective, lettering or narrative. Label edit targets and style references separately.')
@@ -223,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, 'reconfigure'):
             stream.reconfigure(encoding='utf-8')
-    a = argparse.ArgumentParser(description='M1racle Intaglio 1.3.0: five techniques, eight recipes, independent palettes; prompts only')
+    a = argparse.ArgumentParser(description='M1racle Intaglio 1.3.1: five techniques, eight recipes, independent palettes; prompts only')
     a.add_argument('--subject', default='', help='Theme / requirements; variables are preserved, not translated')
     a.add_argument('--visual-analysis', help='Auto selection only: observations bound to --image SHA-256; unused for explicit style or refinement')
     a.add_argument('--preferences', help='Auto selection preferences JSON; never written automatically')

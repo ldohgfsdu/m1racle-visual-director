@@ -148,6 +148,13 @@ python scripts/compare_techniques.py \
 
 </details>
 
+## 🧪 v1.3.1 梯田场景保护补丁
+
+- **保留雾层与留白**：天空、远山、薄雾、高光不能被统一排线、点网、数码噪点或柔焦覆盖。
+- **保护布局与装饰边界**：不得擅自新增画框、印版框、旧纸边、签名或画面外物体；主体的位置、结构、配色、比例依旧锁定。
+- **降低技法混同**：T02 交叉蚀线限制在必要暗部；T03 保留独立刻痕上的局部毛刺；T05 排除全局高斯模糊和简单暗化。
+- **验证边界**：新增程序回归测试与 [梯田场景测试记录](docs/field-test-20261109.md)。这不构成五技法实际图像保真率已得到验证的声明。
+
 ## ❓ 常见问题
 
 **Q：安装 Skill 之后就能直接出图吗？**  
@@ -183,7 +190,7 @@ python scripts/validate_skill.py
 
 <div align="center">
 
-**M1racle Intaglio Director v1.3.0**
+**M1racle Intaglio Director v1.3.1**
 
 *Control the mark-making. Preserve the image. Stop when the tools cannot deliver.*
 

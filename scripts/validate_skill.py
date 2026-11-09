@@ -80,11 +80,11 @@ def check_package(root: Path) -> list[str]:
         data=json.loads((root/'references/profiles.json').read_text(encoding='utf-8'))
         techdata=json.loads((root/'references/techniques.json').read_text(encoding='utf-8'))
         paldata=json.loads((root/'references/palettes.json').read_text(encoding='utf-8'))
-        if data.get('schema_version')!=2 or data.get('version')!='1.3.0':
+        if data.get('schema_version')!=2 or data.get('version')!='1.3.1':
             errors.append('invalid profile schema/version')
-        if techdata.get('schema_version')!=1 or techdata.get('version')!='1.3.0':
+        if techdata.get('schema_version')!=1 or techdata.get('version')!='1.3.1':
             errors.append('invalid technique schema/version')
-        if paldata.get('schema_version')!=1 or paldata.get('version')!='1.3.0':
+        if paldata.get('schema_version')!=1 or paldata.get('version')!='1.3.1':
             errors.append('invalid palette schema/version')
         profiles=data['profiles'];tech=techdata['techniques'];pal=paldata['palettes']
         if set(profiles)!={f'I{i:02d}' for i in range(1,9)}:
@@ -126,7 +126,7 @@ def check_package(root: Path) -> list[str]:
                     if not linked.is_relative_to(root.resolve()) or not linked.is_file():
                         errors.append('broken/local escaping link: '+str(path.relative_to(root))+' -> '+target)
         manifest=json.loads((root/'MANIFEST.json').read_text(encoding='utf-8'))
-        if manifest.get('name')!='m1racle-intaglio-director' or manifest.get('version')!='1.3.0':
+        if manifest.get('name')!='m1racle-intaglio-director' or manifest.get('version')!='1.3.1':
             errors.append('manifest identity/version mismatch')
         errors.extend(check_manifest_data(manifest,files))
         cases=json.loads((root/'tests/visual_cases.json').read_text(encoding='utf-8'))['cases']
@@ -134,7 +134,7 @@ def check_package(root: Path) -> list[str]:
         if len({c['id'] for c in cases})!=len(cases): errors.append('duplicate visual case ID')
         if len([c for c in cases if c['id'].startswith('AB-')])!=15:
             errors.append('expected 15 fixed-variable A/B cases')
-        if results.get('version')!='1.3.0':errors.append('visual results must be v1.3')
+        if results.get('version')!='1.3.1':errors.append('visual results must be v1.3')
         if any(r.get('status')!='UNVERIFIED' for r in results['results']):
             errors.append('unexecuted v1.3 trials must be UNVERIFIED')
         if any(r['id'] not in {c['id'] for c in cases} for r in results['results']):
