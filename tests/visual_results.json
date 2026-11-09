@@ -1,111 +1,112 @@
 {
-  "version": "1.3.1",
-  "date": "2026-10-30",
-  "method": "NO v1.3 images generated as part of this package update; status is awaiting real test",
+  "version": "1.3.2",
+  "date": "2026-11-09",
+  "method": "v1.3.2 source-color lock and region-aware technique rules are covered by code regressions; actual same-source image generation and manual scoring are pending post-release.",
   "limitations": [
     "v1.2.0 historical images do not verify remapped v1.3.0 techniques",
-    "All v1.3 comparison cases are unexecuted. No PASS is claimed."
+    "All v1.3 comparison cases are unexecuted. No PASS is claimed.",
+    "No v1.3.2 image outputs are included in this package commit; actual five-technique visual results must be recorded after release."
   ],
   "results": [
     {
       "id": "V01",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "V02",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "V03",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "V04",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "V05",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-BRIDGE-T01",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-BRIDGE-T02",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-BRIDGE-T03",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-BRIDGE-T04",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-BRIDGE-T05",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-PORTRAIT-T01",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-PORTRAIT-T02",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-PORTRAIT-T03",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-PORTRAIT-T04",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-PORTRAIT-T05",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-CUP-T01",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-CUP-T02",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-CUP-T03",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-CUP-T04",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     },
     {
       "id": "AB-CUP-T05",
       "status": "UNVERIFIED",
-      "reason": "Requires identical source image and actual image-generation model output; not executed in package build."
+      "reason": "Requires actual fixed-source image output and manual review under references/visual_scorecard.json; not measured by package CI."
     }
   ]
 }

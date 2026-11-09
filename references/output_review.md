@@ -46,3 +46,16 @@ python scripts/output_review.py --record review.json --source original.png --out
 支持 `insufficient_ornament`、`too_much_ornament`、`prefer_source_colors`、`geometry_changed`、`looks_like_filter`。`feedback_patch()` 仅在明确同意后返回偏好修改提案，永不直接写文件；保存位置和内容须由用户批准。底纹不足只能建议“兼容时优先”，不能无视留白强加底纹。几何变形与滤镜感应进入缺陷修复，不得当作用户偏好长期学习。
 
 本轮交付包含协议、门禁、基准计划及合成记录回归测试；实际图像观察可靠性、24 场景生成效果及审美偏好校准仍未验证。
+
+
+## v1.3.2 100 分制视觉评分
+
+使用 references/visual_scorecard.json 作为唯一权重来源，按每个项目 0–5 分填写实际观察和证据，再运行：
+
+```bash
+python scripts/visual_scorecard.py --record review.json
+```
+
+权重为：几何与构图 20、原图配色 10、主体数量与位置 5、技法真实性 20、区域控制 10、技法区分度 5、空间与氛围 10、缩略图可读性 10、伪影与装饰洁净度 10。所有项必须附证据。几何、原色、主体完整性、技法真实性、区域控制和画面洁净度设硬门槛；擅自加框、增删物体、严重裁切、擅自换色或严重全局纹理外溢直接 REJECTED。85 分及以上且硬门槛通过为 PASS，75–84.9 为 CONDITIONAL，低于 75 或任一硬门槛失败为 REJECTED。缺少观察或证据为 UNVERIFIED。
+
+评分脚本只计算人工观察输入，不具备视觉识别能力；CI 通过不等于图像通过。

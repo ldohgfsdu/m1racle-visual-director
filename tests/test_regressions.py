@@ -62,10 +62,10 @@ class ConstraintRegressions(unittest.TestCase):
                                  '16:9','','',technique_id=ident)
                 self.assertEqual(d['palette_source'],'source_image')
                 self.assertEqual(d['fidelity'],'strict')
-                self.assertIn('天空、云雾、远山',d['zh'])
+                self.assertIn('天空、雾气、反光',d['zh'])
                 self.assertIn('画框、印版边框',d['zh'])
-                self.assertIn('sky, mist, distant mountains',d['en'])
-                self.assertIn('Do not add ornamental frames',d['en'])
+                self.assertIn('sky, mist, reflections',d['en'])
+                self.assertIn('Do not add frames',d['en'])
                 self.assertIn('16:9',d['en'])
 
     def test_t02_t03_t05_have_distinct_mechanisms(self):
@@ -82,6 +82,44 @@ class ConstraintRegressions(unittest.TestCase):
         edited=p.make_prompts('古桥','BASE','redraw','source','','','')
         self.assertNotIn('Do not add ornamental frames',generated['en'])
         self.assertEqual(edited['palette_source'],'source_image')
+
+
+    def test_source_palette_lock_preserves_color_and_never_forces_paper_white(self):
+        d=p.make_prompts('彩色梯田、人物、木屋、远山和雾气','BASE','redraw','source','','','')
+        self.assertEqual(d['palette_source'],'source_image')
+        self.assertTrue(d['source_color_locked'])
+        self.assertIn('色相、饱和度、明度、色温、白平衡',d['zh'])
+        self.assertIn('must remain color',d['en'])
+        self.assertNotIn('paper tone',d['en'].lower())
+        self.assertNotIn('纸底和大色块',d['zh'])
+
+    def test_terrace_region_map_locks_each_visible_scene_region(self):
+        d=p.make_prompts('梯田、人物、木屋、远山、雾气','BASE','redraw','source','','','')
+        self.assertEqual(d['region_policy'],'terraced_landscape')
+        for phrase in ('每一级的数量','植被纹理限制','木屋保留','人物保留','远山保留','天空与雾气'):
+            self.assertIn(phrase,d['zh'])
+        for phrase in ('every terrace step','vegetation marks inside','hut roof angle','person count','mountain-ridge silhouettes','sky and mist'):
+            self.assertIn(phrase,d['en'])
+
+    def test_each_technique_has_region_specific_execution(self):
+        for ident in ('T01','T02','T03','T04','T05'):
+            with self.subTest(ident=ident):
+                d=p.make_prompts('梯田','BASE','redraw','source','','','',technique_id=ident)
+                self.assertIn('区域化执行',d['zh'])
+                self.assertIn('Regional execution',d['en'])
+                self.assertIn(p.TECHNIQUES[ident]['regional_en'],d['en'])
+
+    def test_generic_region_policy_does_not_invent_terrace_scene(self):
+        d=p.make_prompts('一只陶瓷杯','BASE','redraw','source','','','')
+        self.assertEqual(d['region_policy'],'generic')
+        self.assertNotIn('每一级的数量',d['zh'])
+        self.assertNotIn('terrace step',d['en'])
+        self.assertIn('source-visible objects',d['en'])
+
+    def test_edit_without_explicit_ratio_keeps_original_ratio(self):
+        d=p.make_prompts('梯田','BASE','redraw','source','','','')
+        self.assertIn('原图的画面比例',d['zh'])
+        self.assertIn('original aspect ratio',d['en'])
 
 
 if __name__ == "__main__":
