@@ -1,9 +1,6 @@
 name: Validate Skill
 on:
-  push:
-    branches: [main]
-  pull_request:
-
+  workflow_dispatch:
 jobs:
   validation:
     runs-on: ubuntu-latest
